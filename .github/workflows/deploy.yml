@@ -5,6 +5,10 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+# 👇 Cho phép bot ghi vào repo (cần để push gh-pages)
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
