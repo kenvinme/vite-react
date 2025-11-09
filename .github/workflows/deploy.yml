@@ -12,9 +12,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # Publish the 'public' folder directly as the site root
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Publish public/ to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
