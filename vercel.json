@@ -1,0 +1,9 @@
+{
+  "framework": null,
+  "outputDirectory": "public",
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/product-cha-bong", "destination": "/product-cha-bong.html" },
+    { "source": "/product-tom", "destination": "/product-tom.html" }
+  ]
+}
