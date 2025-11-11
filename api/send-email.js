@@ -6,10 +6,20 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name = '', email = '', phone = '', message = '' } = req.body || {};
-    if (!email || !message) {
-      return res.status(400).json({ error: 'Missing fields' });
+    const { name = '', email = '', phone = '', message = '', company = '', ts = '' } = req.body || {};
+
+    // Server-side anti-spam
+    if (company) return res.status(400).json({ error: 'spam: honeypot' });
+    const start = Number(ts || 0);
+    const age = Date.now() - start;
+    if (!start || Number.isNaN(start) || age < 2500 || age > 30 * 60 * 1000) {
+      return res.status(400).json({ error: 'spam: timing' });
     }
+
+    // Basic validation
+    const emailOk = typeof email === 'string' && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+    if (!emailOk) return res.status(400).json({ error: 'invalid email' });
+    if (!message || String(message).length > 5000) return res.status(400).json({ error: 'invalid message' });
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const from = process.env.MAIL_FROM || 'Yumzyfood <contact@yumzyfood.com>';
