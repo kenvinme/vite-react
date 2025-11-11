@@ -1,0 +1,15 @@
+{
+  "name": "yumzyfood-website",
+  "version": "1.0.0",
+  "description": "KCANS by Yumzyfood – Snack website with contact email function",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite"
+  },
+  "dependencies": {
+    "resend": "^3.2.0"
+  },
+  "devDependencies": {}
+}
