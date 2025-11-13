@@ -23,7 +23,12 @@ select#lang{padding:6px 12px;border-radius:10px;border:1px solid var(--line);fon
 
 /* Hero */
 .hero{position:relative;color:#fff;overflow:hidden;background:linear-gradient(180deg,rgba(11,19,43,.0),rgba(11,19,43,.25))}
-.hero img.hero-media{width:100%;height:clamp(240px,48vw,480px);object-fit:cover;filter:brightness(.9) saturate(1.05)}
+.hero .hero-media{
+  width:100%;
+  height:clamp(240px,48vw,480px);
+  object-fit:cover;
+  filter:brightness(.9) saturate(1.05);
+}
 .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,19,43,.45),rgba(11,19,43,.15))}
 .hero .content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;padding:40px;text-align:right}
 
@@ -262,7 +267,8 @@ header nav a:hover {
 </header>
 
 <section class="hero">
-  <img class="hero-media" src="images/banner.png" alt="KCANS banner">
+  <!-- Banner video mới -->
+  <video class="hero-media" src="videos/kcans-factory.mp4" autoplay muted loop playsinline></video>
   <div class="overlay"></div>
   <div class="content">
     <h1 id="hero-title">
