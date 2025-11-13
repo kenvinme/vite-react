@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KCANS By Yumzyfood - Make with care, share with love </title>
+<title>KCANS By Yumzyfood - Make With Care, Share With Love</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 :root{--navy:#0b132b;--primary:#f97316;--primary-700:#ea580c;--line:#e5e7eb;--soft:#f8fafc;--white:#fff}
@@ -130,19 +130,19 @@ footer{text-align:center;padding:36px 0;font-size:14px;color:#556070;background:
   }
   .hero p {
     font-size:12px;
-    white-space:normal; /* cho phép xuống dòng tự nhiên */
+    white-space:normal;
   }
 }
 
 /* Navbar color tuning */
 header .logo {
-  color: #ff7a00; /* cam chủ đạo */
+  color: #ff7a00;
 }
 header nav a {
-  color: #001F3F; /* xanh navy */
+  color: #001F3F;
 }
 header nav a:hover {
-  color: #ff7a00; /* hover chuyển sang cam */
+  color: #ff7a00;
 }
 
 /* Section titles color */
@@ -157,7 +157,7 @@ header nav a:hover {
 #about .section-title,
 #catalog .section-title,
 #moments .section-title {
-  color: #1E3A8A !important; /* xanh sáng hơn */
+  color: #1E3A8A !important;
 }
 
 /* === HAMBURGER MENU === */
@@ -187,7 +187,7 @@ header nav a:hover {
     align-items:flex-start;
     gap:0;
     padding:8px 18px 12px;
-    display:none;           /* Ẩn mặc định trên mobile */
+    display:none;
     z-index:40;
   }
   header nav a{
@@ -199,10 +199,10 @@ header nav a:hover {
     border-bottom:none;
   }
   header nav.open{
-    display:flex;          /* Khi bấm nút 3 gạch sẽ thêm .open */
+    display:flex;
   }
   .menu-toggle{
-    display:block;         /* Nút 3 gạch chỉ hiện trên mobile */
+    display:block;
     margin-left:4px;
   }
 }
@@ -247,7 +247,6 @@ header nav a:hover {
       <a href="#" id="nav-quote">Liên Hệ Báo Giá</a>
     </nav>
 
-    <!-- Nút 3 gạch cho mobile -->
     <button class="menu-toggle" id="menu-toggle" aria-label="Mở menu chính">
       <i class="fa-solid fa-bars"></i>
     </button>
@@ -366,14 +365,14 @@ function renderLang(lang){
 
   LANG=lang; const L=TEXT[lang]||TEXT.vi;
   document.documentElement.lang=lang;
-  document.title=L.brand;
+  // Giữ title cố định để hover tab luôn hiện tagline
+  document.title = "KCANS By Yumzyfood - Make With Care, Share With Love";
   document.getElementById('brand').textContent=L.brand;
   document.getElementById('nav-about').textContent=L.nav.about;
   document.getElementById('nav-catalog').textContent=L.nav.catalog;
   document.getElementById('nav-moments').textContent=L.nav.moments;
   document.getElementById('nav-quote').textContent=L.quote.title;
 
-  // Tách title hero thành 2 dòng theo dấu "–"
   const heroEl = document.getElementById('hero-title');
   if (heroEl) {
     const raw = L.hero.title || '';
