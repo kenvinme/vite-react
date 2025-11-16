@@ -5,5 +5,14 @@
   "rewrites": [
     { "source": "/product-cha-bong", "destination": "/product-cha-bong.html" },
     { "source": "/product-tom", "destination": "/product-tom.html" }
+  ],
+  "headers": [
+    {
+      "source": "/.well-known/pi.toml",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+        { "key": "Content-Disposition", "value": "inline" }
+      ]
+    }
   ]
 }
