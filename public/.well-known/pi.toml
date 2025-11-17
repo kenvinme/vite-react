@@ -1,6 +1,11 @@
 [[CURRENCIES]]
+
 code = "KCANS"
+
 issuer = "GDOUGWYXSS43BYD23F5LNM5CWSQKMQX4YOR42ZKIEAHO24EZ4PCJELI7"
+
 name = "KCANS by Yumzyfood"
+
 desc = "KCANS – reward & loyalty token của Yumzyfood trên Pi Testnet. Tổng cung khởi tạo: 100,000,000,000 KCANS."
+
 image = "https://yumzyfood.com/assets/kcans-coin.png"
