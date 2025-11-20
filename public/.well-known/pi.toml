@@ -1,11 +1,25 @@
+# KCANS Token Metadata - Pi Testnet
+
+[DOCUMENTATION]
+ORG_NAME="Yumzyfood"
+ORG_URL="https://yumzyfood.com"
+ORG_LOGO="https://yumzyfood.com/assets/kcans-coin.png"
+ORG_DESCRIPTION="Yumzyfood – thương hiệu snack KCANS, thử nghiệm reward & loyalty token trên Pi Network Testnet."
+ORG_SUPPORT_EMAIL="contact@yumzyfood.com"
+
 [[CURRENCIES]]
-
 code = "KCANS"
-
 issuer = "GDOUGWYXSS43BYD23F5LNM5CWSQKMQX4YOR42ZKIEAHO24EZ4PCJELI7"
-
 name = "KCANS by Yumzyfood"
-
 desc = "KCANS – reward & loyalty token của Yumzyfood trên Pi Testnet. Tổng cung khởi tạo: 100,000,000,000 KCANS."
-
 image = "https://yumzyfood.com/assets/kcans-coin.png"
+display_decimals = 7
+
+[CURRENCIES.CONDITIONS]
+max_supply = "100000000000"
+is_asset_anchored = false
+
+[CURRENCIES.METADATA]
+category = "Rewards & Gaming"
+home_domain = "yumzyfood.com"
+project = "KCANS Snack Loyalty"
