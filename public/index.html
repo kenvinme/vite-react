@@ -264,6 +264,158 @@ header nav a:hover {
     margin-left:4px;
   }
 }
+
+/* === YumzyBot Chat Widget === */
+.yz-chatbot{
+  position:fixed;
+  right:20px;
+  bottom:90px; /* nằm trên cụm nút contact hiện tại */
+  z-index:250;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+.yz-chatbot-toggle{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  border:none;
+  background:#0b132b; /* navy để phân biệt với nút contact */
+  color:#fff;
+  font-size:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.25);
+  cursor:pointer;
+}
+
+.yz-chatbot-toggle i{
+  color:#fff;
+}
+
+.yz-chatbot-window{
+  position:fixed;
+  right:20px;
+  bottom:150px;
+  width:320px;
+  max-height:480px;
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 14px 40px rgba(0,0,0,.28);
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+  z-index:260;
+}
+
+.yz-chatbot.yz-chatbot--open .yz-chatbot-window{
+  display:flex;
+}
+
+.yz-chatbot-header{
+  padding:10px 14px;
+  background:linear-gradient(135deg,#f97316,#ea580c);
+  color:#fff;
+}
+
+.yz-chatbot-title{
+  font-weight:700;
+  font-size:15px;
+  margin-bottom:2px;
+}
+
+.yz-chatbot-subtitle{
+  font-size:12px;
+  opacity:.95;
+}
+
+.yz-chatbot-messages{
+  padding:10px 12px;
+  background:#f8fafc;
+  flex:1;
+  overflow-y:auto;
+  font-size:13px;
+}
+
+.yz-chatbot-message{
+  margin-bottom:8px;
+  max-width:85%;
+  padding:8px 10px;
+  border-radius:12px;
+  line-height:1.4;
+  word-break:break-word;
+}
+
+.yz-chatbot-message--bot{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-bottom-left-radius:2px;
+}
+
+.yz-chatbot-message--user{
+  background:#ffedd5;
+  border-bottom-right-radius:2px;
+  margin-left:auto;
+  text-align:right;
+}
+
+.yz-chatbot-status{
+  min-height:18px;
+  padding:0 12px 4px;
+  font-size:11px;
+  color:#6b7280;
+}
+
+.yz-chatbot-form{
+  display:flex;
+  gap:6px;
+  padding:8px;
+  border-top:1px solid #e5e7eb;
+  background:#fff;
+}
+
+.yz-chatbot-input{
+  flex:1;
+  border-radius:999px;
+  border:1px solid #d1d5db;
+  padding:6px 10px;
+  font-size:13px;
+}
+
+.yz-chatbot-input:focus{
+  outline:none;
+  border-color:#f97316;
+  box-shadow:0 0 0 1px rgba(249,115,22,.35);
+}
+
+.yz-chatbot-send{
+  border-radius:999px;
+  border:none;
+  padding:6px 14px;
+  font-size:13px;
+  background:#f97316;
+  color:#fff;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.yz-chatbot-send:disabled{
+  opacity:.7;
+  cursor:default;
+}
+
+@media (max-width:768px){
+  .yz-chatbot{
+    right:14px;
+    bottom:86px;
+  }
+  .yz-chatbot-window{
+    right:8px;
+    left:8px;
+    width:auto;
+    max-width:none;
+  }
+}
 </style>
 
 <!-- JSON-LD: WebSite + Organization -->
@@ -400,6 +552,33 @@ header nav a:hover {
   <button class="contact-toggle" type="button" aria-label="Liên hệ">
     <i class="fa-solid fa-headset"></i>
   </button>
+</div>
+
+
+<!-- YumzyBot Chat Widget -->
+<div class="yz-chatbot" aria-label="YumzyBot chat">
+  <button class="yz-chatbot-toggle" type="button" aria-label="Mở cửa sổ chat YumzyBot">
+    <i class="fa-solid fa-robot"></i>
+  </button>
+
+  <div class="yz-chatbot-window" role="dialog" aria-modal="false">
+    <div class="yz-chatbot-header">
+      <div class="yz-chatbot-title">YumzyBot</div>
+      <div class="yz-chatbot-subtitle">Hỗ trợ nhanh về KCANS & Yumzyfood</div>
+    </div>
+    <div class="yz-chatbot-messages"></div>
+    <div class="yz-chatbot-status"></div>
+    <form class="yz-chatbot-form">
+      <input
+        class="yz-chatbot-input"
+        type="text"
+        autocomplete="off"
+        placeholder="Nhập câu hỏi của bạn..."
+        aria-label="Nội dung câu hỏi"
+      />
+      <button class="yz-chatbot-send" type="submit">Gửi</button>
+    </form>
+  </div>
 </div>
 
 <div class="modal" id="quote-modal" role="dialog" aria-modal="true" aria-labelledby="quote-title">
@@ -718,6 +897,78 @@ renderLang(init);
 </script>
 
 <noscript>Vui lòng bật JavaScript để gửi form trực tiếp. Nếu không, bạn có thể gửi email tới <a href="mailto:kenvin@yumzyfood.com">kenvin@yumzyfood.com</a>.</noscript>
+
+<script>
+(function () {
+  var container = document.querySelector('.yz-chatbot');
+  if (!container) return;
+
+  var toggleBtn = container.querySelector('.yz-chatbot-toggle');
+  var windowEl = container.querySelector('.yz-chatbot-window');
+  var messagesEl = container.querySelector('.yz-chatbot-messages');
+  var statusEl = container.querySelector('.yz-chatbot-status');
+  var formEl = container.querySelector('.yz-chatbot-form');
+  var inputEl = container.querySelector('.yz-chatbot-input');
+  var sendBtn = container.querySelector('.yz-chatbot-send');
+
+  if (!toggleBtn || !windowEl || !messagesEl || !formEl || !inputEl || !sendBtn) {
+    return;
+  }
+
+  function addMessage(role, text) {
+    var div = document.createElement('div');
+    div.className = 'yz-chatbot-message ' + (role === 'user'
+      ? 'yz-chatbot-message--user'
+      : 'yz-chatbot-message--bot');
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  // Lời chào mặc định
+  addMessage('bot', 'Chào bạn! YumzyBot sẵn sàng hỗ trợ bạn về KCANS và các sản phẩm của Yumzyfood.');
+
+  toggleBtn.addEventListener('click', function () {
+    container.classList.toggle('yz-chatbot--open');
+  });
+
+  formEl.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = (inputEl.value || '').trim();
+    if (!text) return;
+
+    addMessage('user', text);
+    inputEl.value = '';
+    inputEl.focus();
+
+    statusEl.textContent = 'YumzyBot đang trả lời...';
+    sendBtn.disabled = true;
+
+    fetch('/api/pi-chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        var reply = (data && (data.reply || data.answer || data.message)) ||
+          'Xin lỗi, YumzyBot đang bận. Bạn thử lại giúp mình nhé.';
+        addMessage('bot', reply);
+      })
+      .catch(function (err) {
+        console.error(err);
+        addMessage('bot', 'Có lỗi kết nối tới server. Bạn vui lòng thử lại sau ít phút nhé.');
+      })
+      .finally(function () {
+        statusEl.textContent = '';
+        sendBtn.disabled = false;
+      });
+  });
+})();
+</script>
 
 <script>
 (function () {
