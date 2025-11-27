@@ -1,12 +1,365 @@
 <!doctype html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Yumzyfood Source</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tính Sốt Offline (tỷ lệ 50g bánh)</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:#121a33; --muted:#9fb0d0; --text:#e9f0ff;
+      --accent:#ff8a00; --line:#263255; --bad:#ff5a65; --good:#22c55e;
+    }
+    *{box-sizing:border-box;font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;}
+    body{margin:0;background:radial-gradient(1200px 600px at 20% -10%, rgba(255,138,0,.25), transparent 50%),
+                 radial-gradient(900px 500px at 100% 0%, rgba(64,95,255,.2), transparent 55%),
+                 var(--bg); color:var(--text);}
+    .wrap{max-width:980px;margin:0 auto;padding:22px;}
+    .title{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+    h1{margin:0;font-size:22px}
+    .sub{color:var(--muted);font-size:13px}
+    .tabs{display:flex;gap:10px;margin:16px 0 12px}
+    .tab{border:1px solid var(--line); background:transparent; color:var(--text);
+         padding:10px 12px;border-radius:12px;cursor:pointer}
+    .tab.active{border-color:rgba(255,138,0,.7); box-shadow:0 0 0 3px rgba(255,138,0,.15) inset}
+    .grid{display:grid;grid-template-columns:1fr;gap:14px}
+    @media(min-width:900px){.grid{grid-template-columns:1.05fr .95fr}}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+          border:1px solid rgba(38,50,85,.9); border-radius:18px; padding:16px; box-shadow: 0 10px 40px rgba(0,0,0,.25)}
+    .row{display:grid;grid-template-columns:1.1fr .9fr; gap:10px; align-items:end; margin:10px 0}
+    .label{font-size:13px;color:var(--muted);margin-bottom:6px}
+    input, select{
+      width:100%; padding:12px 12px; border-radius:14px; border:1px solid rgba(38,50,85,.95);
+      background:rgba(6,10,22,.7); color:var(--text); outline:none;
+    }
+    input:focus, select:focus{border-color:rgba(255,138,0,.7); box-shadow:0 0 0 3px rgba(255,138,0,.14)}
+    .help{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px}
+    .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .btn{
+      border:1px solid rgba(38,50,85,.95); background:rgba(255,255,255,.03); color:var(--text);
+      padding:10px 12px;border-radius:14px;cursor:pointer;
+    }
+    .btn.primary{border-color:rgba(255,138,0,.65); background:rgba(255,138,0,.12)}
+    .kpi{display:grid;gap:10px}
+    .kpi .box{border:1px dashed rgba(159,176,208,.28); border-radius:16px; padding:12px}
+    .kpi .big{font-size:20px;font-weight:800}
+    .kpi .small{font-size:12px;color:var(--muted)}
+    code{background:rgba(255,255,255,.05); padding:2px 6px;border-radius:8px}
+    .footer{margin-top:12px;color:var(--muted);font-size:12px}
+    .mono{font-variant-numeric: tabular-nums;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="title">
+      <h1>App tính sốt (offline)</h1>
+      <div class="sub" id="ratioLine">—</div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" id="tab1">Nhập nguyên liệu → ra kg bánh</button>
+      <button class="tab" id="tab2">Nhập kg bánh → ra nguyên liệu</button>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div id="panel1">
+          <div class="row">
+            <div>
+              <div class="label">Hợp chất A</div>
+              <input class="mono" id="a1" type="number" step="0.000001" min="0" placeholder="VD: 0.2" />
+            </div>
+            <div>
+              <div class="label">Đơn vị</div>
+              <select id="au1">
+                <option value="kg" selected>kg</option>
+                <option value="g">g</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <div class="label">Nước mắm</div>
+              <input class="mono" id="f1" type="number" step="0.000001" min="0" placeholder="VD: 0.05" />
+            </div>
+            <div>
+              <div class="label">Đơn vị</div>
+              <select id="fu1">
+                <option value="kg" selected>kg</option>
+                <option value="g">g</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <div class="label">Nước</div>
+              <input class="mono" id="w1" type="number" step="0.000001" min="0" placeholder="VD: 0.2" />
+            </div>
+            <div>
+              <div class="label">Đơn vị</div>
+              <select id="wu1">
+                <option value="kg" selected>kg</option>
+                <option value="g">g</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="btns">
+            <button class="btn primary" id="calc1">Tính</button>
+            <button class="btn" id="reset1">Reset</button>
+          </div>
+
+          <div class="help">
+            App sẽ tính theo “thành phần hạn chế” (thiếu A hoặc thiếu nước mắm hoặc thiếu nước) để ra <b>kg bánh tối đa</b>.
+          </div>
+        </div>
+
+        <div id="panel2" style="display:none">
+          <div class="row">
+            <div>
+              <div class="label">Số kg bánh</div>
+              <input class="mono" id="b2" type="number" step="0.001" min="0" placeholder="VD: 50" />
+            </div>
+            <div>
+              <div class="label">Đơn vị</div>
+              <select disabled>
+                <option>kg bánh</option>
+              </select>
+            </div>
+          </div>
+          <div class="btns">
+            <button class="btn primary" id="calc2">Tính</button>
+            <button class="btn" id="reset2">Reset</button>
+          </div>
+          <div class="help">
+            Kết quả là lượng nguyên liệu cần để pha sốt cho đúng tỷ lệ.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="kpi" id="out">
+          <div class="box">
+            <div class="small">Kết quả</div>
+            <div class="big mono" id="headline">—</div>
+            <div class="small" id="note">Nhập dữ liệu rồi bấm “Tính”.</div>
+          </div>
+
+          <div class="box">
+            <div class="small">Chi tiết</div>
+            <div class="mono" id="detail" style="white-space:pre-line;margin-top:6px">—</div>
+          </div>
+
+          <div class="footer">
+            Tip: Có thể nhập đơn vị <b>g</b> hoặc <b>kg</b>, app tự đổi về kg để tính.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // =========================
+  // TỶ LỆ GỐC (cho 50g bánh)
+  // =========================
+  const BASE_BANH_KG = 0.05;         // 50g bánh = 0.05 kg
+  const A_FOR_BASE_KG = 0.00872604;  // kg A cho 0.05 kg bánh
+  const F_FOR_BASE_KG = 0.0017;      // kg nước mắm cho 0.05 kg bánh
+  const W_FOR_BASE_KG = 0.007;       // kg nước cho 0.05 kg bánh
+
+  // Quy đổi về "cho 1 kg bánh" để tính toán thuận tiện
+  const A_PER = A_FOR_BASE_KG / BASE_BANH_KG; // 0.1745208 kg A / 1 kg bánh
+  const F_PER = F_FOR_BASE_KG / BASE_BANH_KG; // 0.034 kg mắm / 1 kg bánh
+  const W_PER = W_FOR_BASE_KG / BASE_BANH_KG; // 0.14 kg nước / 1 kg bánh
+
+  const $ = (id)=>document.getElementById(id);
+
+  function toKg(val, unit){
+    const x = Number(val);
+    if (!isFinite(x) || x < 0) return NaN;
+    return unit === 'g' ? x/1000 : x;
+  }
+
+  function fmtKg(x){
+    if (!isFinite(x)) return "—";
+    const g = x*1000;
+    return `${x.toFixed(6)} kg (${g.toFixed(2)} g)`;
+  }
+
+  function save(){
+    const data = {
+      a1: $('a1').value, f1: $('f1').value, w1: $('w1').value,
+      au1: $('au1').value, fu1: $('fu1').value, wu1: $('wu1').value,
+      b2: $('b2').value,
+      mode: window.__mode || 1
+    };
+    localStorage.setItem('sot_offline_v1', JSON.stringify(data));
+  }
+
+  function load(){
+    try{
+      const raw = localStorage.getItem('sot_offline_v1');
+      if(!raw) return;
+      const d = JSON.parse(raw);
+      $('a1').value = d.a1 ?? '';
+      $('f1').value = d.f1 ?? '';
+      $('w1').value = d.w1 ?? '';
+      $('au1').value = d.au1 ?? 'kg';
+      $('fu1').value = d.fu1 ?? 'kg';
+      $('wu1').value = d.wu1 ?? 'kg';
+      $('b2').value = d.b2 ?? '';
+      setMode(d.mode ?? 1);
+    }catch(e){}
+  }
+
+  function setMode(mode){
+    window.__mode = mode;
+    const is1 = mode === 1;
+    $('panel1').style.display = is1 ? 'block' : 'none';
+    $('panel2').style.display = is1 ? 'none' : 'block';
+    $('tab1').classList.toggle('active', is1);
+    $('tab2').classList.toggle('active', !is1);
+    $('headline').textContent = "—";
+    $('note').textContent = "Nhập dữ liệu rồi bấm “Tính”.";
+    $('detail').textContent = "—";
+    save();
+  }
+
+  function output(headline, note, detail){
+    $('headline').textContent = headline;
+    $('note').textContent = note;
+    $('detail').textContent = detail;
+  }
+
+  function limitedBy(A, F, W, Areq, Freq, Wreq){
+    const eps = 1e-12;
+    const aOk = (A + eps) >= Areq;
+    const fOk = (F + eps) >= Freq;
+    const wOk = (W + eps) >= Wreq;
+    return {aOk,fOk,wOk};
+  }
+
+  function calcFromIngredients(){
+    const A = toKg($('a1').value, $('au1').value);
+    const F = toKg($('f1').value, $('fu1').value);
+    const W = toKg($('w1').value, $('wu1').value);
+
+    if(!isFinite(A) || !isFinite(F) || !isFinite(W)){
+      output("Dữ liệu chưa hợp lệ", "Vui lòng nhập số ≥ 0.", "—");
+      return;
+    }
+    if(A === 0 && F === 0 && W === 0){
+      output("0 kg bánh", "Bạn đang nhập toàn 0.", "—");
+      return;
+    }
+
+    // Kg bánh có thể làm tối đa với từng thành phần
+    const kgFromA = A_PER > 0 ? A / A_PER : NaN;
+    const kgFromF = F_PER > 0 ? F / F_PER : NaN;
+    const kgFromW = W_PER > 0 ? W / W_PER : NaN;
+
+    const kgBanh = Math.max(0, Math.min(kgFromA, kgFromF, kgFromW));
+
+    const Areq = kgBanh * A_PER;
+    const Freq = kgBanh * F_PER;
+    const Wreq = kgBanh * W_PER;
+
+    const Aleft = A - Areq;
+    const Fleft = F - Freq;
+    const Wleft = W - Wreq;
+
+    const totalSauce = Areq + Freq + Wreq;
+
+    // Thành phần giới hạn (thiếu nhất)
+    let limit = "A";
+    if (kgBanh === kgFromF) limit = "nước mắm";
+    else if (kgBanh === kgFromW) limit = "nước";
+
+    const detail =
+`• Kg bánh tối đa: ${kgBanh.toFixed(3)} kg
+• Tổng sốt pha đúng tỷ lệ: ${fmtKg(totalSauce)}
+
+Cần dùng:
+- A: ${fmtKg(Areq)}
+- Nước mắm: ${fmtKg(Freq)}
+- Nước: ${fmtKg(Wreq)}
+
+Dư (sau khi pha đúng tỷ lệ):
+- A: ${fmtKg(Aleft)}
+- Nước mắm: ${fmtKg(Fleft)}
+- Nước: ${fmtKg(Wleft)}
+
+Thành phần đang giới hạn: ${limit}`;
+
+    output(`${kgBanh.toFixed(3)} kg bánh`, "Tính theo nguyên liệu bạn nhập (lấy phần thiếu nhất).", detail);
+    save();
+  }
+
+  function calcFromBanh(){
+    const B = Number($('b2').value);
+    if(!isFinite(B) || B < 0){
+      output("Dữ liệu chưa hợp lệ", "Vui lòng nhập số kg bánh ≥ 0.", "—");
+      return;
+    }
+
+    const A = B * A_PER;
+    const F = B * F_PER;
+    const W = B * W_PER;
+    const totalSauce = A + F + W;
+
+    const detail =
+`• Kg bánh: ${B.toFixed(3)} kg
+• Tổng sốt: ${fmtKg(totalSauce)}
+
+Cần:
+- A: ${fmtKg(A)}
+- Nước mắm: ${fmtKg(F)}
+- Nước: ${fmtKg(W)}
+
+(Theo tỷ lệ gốc cho 50g bánh):
+- 0.05 kg bánh cần A ${fmtKg(A_FOR_BASE_KG)}, mắm ${fmtKg(F_FOR_BASE_KG)}, nước ${fmtKg(W_FOR_BASE_KG)}`;
+
+    output(`${fmtKg(totalSauce)}`, "Lượng sốt cần pha cho số kg bánh bạn nhập.", detail);
+    save();
+  }
+
+  function reset1(){
+    $('a1').value=''; $('f1').value=''; $('w1').value='';
+    $('au1').value='kg'; $('fu1').value='kg'; $('wu1').value='kg';
+    output("—", "Nhập dữ liệu rồi bấm “Tính”.", "—");
+    save();
+  }
+  function reset2(){
+    $('b2').value='';
+    output("—", "Nhập dữ liệu rồi bấm “Tính”.", "—");
+    save();
+  }
+
+  function initRatioLine(){
+    const baseG = BASE_BANH_KG * 1000;
+    const per1kgTotal = (A_PER + F_PER + W_PER);
+    $('ratioLine').innerHTML =
+      `Tỷ lệ gốc (cho <code>${baseG.toFixed(0)}g</code> bánh): ` +
+      `<code>A</code> ${A_FOR_BASE_KG} kg · <code>nước mắm</code> ${F_FOR_BASE_KG} kg · <code>nước</code> ${W_FOR_BASE_KG} kg ` +
+      `| Quy đổi (cho <code>1kg</code> bánh): <code>A</code> ${A_PER.toFixed(6)} kg · <code>mắm</code> ${F_PER.toFixed(6)} kg · <code>nước</code> ${W_PER.toFixed(6)} kg ` +
+      `| Tổng sốt/1kg bánh: <code>${per1kgTotal.toFixed(6)} kg</code>`;
+  }
+
+  $('tab1').onclick = ()=>setMode(1);
+  $('tab2').onclick = ()=>setMode(2);
+  $('calc1').onclick = calcFromIngredients;
+  $('calc2').onclick = calcFromBanh;
+  $('reset1').onclick = reset1;
+  $('reset2').onclick = reset2;
+
+  ['a1','f1','w1','au1','fu1','wu1','b2'].forEach(id=>{
+    $(id).addEventListener('input', save);
+    $(id).addEventListener('change', save);
+  });
+
+  initRatioLine();
+  load();
+</script>
+</body>
 </html>
