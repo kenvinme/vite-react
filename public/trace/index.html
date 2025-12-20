@@ -1,1 +1,168 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Trace LOT - Yumzyfood</title>
+  <style>
+    body{font-family:system-ui,Arial;margin:0;background:#0b0f1a;color:#e9f0ff}
+    .wrap{max-width:980px;margin:0 auto;padding:18px}
+    .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-top:12px}
+    input,button{border-radius:10px;border:1px solid rgba(255,255,255,.18);padding:12px 14px;background:rgba(0,0,0,.25);color:#fff}
+    button{background:#fff;color:#000;border:none;cursor:pointer}
+    button:disabled{opacity:.6;cursor:not-allowed}
+    a{color:#9ad1ff}
+    .row{display:flex;gap:10px}
+    .row > *{flex:1}
+    pre{white-space:pre-wrap;word-break:break-word}
+    .muted{opacity:.8}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Tra cứu nguồn gốc theo LOT</h1>
+    <div class="muted">Nhập mã LOT in trên bao bì (ví dụ: YMCOOPLTCB50201225A01ST)</div>
+
+    <div class="card">
+      <form id="f" class="row">
+        <input id="lot" placeholder="Nhập LOT..." />
+        <button id="btn" type="submit">Tra cứu</button>
+      </form>
+      <div id="msg" style="margin-top:10px"></div>
+    </div>
+
+    <div id="out"></div>
+  </div>
+
+  <script>
+    // ✅ đặt URL function của bạn ở đây (Supabase Edge Function)
+    const API_BASE = "https://cptbqfhiwclxlevmqsze.supabase.co/functions/v1";
+
+    const $ = (id) => document.getElementById(id);
+    const out = $("out");
+    const msg = $("msg");
+    const lotInput = $("lot");
+    const btn = $("btn");
+    const form = $("f");
+
+    function normLot(v){
+      return (v||"").trim().toUpperCase().replace(/\s+/g,"");
+    }
+
+    function setMsg(text, ok=true){
+      msg.innerHTML = text ? `<div style="padding:10px;border-radius:12px;background:${ok?"rgba(80,255,140,.12)":"rgba(255,90,90,.12)"}">${text}</div>` : "";
+    }
+
+    function render(data){
+      const f = data.finished;
+      const raws = data.raw_lots || [];
+      let html = "";
+
+      html += `
+        <div class="card">
+          <h2 style="margin:0 0 8px 0">Thành phẩm</h2>
+          <div><b>LOT:</b> ${f.lot}</div>
+          <div><b>Sản phẩm:</b> ${f.product_name || "-"}</div>
+          <div><b>SKU:</b> ${f.sku || "-"}</div>
+          <div><b>QC:</b> ${f.qc_status || "-"} ${f.qc_date ? `(ngày ${f.qc_date})` : ""}</div>
+          ${f.public_note ? `<div><b>Ghi chú:</b> ${f.public_note}</div>` : ""}
+        </div>
+      `;
+
+      html += `<h2 style="margin-top:16px">Nguyên liệu</h2>`;
+
+      raws.forEach(r => {
+        const sup = r.supplier;
+        const supDocs = (sup && sup.documents) ? sup.documents : [];
+        const docs = r.documents || [];
+
+        html += `
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:18px;font-weight:700">${r.raw_name}</div>
+                <div class="muted"><b>LOT NL:</b> ${r.lot} · <b>Trạng thái:</b> ${r.quality_status || "-"}</div>
+                ${r.public_summary ? `<div class="muted">${r.public_summary}</div>` : ""}
+              </div>
+            </div>
+
+            ${sup ? `
+              <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12)">
+                <div style="font-weight:700">Nhà cung cấp</div>
+                <div class="muted">
+                  <div><b>Tên:</b> ${sup.name_public || "(ẩn)"}</div>
+                  <div><b>Xuất xứ:</b> ${(sup.origin_country||"-")} ${sup.origin_province ? "· " + sup.origin_province : ""}</div>
+                  ${sup.certifications ? `<div><b>Chứng nhận:</b> ${sup.certifications}</div>` : ""}
+                </div>
+
+                ${supDocs.length ? `
+                  <div style="margin-top:8px">
+                    <div style="font-weight:700">Hồ sơ NCC</div>
+                    <ul>
+                      ${supDocs.map(d => `<li>${d.title || d.doc_type} ${d.signed_url ? `- <a href="${d.signed_url}" target="_blank">Xem</a>` : ""}</li>`).join("")}
+                    </ul>
+                  </div>
+                ` : ""}
+              </div>
+            ` : ""}
+
+            ${docs.length ? `
+              <div style="margin-top:10px">
+                <div style="font-weight:700">COA / tài liệu lô</div>
+                <ul>
+                  ${docs.map(d => `<li>${d.title || d.doc_type} ${d.signed_url ? `- <a href="${d.signed_url}" target="_blank">Xem</a>` : ""}</li>`).join("")}
+                </ul>
+              </div>
+            ` : ""}
+          </div>
+        `;
+      });
+
+      out.innerHTML = html;
+    }
+
+    async function fetchTrace(lot){
+      const url = `${API_BASE}/trace?lot=${encodeURIComponent(lot)}`;
+      const res = await fetch(url, { method: "GET" });
+      const json = await res.json();
+      if (!res.ok || !json?.ok) throw new Error(json?.error || "Không tìm thấy LOT hoặc lỗi hệ thống.");
+      return json;
+    }
+
+    // tự load khi có ?lot=
+    const url = new URL(location.href);
+    const lotQ = url.searchParams.get("lot");
+    if (lotQ) {
+      lotInput.value = lotQ;
+      form.dispatchEvent(new Event("submit"));
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      out.innerHTML = "";
+      setMsg("");
+      btn.disabled = true;
+
+      const lot = normLot(lotInput.value);
+      if (!lot) { setMsg("Bạn chưa nhập LOT.", false); btn.disabled = false; return; }
+
+      // update URL
+      const u = new URL(location.href);
+      u.searchParams.set("lot", lot);
+      history.replaceState({}, "", u.toString());
+
+      try {
+        setMsg("Đang tra cứu...", true);
+        const data = await fetchTrace(lot);
+        setMsg("Tra cứu thành công ✅", true);
+        render(data);
+      } catch (err) {
+        setMsg("❌ " + err.message, false);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
 
