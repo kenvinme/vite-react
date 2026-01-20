@@ -8,24 +8,38 @@
     body{font-family:system-ui,Arial;margin:0;background:#0b0f1a;color:#e9f0ff}
     .wrap{max-width:980px;margin:0 auto;padding:18px}
     .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-top:12px}
-    input,button{border-radius:10px;border:1px solid rgba(255,255,255,.18);padding:12px 14px;background:rgba(0,0,0,.25);color:#fff}
+    input,button,select{border-radius:10px;border:1px solid rgba(255,255,255,.18);padding:12px 14px;background:rgba(0,0,0,.25);color:#fff}
     button{background:#fff;color:#000;border:none;cursor:pointer}
     button:disabled{opacity:.6;cursor:not-allowed}
     a{color:#9ad1ff}
-    .row{display:flex;gap:10px}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
     .row > *{flex:1}
-    pre{white-space:pre-wrap;word-break:break-word}
     .muted{opacity:.8}
+    .topbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Tra cứu nguồn gốc theo LOT</h1>
-    <div class="muted">Nhập mã LOT in trên bao bì (ví dụ: YMCOOPLTCB50201225A01ST)</div>
+
+    <div class="topbar">
+      <div>
+        <h1 id="title" style="margin:0">Tra cứu nguồn gốc theo LOT</h1>
+        <div id="subtitle" class="muted">Nhập mã LOT in trên bao bì (ví dụ: YMCOOPLTCB50201225A01ST)</div>
+      </div>
+
+      <div>
+        <select id="lang">
+          <option value="vi">Tiếng Việt</option>
+          <option value="en">English</option>
+          <option value="ko">한국어</option>
+          <option value="zh">中文</option>
+        </select>
+      </div>
+    </div>
 
     <div class="card">
       <form id="f" class="row">
-        <input id="lot" placeholder="Nhập LOT..." />
+        <input id="lot" placeholder="Nhập LOT..." autocomplete="off" />
         <button id="btn" type="submit">Tra cứu</button>
       </form>
       <div id="msg" style="margin-top:10px"></div>
@@ -35,8 +49,108 @@
   </div>
 
   <script>
-    // ✅ đặt URL function của bạn ở đây (Supabase Edge Function)
+    // ✅ Supabase Edge Function base
     const API_BASE = "https://cptbqfhiwclxlevmqsze.supabase.co/functions/v1";
+
+    // ===== i18n =====
+    const i18n = {
+      vi: {
+        title: "Tra cứu nguồn gốc theo LOT",
+        subtitle: "Nhập mã LOT in trên bao bì (ví dụ: {ex})",
+        placeholder: "Nhập LOT...",
+        btn: "Tra cứu",
+        loading: "Đang tra cứu...",
+        ok: "Tra cứu thành công ✅",
+        missing: "Bạn chưa nhập LOT.",
+        failed: "Không tìm thấy LOT hoặc lỗi hệ thống.",
+        finished: "Thành phẩm",
+        raws: "Nguyên liệu",
+        lot: "LOT",
+        product: "Sản phẩm",
+        sku: "SKU",
+        qc: "QC",
+        note: "Ghi chú",
+        supplier: "Nhà cung cấp",
+        origin: "Xuất xứ",
+        certs: "Chứng nhận",
+        supplierDocs: "Hồ sơ NCC",
+        lotDocs: "COA / tài liệu lô",
+        view: "Xem",
+        hidden: "(ẩn)"
+      },
+      en: {
+        title: "Product traceability by LOT",
+        subtitle: "Enter the LOT code printed on the package (e.g. {ex})",
+        placeholder: "Enter LOT...",
+        btn: "Search",
+        loading: "Searching...",
+        ok: "Found ✅",
+        missing: "Please enter a LOT code.",
+        failed: "LOT not found or system error.",
+        finished: "Finished product",
+        raws: "Raw materials",
+        lot: "LOT",
+        product: "Product",
+        sku: "SKU",
+        qc: "QC",
+        note: "Note",
+        supplier: "Supplier",
+        origin: "Origin",
+        certs: "Certifications",
+        supplierDocs: "Supplier documents",
+        lotDocs: "COA / Lot documents",
+        view: "View",
+        hidden: "(hidden)"
+      },
+      ko: {
+        title: "LOT로 제품 이력 조회",
+        subtitle: "포장에 인쇄된 LOT 코드를 입력하세요 (예: {ex})",
+        placeholder: "LOT 입력...",
+        btn: "조회",
+        loading: "조회 중...",
+        ok: "조회 성공 ✅",
+        missing: "LOT 코드를 입력하세요.",
+        failed: "LOT를 찾을 수 없거나 시스템 오류입니다.",
+        finished: "완제품",
+        raws: "원재료",
+        lot: "LOT",
+        product: "제품",
+        sku: "SKU",
+        qc: "QC",
+        note: "비고",
+        supplier: "공급사",
+        origin: "원산지",
+        certs: "인증",
+        supplierDocs: "공급사 문서",
+        lotDocs: "COA / LOT 문서",
+        view: "보기",
+        hidden: "(비공개)"
+      },
+      zh: {
+        title: "按 LOT 查询溯源",
+        subtitle: "请输入包装上印刷的 LOT 编码（例如：{ex}）",
+        placeholder: "输入 LOT...",
+        btn: "查询",
+        loading: "查询中...",
+        ok: "查询成功 ✅",
+        missing: "请输入 LOT 编码。",
+        failed: "未找到 LOT 或系统错误。",
+        finished: "成品",
+        raws: "原料",
+        lot: "LOT",
+        product: "产品",
+        sku: "SKU",
+        qc: "质检",
+        note: "备注",
+        supplier: "供应商",
+        origin: "产地",
+        certs: "认证",
+        supplierDocs: "供应商资料",
+        lotDocs: "COA / 批次文件",
+        view: "查看",
+        hidden: "(隐藏)"
+      }
+    };
 
     const $ = (id) => document.getElementById(id);
     const out = $("out");
@@ -44,6 +158,44 @@
     const lotInput = $("lot");
     const btn = $("btn");
     const form = $("f");
+    const langSel = $("lang");
+
+    function getLang() {
+      const u = new URL(location.href);
+      return u.searchParams.get("lang") || localStorage.getItem("trace_lang") || "vi";
+    }
+
+    let LANG = getLang();
+    if (!i18n[LANG]) LANG = "vi";
+    langSel.value = LANG;
+
+    function t(key, vars = {}) {
+      const dict = i18n[LANG] || i18n.vi;
+      let s = dict[key] || i18n.vi[key] || key;
+      for (const k of Object.keys(vars)) s = s.replaceAll(`{${k}}`, String(vars[k]));
+      return s;
+    }
+
+    function applyStaticText() {
+      document.documentElement.lang = LANG;
+      $("title").textContent = t("title");
+      $("subtitle").textContent = t("subtitle", { ex: "YMCOOPLTCB50201225A01ST" });
+      lotInput.placeholder = t("placeholder");
+      btn.textContent = t("btn");
+    }
+
+    langSel.addEventListener("change", () => {
+      LANG = langSel.value;
+      localStorage.setItem("trace_lang", LANG);
+      const u = new URL(location.href);
+      u.searchParams.set("lang", LANG);
+      history.replaceState({}, "", u.toString());
+      applyStaticText();
+      const cached = window.__TRACE_DATA__;
+      if (cached) render(cached);
+    });
+
+    applyStaticText();
 
     function normLot(v){
       return (v||"").trim().toUpperCase().replace(/\s+/g,"");
@@ -54,22 +206,24 @@
     }
 
     function render(data){
+      window.__TRACE_DATA__ = data;
+
       const f = data.finished;
       const raws = data.raw_lots || [];
       let html = "";
 
       html += `
         <div class="card">
-          <h2 style="margin:0 0 8px 0">Thành phẩm</h2>
-          <div><b>LOT:</b> ${f.lot}</div>
-          <div><b>Sản phẩm:</b> ${f.product_name || "-"}</div>
-          <div><b>SKU:</b> ${f.sku || "-"}</div>
-          <div><b>QC:</b> ${f.qc_status || "-"} ${f.qc_date ? `(ngày ${f.qc_date})` : ""}</div>
-          ${f.public_note ? `<div><b>Ghi chú:</b> ${f.public_note}</div>` : ""}
+          <h2 style="margin:0 0 8px 0">${t("finished")}</h2>
+          <div><b>${t("lot")}:</b> ${f.lot}</div>
+          <div><b>${t("product")}:</b> ${f.product_name || "-"}</div>
+          <div><b>${t("sku")}:</b> ${f.sku || "-"}</div>
+          <div><b>${t("qc")}:</b> ${f.qc_status || "-"} ${f.qc_date ? `( ${f.qc_date} )` : ""}</div>
+          ${f.public_note ? `<div><b>${t("note")}:</b> ${f.public_note}</div>` : ""}
         </div>
       `;
 
-      html += `<h2 style="margin-top:16px">Nguyên liệu</h2>`;
+      html += `<h2 style="margin-top:16px">${t("raws")}</h2>`;
 
       raws.forEach(r => {
         const sup = r.supplier;
@@ -81,25 +235,25 @@
             <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
               <div>
                 <div style="font-size:18px;font-weight:700">${r.raw_name}</div>
-                <div class="muted"><b>LOT NL:</b> ${r.lot} · <b>Trạng thái:</b> ${r.quality_status || "-"}</div>
+                <div class="muted"><b>${t("lot")}:</b> ${r.lot} · <b>${t("qc")}:</b> ${r.quality_status || "-"}</div>
                 ${r.public_summary ? `<div class="muted">${r.public_summary}</div>` : ""}
               </div>
             </div>
 
             ${sup ? `
               <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12)">
-                <div style="font-weight:700">Nhà cung cấp</div>
+                <div style="font-weight:700">${t("supplier")}</div>
                 <div class="muted">
-                  <div><b>Tên:</b> ${sup.name_public || "(ẩn)"}</div>
-                  <div><b>Xuất xứ:</b> ${(sup.origin_country||"-")} ${sup.origin_province ? "· " + sup.origin_province : ""}</div>
-                  ${sup.certifications ? `<div><b>Chứng nhận:</b> ${sup.certifications}</div>` : ""}
+                  <div><b>${t("supplier")}:</b> ${sup.name_public || t("hidden")}</div>
+                  <div><b>${t("origin")}:</b> ${(sup.origin_country||"-")} ${sup.origin_province ? "· " + sup.origin_province : ""}</div>
+                  ${sup.certifications ? `<div><b>${t("certs")}:</b> ${sup.certifications}</div>` : ""}
                 </div>
 
                 ${supDocs.length ? `
                   <div style="margin-top:8px">
-                    <div style="font-weight:700">Hồ sơ NCC</div>
+                    <div style="font-weight:700">${t("supplierDocs")}</div>
                     <ul>
-                      ${supDocs.map(d => `<li>${d.title || d.doc_type} ${d.signed_url ? `- <a href="${d.signed_url}" target="_blank">Xem</a>` : ""}</li>`).join("")}
+                      ${supDocs.map(d => `<li>${d.title || d.doc_type} ${d.signed_url ? `- <a href="${d.signed_url}" target="_blank" rel="noopener">${t("view")}</a>` : ""}</li>`).join("")}
                     </ul>
                   </div>
                 ` : ""}
@@ -108,9 +262,9 @@
 
             ${docs.length ? `
               <div style="margin-top:10px">
-                <div style="font-weight:700">COA / tài liệu lô</div>
+                <div style="font-weight:700">${t("lotDocs")}</div>
                 <ul>
-                  ${docs.map(d => `<li>${d.title || d.doc_type} ${d.signed_url ? `- <a href="${d.signed_url}" target="_blank">Xem</a>` : ""}</li>`).join("")}
+                  ${docs.map(d => `<li>${d.title || d.doc_type} ${d.signed_url ? `- <a href="${d.signed_url}" target="_blank" rel="noopener">${t("view")}</a>` : ""}</li>`).join("")}
                 </ul>
               </div>
             ` : ""}
@@ -125,16 +279,16 @@
       const url = `${API_BASE}/trace?lot=${encodeURIComponent(lot)}`;
       const res = await fetch(url, { method: "GET" });
       const json = await res.json();
-      if (!res.ok || !json?.ok) throw new Error(json?.error || "Không tìm thấy LOT hoặc lỗi hệ thống.");
+      if (!res.ok || !json?.ok) throw new Error(json?.error || t("failed"));
       return json;
     }
 
-    // tự load khi có ?lot=
+    // auto load ?lot=
     const url = new URL(location.href);
     const lotQ = url.searchParams.get("lot");
     if (lotQ) {
       lotInput.value = lotQ;
-      form.dispatchEvent(new Event("submit"));
+      setTimeout(() => form.dispatchEvent(new Event("submit")), 0);
     }
 
     form.addEventListener("submit", async (e) => {
@@ -144,20 +298,20 @@
       btn.disabled = true;
 
       const lot = normLot(lotInput.value);
-      if (!lot) { setMsg("Bạn chưa nhập LOT.", false); btn.disabled = false; return; }
+      if (!lot) { setMsg(t("missing"), false); btn.disabled = false; return; }
 
-      // update URL
       const u = new URL(location.href);
       u.searchParams.set("lot", lot);
+      u.searchParams.set("lang", LANG);
       history.replaceState({}, "", u.toString());
 
       try {
-        setMsg("Đang tra cứu...", true);
+        setMsg(t("loading"), true);
         const data = await fetchTrace(lot);
-        setMsg("Tra cứu thành công ✅", true);
+        setMsg(t("ok"), true);
         render(data);
       } catch (err) {
-        setMsg("❌ " + err.message, false);
+        setMsg("❌ " + (err?.message || String(err)), false);
       } finally {
         btn.disabled = false;
       }
@@ -165,4 +319,3 @@
   </script>
 </body>
 </html>
-
