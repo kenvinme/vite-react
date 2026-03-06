@@ -22,10 +22,40 @@ nav a:hover{color:var(--primary)}
 select#lang{padding:6px 12px;border-radius:10px;border:1px solid var(--line);font-weight:600;font-size:14px;line-height:1.4}
 
 /* Hero */
-.hero{position:relative;color:#fff;overflow:hidden;background:linear-gradient(180deg,rgba(11,19,43,.0),rgba(11,19,43,.25))}
-.hero img.hero-media{width:100%;height:clamp(240px,48vw,480px);object-fit:cover;filter:brightness(.9) saturate(1.05)}
-.hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,19,43,.45),rgba(11,19,43,.15))}
-.hero .content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;padding:40px;text-align:right}
+.hero{
+  position:relative;
+  color:#fff;
+  overflow:hidden;
+  background:linear-gradient(180deg,rgba(11,19,43,.0),rgba(11,19,43,.25));
+  min-height:clamp(240px,48vw,480px);
+}
+
+.hero img.hero-media{
+  display:block;
+  width:100%;
+  height:clamp(240px,48vw,480px);
+  object-fit:cover;
+  object-position:center center;
+  filter:brightness(.9) saturate(1.05);
+}
+
+.hero .overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(11,19,43,.45),rgba(11,19,43,.15));
+  pointer-events:none;
+}
+
+.hero .content{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  justify-content:flex-end;
+  padding:clamp(18px,3vw,40px);
+  text-align:right;
+}
 
 /* Tagline 2 dòng */
 .hero h1{
@@ -37,18 +67,29 @@ select#lang{padding:6px 12px;border-radius:10px;border:1px solid var(--line);fon
   flex-direction:column;
   align-items:flex-end;
   gap:4px;
+  max-width:min(92%,700px);
 }
 .hero-line-main{
   font-size:clamp(26px,4.2vw,44px);
   font-weight:900;
+  line-height:1.15;
 }
 .hero-line-sub{
   font-size:clamp(18px,2.8vw,26px);
   font-weight:600;
   opacity:.9;
+  line-height:1.25;
 }
 
-.hero p{max-width:580px;font-size:clamp(14px,1.1vw,18px);margin-top:8px;opacity:.95}
+.hero p{
+  max-width:min(92%,580px);
+  font-size:clamp(14px,1.1vw,18px);
+  margin-top:8px;
+  margin-bottom:0;
+  opacity:.95;
+  line-height:1.55;
+  text-shadow:0 2px 8px rgba(0,0,0,.2);
+}
 
 /* Sections */
 .section{padding:64px 18px}
@@ -144,7 +185,7 @@ footer{text-align:center;padding:36px 0;font-size:14px;color:#556070;background:
 
 /* Nút contact chính – nền trắng, icon cam */
 .contact-toggle{
-  background:var(--primary); /* cam */
+  background:var(--primary);
   color:#fff;
   border:none;
   cursor:pointer;
@@ -172,38 +213,98 @@ footer{text-align:center;padding:36px 0;font-size:14px;color:#556070;background:
 .contact-buttons .phone{background:#16a34a}
 .contact-buttons .zalo{background:#0ea5e9}
 .contact-buttons .messenger{background:#1b74e4}
-.contact-buttons .map{background:#0f766e} /* màu cho nút bản đồ */
+.contact-buttons .map{background:#0f766e}
 .yz-chatbot.yz-chatbot--hidden{
   display:none;
 }
 
+/* Tablet */
+@media (max-width: 992px){
+  .hero .content{
+    padding:24px;
+  }
+}
+
 /* Mobile hero text */
 @media (max-width: 768px) {
+  .hero{
+    min-height:clamp(260px,62vw,380px);
+  }
+
+  .hero img.hero-media{
+    height:clamp(260px,62vw,380px);
+    object-position:center center;
+  }
+
+  .hero .content{
+    align-items:flex-start;
+    justify-content:flex-end;
+    text-align:left;
+    padding:18px 16px 20px;
+  }
+
   .hero h1{
     align-items:flex-start;
     text-align:left;
+    max-width:100%;
+    gap:2px;
   }
+
   .hero-line-main{
-    font-size:22px;
+    font-size:clamp(20px,6vw,26px);
+    line-height:1.15;
   }
+
   .hero-line-sub{
-    font-size:17px;
+    font-size:clamp(15px,4.2vw,18px);
+    line-height:1.25;
   }
-  .hero p {
-    font-size:12px;
-    white-space:normal; /* cho phép xuống dòng tự nhiên */
+
+  .hero p{
+    max-width:100%;
+    font-size:13px;
+    line-height:1.5;
+    margin-top:6px;
+    white-space:normal;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px){
+  .hero{
+    min-height:300px;
+  }
+
+  .hero img.hero-media{
+    height:300px;
+  }
+
+  .hero .content{
+    padding:16px 14px 18px;
+  }
+
+  .hero-line-main{
+    font-size:20px;
+  }
+
+  .hero-line-sub{
+    font-size:15px;
+  }
+
+  .hero p{
+    font-size:12.5px;
   }
 }
 
 /* Navbar color tuning */
 header .logo {
-  color: #ff7a00; /* cam chủ đạo */
+  color: #ff7a00;
 }
 header nav a {
-  color: #001F3F; /* xanh navy */
+  color: #001F3F;
 }
 header nav a:hover {
-  color: #ff7a00; /* hover chuyển sang cam */
+  color: #ff7a00;
 }
 
 /* Section titles color */
@@ -218,7 +319,7 @@ header nav a:hover {
 #about .section-title,
 #catalog .section-title,
 #moments .section-title {
-  color: #1E3A8A !important; /* xanh sáng hơn */
+  color: #1E3A8A !important;
 }
 
 /* === HAMBURGER MENU === */
@@ -248,7 +349,7 @@ header nav a:hover {
     align-items:flex-start;
     gap:0;
     padding:8px 18px 12px;
-    display:none;           /* Ẩn mặc định trên mobile */
+    display:none;
     z-index:40;
   }
   header nav a{
@@ -260,10 +361,10 @@ header nav a:hover {
     border-bottom:none;
   }
   header nav.open{
-    display:flex;          /* Khi bấm nút 3 gạch sẽ thêm .open */
+    display:flex;
   }
   .menu-toggle{
-    display:block;         /* Nút 3 gạch chỉ hiện trên mobile */
+    display:block;
     margin-left:4px;
   }
 }
@@ -272,7 +373,7 @@ header nav a:hover {
 .yz-chatbot{
   position:fixed;
   right:20px;
-  bottom:90px; /* nằm trên cụm nút contact hiện tại */
+  bottom:90px;
   z-index:250;
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
@@ -282,7 +383,7 @@ header nav a:hover {
   height:48px;
   border-radius:50%;
   border:none;
-  background:#0b132b; /* navy để phân biệt với nút contact */
+  background:#0b132b;
   color:#fff;
   font-size:22px;
   display:flex;
@@ -460,7 +561,6 @@ header nav a:hover {
       <a href="#" id="nav-quote">Liên Hệ Báo Giá</a>
     </nav>
 
-    <!-- Nút 3 gạch cho mobile -->
     <button class="menu-toggle" id="menu-toggle" aria-label="Mở menu chính">
       <i class="fa-solid fa-bars"></i>
     </button>
@@ -475,7 +575,7 @@ header nav a:hover {
 </header>
 
 <section class="hero">
-  <img class="hero-media" src="images/banner.png" alt="KCANS banner">
+  <img class="hero-media" src="images/banner.png" alt="KCANS banner" fetchpriority="high" decoding="async">
   <div class="overlay"></div>
   <div class="content">
     <h1 id="hero-title">
@@ -534,7 +634,6 @@ header nav a:hover {
 <footer id="footer-copy">© 2025 Yumzyfood. All rights reserved.</footer>
 
 <div class="contact-buttons" id="contact-buttons">
-  <!-- Menu xổ ra: 4 nút -->
   <div class="contact-menu">
     <a href="tel:+84827556688" class="phone" title="Gọi ngay">
       <i class="fa-solid fa-phone"></i>
@@ -545,20 +644,16 @@ header nav a:hover {
     <a href="https://m.me/yumzyfood" target="_blank" class="messenger" title="Messenger">
       <i class="fa-brands fa-facebook-messenger"></i>
     </a>
-    <!-- Đổi href thành link Google Maps thật của anh -->
     <a href="https://maps.app.goo.gl/YLNhkuWhd1rc5HNX6" target="_blank" class="map" title="Xem bản đồ">
       <i class="fa-solid fa-map-location-dot"></i>
     </a>
   </div>
 
-  <!-- 1 nút contact duy nhất ở góc dưới, icon màu cam -->
   <button class="contact-toggle" type="button" aria-label="Liên hệ">
     <i class="fa-solid fa-headset"></i>
   </button>
 </div>
 
-
-<!-- YumzyBot Chat Widget -->
 <div class="yz-chatbot" aria-label="YumzyBot chat">
   <button class="yz-chatbot-toggle" type="button" aria-label="Mở cửa sổ chat YumzyBot">
     <i class="fa-solid fa-robot"></i>
@@ -624,7 +719,6 @@ function renderLang(lang){
 
   LANG=lang; const L=TEXT[lang]||TEXT.vi;
   document.documentElement.lang=lang;
-  // Cố định title để hover tab luôn hiện đúng tagline
   document.title = "Yumzyfood - Make With Care, Share With Love";
   document.getElementById('brand').textContent=L.brand;
   document.getElementById('nav-about').textContent=L.nav.about;
@@ -632,7 +726,6 @@ function renderLang(lang){
   document.getElementById('nav-moments').textContent=L.nav.moments;
   document.getElementById('nav-quote').textContent=L.quote.title;
 
-  // Tách title hero thành 2 dòng theo dấu "–"
   const heroEl = document.getElementById('hero-title');
   if (heroEl) {
     const raw = L.hero.title || '';
@@ -680,7 +773,6 @@ function renderCards(){
   document.getElementById('cards').innerHTML = html;
 }
 
-// events
 document.getElementById('lang').addEventListener('change', e=>{
   const v=e.target.value;
   renderLang(v);
@@ -712,12 +804,10 @@ document.getElementById('quote-modal').addEventListener('click',e=>{
   if(e.target.id==='quote-modal') e.currentTarget.classList.remove('open');
 });
 
-// init from URL param
 const init = new URLSearchParams(location.search).get('lang')||'vi';
 document.getElementById('lang').value = init;
 renderLang(init);
 
-/* i18n for header "Tin tức" menu item */
 (function(){
   if (window.__navNewsPatched__) return;
   window.__navNewsPatched__ = true;
@@ -735,12 +825,11 @@ renderLang(init);
         }
       }
       nodes.forEach(function(el){ el.textContent = label; });
-    } catch(e) { /* ignore */ }
+    } catch(e) {}
   };
 })();
 </script>
 
-<!-- Contact form AJAX submission (progressive enhancement) -->
 <script>
 (function(){
   function findForm(){
@@ -792,7 +881,6 @@ renderLang(init);
 </script>
 
 <script>
-/* Anti-spam patch: honeypot + timing + safe submit */
 (function () {
   var orig = document.getElementById('quote-form');
   if (!orig) return;
@@ -874,7 +962,6 @@ renderLang(init);
 })();
 </script>
 
-<!-- HAMBURGER JS -->
 <script>
 (function () {
   var btn = document.getElementById('menu-toggle');
@@ -928,7 +1015,6 @@ renderLang(init);
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }
 
-  // Lời chào mặc định
   addMessage('bot', 'Chào bạn! YumzyBot sẵn sàng hỗ trợ bạn về KCANS và các sản phẩm của Yumzyfood.');
 
   toggleBtn.addEventListener('click', function () {
@@ -981,7 +1067,6 @@ renderLang(init);
   var toggle = wrapper.querySelector('.contact-toggle');
   if (!toggle) return;
 
-  // Lấy chatbot nếu có
   var chatbot = document.querySelector('.yz-chatbot');
 
   function setChatbotHidden(hide) {
@@ -989,19 +1074,15 @@ renderLang(init);
     chatbot.classList.toggle('yz-chatbot--hidden', !!hide);
   }
 
-  // Click nút cam: mở/đóng menu + ẩn/hiện chatbot
   toggle.addEventListener('click', function () {
     wrapper.classList.toggle('open');
     setChatbotHidden(wrapper.classList.contains('open'));
   });
 
-  // Rê chuột vào nút cam: ẩn chatbot để không che nút bản đồ
   toggle.addEventListener('mouseenter', function () {
     setChatbotHidden(true);
   });
 
-  // Rời chuột khỏi nút cam:
-  // nếu menu đang đóng thì hiện lại chatbot
   toggle.addEventListener('mouseleave', function () {
     if (!wrapper.classList.contains('open')) {
       setChatbotHidden(false);
