@@ -575,13 +575,6 @@ select.checkout-select{width:100%;padding:10px 12px;border:1px solid var(--line)
 .bank-box{display:none;border:1px dashed #fdba74;background:#fffaf5;border-radius:14px;padding:12px;font-size:13px;color:#7c2d12}
 .bank-box.show{display:block}
 
-
-.card{cursor:pointer}
-.card-link-wrap{display:block;width:100%;text-decoration:none;color:inherit}
-.card-link-wrap img{pointer-events:none}
-.card-link-text{display:block;width:100%;text-decoration:none;color:inherit}
-.card-link-text b,.card-link-text small{display:block}
-
 </style>
 
 <!-- JSON-LD: WebSite + Organization -->
@@ -890,36 +883,26 @@ function renderCards(){
   };
   const t = labels[LANG] || labels.vi;
   const html = PRODUCTS.map(p=>`
-    <div class="card" data-product-link="${p.href}?lang=${LANG}">
-      <a class="card-link-wrap" href="${p.href}?lang=${LANG}" aria-label="${p.name[LANG] || p.name.vi}">
+    <div class="card">
+      <a href="${p.href}?lang=${LANG}" style="display:block;width:100%;text-decoration:none;color:inherit">
         <img src="${p.img}" alt="${p.name[LANG] || p.name.vi}">
       </a>
       <div class="body">
-        <a class="card-link-text" href="${p.href}?lang=${LANG}" aria-label="${p.name[LANG] || p.name.vi}">
+        <a href="${p.href}?lang=${LANG}" style="display:block;width:100%;text-decoration:none;color:inherit">
           <b>${p.name[LANG] || p.name.vi}</b>
           <small>${p.desc[LANG] || p.desc.vi}</small>
         </a>
         <div class="product-price">${formatMoney(p.price)}</div>
         <div class="product-actions">
-          <a class="ghost-btn" href="${p.href}?lang=${LANG}">${t.view}</a>
+          <a class="ghost-btn" href="${p.href}?lang=${LANG}" style="text-decoration:none;color:inherit">${t.view}</a>
           <button class="add-cart-btn" type="button" data-add-cart="${p.id}">${t.add}</button>
         </div>
       </div>
     </div>`).join('');
   document.getElementById('cards').innerHTML = html;
-
   document.querySelectorAll('[data-add-cart]').forEach(function(btn){
-    btn.addEventListener('click', function(e){
-      e.stopPropagation();
+    btn.addEventListener('click', function(){
       addToCart(this.getAttribute('data-add-cart'));
-    });
-  });
-
-  document.querySelectorAll('.card[data-product-link]').forEach(function(card){
-    card.addEventListener('click', function(e){
-      var ignore = e.target.closest('.add-cart-btn, .ghost-btn, a');
-      if (ignore) return;
-      window.location.href = card.getAttribute('data-product-link');
     });
   });
 }
@@ -1265,6 +1248,7 @@ window.__yumzyInitLang = init;
       return (Number(amount||0)).toLocaleString('vi-VN') + ' ₫';
     }
   }
+  window.formatMoney = formatMoney;
 
   function loadCart(){
     try {
