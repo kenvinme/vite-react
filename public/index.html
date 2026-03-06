@@ -531,12 +531,15 @@ button{font:inherit}
 .cart-button:hover{border-color:#f4c7a2;color:var(--primary);box-shadow:0 6px 18px rgba(0,0,0,.06)}
 .cart-badge{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--primary);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(249,115,22,.25)}
 .product-price{font-size:18px;font-weight:900;color:var(--primary-700);line-height:1.2}
-.product-actions{width:100%;display:flex;gap:10px;margin-top:10px}
-.product-actions .ghost-btn,.product-actions .add-cart-btn{flex:1;min-height:42px;border-radius:12px;border:1px solid var(--line);font-weight:700;cursor:pointer;transition:.2s}
-.product-actions .ghost-btn{background:#fff;color:var(--navy);display:inline-flex;align-items:center;justify-content:center}
+.product-actions{width:100%;display:flex;gap:10px;margin-top:10px;align-items:stretch}
+.product-actions .ghost-btn,.product-actions .add-cart-btn{flex:1;min-height:46px;border-radius:12px;border:1px solid var(--line);font-weight:700;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;justify-content:center;text-align:center;padding:0 12px;line-height:1.2;white-space:nowrap;min-width:0}
+.product-actions .ghost-btn{background:#fff;color:var(--navy)}
 .product-actions .ghost-btn:hover{border-color:#cfd8e3;background:#f8fafc}
-.product-actions .add-cart-btn{background:var(--primary);color:#fff;border-color:transparent}
+.product-actions .add-cart-btn{background:var(--primary);color:#fff;border-color:transparent;font-size:14px}
 .product-actions .add-cart-btn:hover{background:var(--primary-700)}
+#checkout-modal .modal-card{max-height:min(92vh,900px);overflow:auto}
+#checkout-submit{position:sticky;bottom:0;z-index:2;width:100%}
+.checkout-note{display:none}
 select.checkout-select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:#fff}
 .cart-drawer{position:fixed;top:0;right:0;width:min(100%,420px);height:100dvh;background:#fff;box-shadow:-12px 0 30px rgba(0,0,0,.12);transform:translateX(100%);transition:transform .28s ease;z-index:300;display:flex;flex-direction:column}
 .cart-drawer.open{transform:translateX(0)}
@@ -797,7 +800,7 @@ select.checkout-select{width:100%;padding:10px 12px;border:1px solid var(--line)
       </div>
       <div class="bank-box" id="bank-box"><strong>Thông tin chuyển khoản mẫu</strong><br>Ngân hàng: MB Bank<br>Số tài khoản: 0123456789<br>Chủ tài khoản: CONG TY TNHH YUMZYFOOD<br>Nội dung: KCANS [SĐT khách hàng]</div>
       <div><label for="co-note" id="co-label-note">Ghi chú</label><textarea id="co-note" name="note" rows="3" placeholder="Ví dụ: giao giờ hành chính, gọi trước khi giao..."></textarea></div>
-      <p class="checkout-note" id="checkout-note">Đây là popup checkout mẫu. Bạn có thể nối tiếp với API, Supabase hoặc cổng thanh toán sau.</p>
+      <p class="checkout-note" id="checkout-note" hidden></p>
       <button class="btn btn-primary" type="submit" id="checkout-submit">Đặt hàng</button>
     </form>
   </div>
@@ -924,10 +927,10 @@ document.getElementById('quote-form').addEventListener('submit', e=>{
   const d = Object.fromEntries(fd.entries());
   const subject = encodeURIComponent('[KCANS] Yêu Cầu Báo Giá – ' + (d.name||''));
   const body = encodeURIComponent(`Name: ${d.name}\nPhone: ${d.phone}\nEmail: ${d.email}\nMessage:\n${d.message}`);
-  const gmail=`https://mail.google.com/mail/?view=cm&fs=1&to=kenvin@yumzyfood.com&su=${subject}&body=${body}`;
+  const gmail=`https://mail.google.com/mail/?view=cm&fs=1&to=contact@yumzyfood.com&su=${subject}&body=${body}`;
   const opened=window.open(gmail,'_blank');
   if(!opened){
-    location.href = `mailto:kenvin@yumzyfood.com?subject=${subject}&body=${body}`;
+    location.href = `mailto:contact@yumzyfood.com?subject=${subject}&body=${body}`;
   }
   document.getElementById('quote-modal').classList.remove('open');
 });
@@ -996,7 +999,7 @@ window.__yumzyInitLang = init;
         alert('✅ Gửi email thành công! Cảm ơn bạn đã liên hệ Yumzyfood.');
         form.reset();
       } else {
-        const to = 'kenvin@yumzyfood.com';
+        const to = 'contact@yumzyfood.com';
         const subject = encodeURIComponent(payload.subject || 'Báo giá / Liên hệ Yumzyfood');
         const body = encodeURIComponent(
           (payload.name ? 'Họ tên: ' + payload.name + '\n' : '') +
@@ -1087,7 +1090,7 @@ window.__yumzyInitLang = init;
       }
     } catch (_) {}
 
-    var to = 'kenvin@yumzyfood.com';
+    var to = 'contact@yumzyfood.com';
     var subject = encodeURIComponent('[KCANS] Yêu Cầu Báo Giá – ' + (data.name || ''));
     var body = encodeURIComponent(buildBody(data));
     window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
@@ -1120,7 +1123,7 @@ window.__yumzyInitLang = init;
 })();
 </script>
 
-<noscript>Vui lòng bật JavaScript để gửi form trực tiếp. Nếu không, bạn có thể gửi email tới <a href="mailto:kenvin@yumzyfood.com">kenvin@yumzyfood.com</a>.</noscript>
+<noscript>Vui lòng bật JavaScript để gửi form trực tiếp. Nếu không, bạn có thể gửi email tới <a href="mailto:contact@yumzyfood.com">contact@yumzyfood.com</a>.</noscript>
 
 <script>
 (function () {
@@ -1233,10 +1236,10 @@ window.__yumzyInitLang = init;
 
   function cartTexts(lang){
     var map = {
-      vi:{title:'Giỏ hàng',empty:'Giỏ hàng của bạn đang trống.',subtotal:'Tạm tính',total:'Tổng cộng',clear:'Xóa giỏ hàng',checkout:'Thanh toán',remove:'Xóa',summary:'Tóm tắt đơn hàng',checkoutTitle:'Thanh toán đơn hàng',name:'Họ và tên',phone:'Số điện thoại',email:'Email',address:'Địa chỉ nhận hàng',payment:'Phương thức thanh toán',note:'Ghi chú',submit:'Đặt hàng',noteText:'Đây là popup checkout mẫu. Bạn có thể nối tiếp với API, Supabase hoặc cổng thanh toán sau.',cod:'COD - Thanh toán khi nhận hàng',bank:'Chuyển khoản ngân hàng',added:'Đã thêm sản phẩm vào giỏ hàng.',emptyCheckout:'Giỏ hàng đang trống.',cleared:'Đã xóa toàn bộ giỏ hàng.',orderOk:'Đã tạo đơn hàng mẫu. Đang mở email để bạn nhận đơn.'},
-      en:{title:'Cart',empty:'Your cart is empty.',subtotal:'Subtotal',total:'Total',clear:'Clear cart',checkout:'Checkout',remove:'Remove',summary:'Order summary',checkoutTitle:'Checkout',name:'Full name',phone:'Phone',email:'Email',address:'Shipping address',payment:'Payment method',note:'Note',submit:'Place order',noteText:'This is a sample checkout popup. You can connect it to an API, Supabase, or a payment gateway later.',cod:'COD - Cash on delivery',bank:'Bank transfer',added:'Product added to cart.',emptyCheckout:'Cart is empty.',cleared:'Cart cleared.',orderOk:'Sample order created. Opening email draft for you.'},
-      zh:{title:'购物车',empty:'您的购物车为空。',subtotal:'小计',total:'总计',clear:'清空购物车',checkout:'结算',remove:'删除',summary:'订单摘要',checkoutTitle:'订单结算',name:'姓名',phone:'电话',email:'邮箱',address:'收货地址',payment:'支付方式',note:'备注',submit:'提交订单',noteText:'这是一个示例结算弹窗。之后可接入 API、Supabase 或支付网关。',cod:'货到付款',bank:'银行转账',added:'商品已加入购物车。',emptyCheckout:'购物车为空。',cleared:'购物车已清空。',orderOk:'示例订单已创建，正在打开邮件草稿。'},
-      ko:{title:'장바구니',empty:'장바구니가 비어 있습니다.',subtotal:'소계',total:'합계',clear:'장바구니 비우기',checkout:'결제',remove:'삭제',summary:'주문 요약',checkoutTitle:'주문 결제',name:'이름',phone:'전화번호',email:'이메일',address:'배송 주소',payment:'결제 방법',note:'메모',submit:'주문하기',noteText:'샘플 결제 팝업입니다. 이후 API, Supabase, 결제 게이트웨이와 연결할 수 있습니다.',cod:'착불 결제',bank:'계좌이체',added:'상품이 장바구니에 추가되었습니다.',emptyCheckout:'장바구니가 비어 있습니다.',cleared:'장바구니를 비웠습니다.',orderOk:'샘플 주문이 생성되어 이메일 초안을 엽니다.'}
+      vi:{title:'Giỏ hàng',empty:'Giỏ hàng của bạn đang trống.',subtotal:'Tạm tính',total:'Tổng cộng',clear:'Xóa giỏ hàng',checkout:'Thanh toán',remove:'Xóa',summary:'Tóm tắt đơn hàng',checkoutTitle:'Thanh toán đơn hàng',name:'Họ và tên',phone:'Số điện thoại',email:'Email',address:'Địa chỉ nhận hàng',payment:'Phương thức thanh toán',note:'Ghi chú',submit:'Đặt hàng',noteText:'',cod:'COD - Thanh toán khi nhận hàng',bank:'Chuyển khoản ngân hàng',added:'Đã thêm sản phẩm vào giỏ hàng.',emptyCheckout:'Giỏ hàng đang trống.',cleared:'Đã xóa toàn bộ giỏ hàng.',orderOk:'Đặt hàng thành công. Chúng tôi sẽ liên hệ xác nhận sớm nhất.'},
+      en:{title:'Cart',empty:'Your cart is empty.',subtotal:'Subtotal',total:'Total',clear:'Clear cart',checkout:'Checkout',remove:'Remove',summary:'Order summary',checkoutTitle:'Checkout',name:'Full name',phone:'Phone',email:'Email',address:'Shipping address',payment:'Payment method',note:'Note',submit:'Place order',noteText:'',cod:'COD - Cash on delivery',bank:'Bank transfer',added:'Product added to cart.',emptyCheckout:'Cart is empty.',cleared:'Cart cleared.',orderOk:'Order submitted successfully. We will contact you soon to confirm.'},
+      zh:{title:'购物车',empty:'您的购物车为空。',subtotal:'小计',total:'总计',clear:'清空购物车',checkout:'结算',remove:'删除',summary:'订单摘要',checkoutTitle:'订单结算',name:'姓名',phone:'电话',email:'邮箱',address:'收货地址',payment:'支付方式',note:'备注',submit:'提交订单',noteText:'',cod:'货到付款',bank:'银行转账',added:'商品已加入购物车。',emptyCheckout:'购物车为空。',cleared:'购物车已清空。',orderOk:'订单已提交成功，我们会尽快联系您确认。'},
+      ko:{title:'장바구니',empty:'장바구니가 비어 있습니다.',subtotal:'소계',total:'합계',clear:'장바구니 비우기',checkout:'결제',remove:'삭제',summary:'주문 요약',checkoutTitle:'주문 결제',name:'이름',phone:'전화번호',email:'이메일',address:'배송 주소',payment:'결제 방법',note:'메모',submit:'주문하기',noteText:'',cod:'착불 결제',bank:'계좌이체',added:'상품이 장바구니에 추가되었습니다.',emptyCheckout:'장바구니가 비어 있습니다.',cleared:'장바구니를 비웠습니다.',orderOk:'주문이 성공적으로 접수되었습니다. 곧 확인 연락드리겠습니다.'}
     };
     return map[lang] || map.vi;
   }
@@ -1445,7 +1448,7 @@ window.__yumzyInitLang = init;
   document.getElementById('checkout-open') && document.getElementById('checkout-open').addEventListener('click', openCheckout);
   document.getElementById('co-payment') && document.getElementById('co-payment').addEventListener('change', toggleBankInfo);
 
-  document.getElementById('checkout-form') && document.getElementById('checkout-form').addEventListener('submit', function(e){
+  document.getElementById('checkout-form') && document.getElementById('checkout-form').addEventListener('submit', async function(e){
     e.preventDefault();
     if (!cart.length) {
       alert(cartTexts(LANG).emptyCheckout);
@@ -1459,8 +1462,8 @@ window.__yumzyInitLang = init;
     }).filter(Boolean).join('\n');
 
     var paymentLabel = d.payment === 'bank' ? 'Chuyen khoan' : 'COD';
-    var subject = encodeURIComponent('[KCANS] Don Hang Moi - ' + (d.name || ''));
-    var body = encodeURIComponent(
+    var subjectText = '[KCANS] Don Hang Moi - ' + (d.name || '');
+    var plainBody =
       'Khach hang: ' + (d.name || '') + '\n' +
       'So dien thoai: ' + (d.phone || '') + '\n' +
       'Email: ' + (d.email || '') + '\n' +
@@ -1468,23 +1471,51 @@ window.__yumzyInitLang = init;
       'Thanh toan: ' + paymentLabel + '\n' +
       'Ghi chu: ' + (d.note || '') + '\n\n' +
       'Chi tiet don hang:\n' + lines + '\n\n' +
-      'Tong cong: ' + formatMoney(getCartTotal())
-    );
-    var gmail = 'https://mail.google.com/mail/?view=cm&fs=1&to=kenvin@yumzyfood.com&su=' + subject + '&body=' + body;
-    var opened = window.open(gmail, '_blank');
-    if (!opened) {
-      location.href = 'mailto:kenvin@yumzyfood.com?subject=' + subject + '&body=' + body;
-    }
+      'Tong cong: ' + formatMoney(getCartTotal());
 
-    alert(cartTexts(LANG).orderOk);
-    cart = [];
-    saveCart();
-    syncCartBadge();
-    renderCart();
-    this.reset();
-    toggleBankInfo();
-    closeCheckout();
-    closeCart();
+    var submitBtn = document.getElementById('checkout-submit');
+    if (submitBtn) submitBtn.disabled = true;
+
+    try {
+      var res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: d.name || '',
+          phone: d.phone || '',
+          email: d.email || '',
+          address: d.address || '',
+          payment: paymentLabel,
+          note: d.note || '',
+          subject: subjectText,
+          message: plainBody
+        })
+      });
+
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+
+      alert(cartTexts(LANG).orderOk);
+      cart = [];
+      saveCart();
+      syncCartBadge();
+      renderCart();
+      this.reset();
+      toggleBankInfo();
+      closeCheckout();
+      closeCart();
+      return;
+    } catch (err) {
+      console.error(err);
+      var subject = encodeURIComponent(subjectText);
+      var body = encodeURIComponent(plainBody);
+      var gmail = 'https://mail.google.com/mail/?view=cm&fs=1&to=contact@yumzyfood.com&su=' + subject + '&body=' + body;
+      var opened = window.open(gmail, '_blank');
+      if (!opened) {
+        location.href = 'mailto:contact@yumzyfood.com?subject=' + subject + '&body=' + body;
+      }
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+    }
   });
 
   window.addEventListener('keydown', function(e){
