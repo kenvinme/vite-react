@@ -8,16 +8,17 @@
 <style>
 :root{--navy:#0b132b;--primary:#f97316;--primary-700:#ea580c;--line:#e5e7eb;--soft:#f8fafc;--white:#fff}
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--navy);background:#f8fafc}
+html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--navy);background:#f8fafc;min-height:100%}
 a{text-decoration:none;color:inherit}
 button{font:inherit}
+body{min-height:100vh;display:flex;flex-direction:column}
 
 /* Layout */
 header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:40}
 .container{max-width:1100px;margin:auto;padding:0 18px}
 .bar{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:10px}
 .lang{padding:6px 12px;border-radius:10px;border:1px solid var(--line);font-weight:600;background:#fff}
-.wrap{max-width:1100px;margin:0 auto;padding:20px 18px;display:grid;grid-template-columns:420px 1fr;gap:24px}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 18px 12px;display:grid;grid-template-columns:420px 1fr;gap:24px;flex:1;width:100%}
 @media(max-width:900px){.wrap{grid-template-columns:1fr}}
 .heroimg{background:var(--white);border:1px solid #eef2f7;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.06);padding:14px;display:flex;align-items:center;justify-content:center}
 .heroimg img{width:100%;height:clamp(240px,44vw,360px);object-fit:contain}
@@ -29,10 +30,8 @@ h1{font-size:clamp(22px,3.2vw,34px);margin:4px 0 8px;font-weight:900}
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:12px;background:#f97316;color:#fff;font-weight:800;margin-top:14px;border:none;cursor:pointer}
 .btn:hover{background:#ea580c}
 
-/* sticky footer */
-html, body { min-height:100%; }
-body{display:flex;flex-direction:column}
-footer{margin-top:auto;background:#0b132b;color:#fff;text-align:center;padding:36px 0;font-size:14px}
+/* Footer */
+footer{margin-top:auto;background:#0b132b;color:#fff;text-align:center;padding:36px 0;font-size:14px;width:100%}
 
 /* Modal */
 .modal{position:fixed;inset:0;background:rgba(11,19,43,.45);display:none;align-items:center;justify-content:center;padding:16px;z-index:1000}
@@ -48,9 +47,7 @@ footer{margin-top:auto;background:#0b132b;color:#fff;text-align:center;padding:3
 .btn-primary:disabled{opacity:.7;cursor:default}
 .status-note{font-size:13px;color:#6b7280;text-align:center;min-height:18px}
 
-@media(max-width:640px){
-  .bar{flex-wrap:wrap}
-}
+@media(max-width:640px){.bar{flex-wrap:wrap}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "KCANS Mesh Snack – Shrimp", "image": ["images/product-tom.jpg"], "brand": {"@type": "Brand", "name": "KCANS"}, "description": "Crunchy mesh snack with rich dried-shrimp flavor, 50g retail pack.", "sku": "KCANS-50-SHR", "offers": {"@type": "Offer", "availability": "https://schema.org/InStock", "priceCurrency": "VND"}}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "index.html"}, {"@type": "ListItem", "position": 2, "name": "Product", "item": "product-tom.html"}]}</script>
@@ -149,8 +146,8 @@ document.getElementById('lang').addEventListener('change', e => {
   u.searchParams.set('lang', v);
   history.replaceState({}, '', u.toString());
 });
-const init = new URLSearchParams(location.search).get('lang')||'vi';
-document.getElementById('lang').value = init;
+const init=new URLSearchParams(location.search).get('lang')||'vi';
+document.getElementById('lang').value=init;
 setLang(init);
 
 (function(){
@@ -200,9 +197,7 @@ setLang(init);
   });
 
   modal.addEventListener('click', function(e){
-    if (e.target === modal) {
-      modal.classList.remove('open');
-    }
+    if (e.target === modal) modal.classList.remove('open');
   });
 
   window.addEventListener('keydown', function(e){
@@ -240,9 +235,7 @@ setLang(init);
       var json = {};
       try { json = await res.json(); } catch(_) {}
 
-      if (!res.ok) {
-        throw new Error(json.error || 'Gửi báo giá thất bại');
-      }
+      if (!res.ok) throw new Error(json.error || 'Gửi báo giá thất bại');
 
       alert('✅ Yêu cầu báo giá đã được gửi thành công.');
       form.reset();
@@ -256,12 +249,7 @@ setLang(init);
     } finally {
       submitBtn.disabled = false;
       var lang = document.getElementById('lang').value || 'vi';
-      submitBtn.textContent = {
-        vi:'Gửi Yêu Cầu',
-        en:'Send Request',
-        zh:'发送请求',
-        ko:'요청 보내기'
-      }[lang] || 'Gửi Yêu Cầu';
+      submitBtn.textContent = {vi:'Gửi Yêu Cầu',en:'Send Request',zh:'发送请求',ko:'요청 보내기'}[lang] || 'Gửi Yêu Cầu';
     }
   });
 })();
