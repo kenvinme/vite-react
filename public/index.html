@@ -10,32 +10,86 @@
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;font-family:'Poppins',Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--navy);background:var(--white);line-height:1.65;font-size:15px}
 a{text-decoration:none;color:inherit}
-button{font:inherit}
 
 /* Header & layout */
 header{position:sticky;top:0;background:rgba(255,255,255,.98);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
 .container{max-width:1100px;margin:auto;padding:0 18px}
 .bar{display:flex;align-items:center;justify-content:space-between;padding:12px 0;flex-wrap:wrap;gap:10px}
 .brand{font-weight:800;font-size:18px;letter-spacing:-.2px;color:var(--navy)}
-.header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 nav{display:flex;gap:16px;flex-wrap:wrap}
 nav a{color:#364152;font-weight:700;font-size:14px;transition:.2s}
 nav a:hover{color:var(--primary)}
 select#lang{padding:6px 12px;border-radius:10px;border:1px solid var(--line);font-weight:600;font-size:14px;line-height:1.4}
 
-.cart-button{position:relative;display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;transition:.2s}
-.cart-button:hover{border-color:#f4c7a2;color:var(--primary);box-shadow:0 6px 18px rgba(0,0,0,.06)}
-.cart-badge{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--primary);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(249,115,22,.25)}
-
 /* Hero */
-.hero{position:relative;color:#fff;overflow:hidden;background:linear-gradient(180deg,rgba(11,19,43,.0),rgba(11,19,43,.25));min-height:clamp(240px,48vw,480px)}
-.hero img.hero-media{display:block;width:100%;height:clamp(240px,48vw,480px);object-fit:cover;object-position:center center;filter:brightness(.9) saturate(1.05)}
-.hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,19,43,.45),rgba(11,19,43,.15));pointer-events:none}
-.hero .content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;padding:clamp(18px,3vw,40px);text-align:right}
-.hero h1{font-size:clamp(26px,4vw,42px);margin:0;font-weight:900;text-shadow:0 2px 10px rgba(0,0,0,.25);display:flex;flex-direction:column;align-items:flex-end;gap:4px;max-width:min(92%,700px)}
-.hero-line-main{font-size:clamp(26px,4.2vw,44px);font-weight:900;line-height:1.15}
-.hero-line-sub{font-size:clamp(18px,2.8vw,26px);font-weight:600;opacity:.9;line-height:1.25}
-.hero p{max-width:min(92%,580px);font-size:clamp(14px,1.1vw,18px);margin-top:8px;margin-bottom:0;opacity:.95;line-height:1.55;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+.hero{
+  position:relative;
+  color:#fff;
+  overflow:hidden;
+  background:linear-gradient(180deg,rgba(11,19,43,.0),rgba(11,19,43,.25));
+  min-height:clamp(240px,48vw,480px);
+}
+
+.hero img.hero-media{
+  display:block;
+  width:100%;
+  height:clamp(240px,48vw,480px);
+  object-fit:cover;
+  object-position:center center;
+  filter:brightness(.9) saturate(1.05);
+}
+
+.hero .overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(11,19,43,.45),rgba(11,19,43,.15));
+  pointer-events:none;
+}
+
+.hero .content{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  justify-content:flex-end;
+  padding:clamp(18px,3vw,40px);
+  text-align:right;
+}
+
+/* Tagline 2 dòng */
+.hero h1{
+  font-size:clamp(26px,4vw,42px);
+  margin:0;
+  font-weight:900;
+  text-shadow:0 2px 10px rgba(0,0,0,.25);
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:4px;
+  max-width:min(92%,700px);
+}
+.hero-line-main{
+  font-size:clamp(26px,4.2vw,44px);
+  font-weight:900;
+  line-height:1.15;
+}
+.hero-line-sub{
+  font-size:clamp(18px,2.8vw,26px);
+  font-weight:600;
+  opacity:.9;
+  line-height:1.25;
+}
+
+.hero p{
+  max-width:min(92%,580px);
+  font-size:clamp(14px,1.1vw,18px);
+  margin-top:8px;
+  margin-bottom:0;
+  opacity:.95;
+  line-height:1.55;
+  text-shadow:0 2px 8px rgba(0,0,0,.2);
+}
 
 /* Sections */
 .section{padding:64px 18px}
@@ -48,19 +102,39 @@ select#lang{padding:6px 12px;border-radius:10px;border:1px solid var(--line);fon
 @media(max-width:820px){.grid-2{grid-template-columns:1fr}}
 
 /* Product cards */
-.card{border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.07);transition:transform .25s,box-shadow .25s;border:1px solid #eef2f7;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px}
+.card{
+  border-radius:16px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 8px 24px rgba(0,0,0,.07);
+  transition:transform .25s,box-shadow .25s;
+  border:1px solid #eef2f7;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:10px;
+}
 .card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.12)}
-.card img{width:100%;height:220px;object-fit:contain;background:#f8fafc;padding:10px;display:block}
-.card .body{width:100%;padding:10px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
-.card .body b{font-size:16px;display:block;margin-bottom:2px;color:var(--navy)}
+.card img{
+  width:100%;
+  height:220px;
+  object-fit:contain;
+  background:#f8fafc;
+  padding:10px;
+  display:block;
+}
+.card .body{
+  padding:10px 8px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.card .body b{font-size:16px;display:block;margin-bottom:6px;color:var(--navy)}
 .card .body small{color:#4b5563;font-size:13.5px}
-.product-price{font-size:18px;font-weight:900;color:var(--primary-700);line-height:1.2}
-.product-actions{width:100%;display:flex;gap:10px;margin-top:6px}
-.product-actions .ghost-btn,.product-actions .add-cart-btn{flex:1;min-height:42px;border-radius:12px;border:1px solid var(--line);font-weight:700;cursor:pointer;transition:.2s}
-.product-actions .ghost-btn{background:#fff;color:var(--navy);display:inline-flex;align-items:center;justify-content:center}
-.product-actions .ghost-btn:hover{border-color:#cfd8e3;background:#f8fafc}
-.product-actions .add-cart-btn{background:var(--primary);color:#fff;border-color:transparent}
-.product-actions .add-cart-btn:hover{background:var(--primary-700)}
 
 /* Videos */
 .video16x9{position:relative;width:100%;padding-top:56.25%;border-radius:14px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.08);background:#000}
@@ -72,9 +146,398 @@ select#lang{padding:6px 12px;border-radius:10px;border:1px solid var(--line);fon
 .modal-card{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.25);border-top:4px solid var(--primary)}
 .modal-card h3{text-align:center;margin-bottom:16px}
 .stack{display:grid;gap:12px}
-input,textarea,select.checkout-select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:#fff}
+input,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px}
 
-/* Cart drawer */
+/* Footer & floating contact */
+footer{text-align:center;padding:36px 0;font-size:14px;color:#556070;background:var(--soft);position:relative}
+
+/* Khối nút liên hệ nổi */
+.contact-buttons{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:10px;
+  z-index:200;
+}
+
+/* Style chung cho cả nút burger và 4 nút con */
+.contact-buttons a,
+.contact-buttons button{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  color:#fff;
+  font-size:22px;
+  box-shadow:0 4px 10px rgba(0,0,0,.2);
+  transition:transform .2s;
+}
+
+.contact-buttons a:hover,
+.contact-buttons button:hover{
+  transform:scale(1.1);
+}
+
+/* Nút contact chính – nền trắng, icon cam */
+.contact-toggle{
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  cursor:pointer;
+}
+
+/* Icon headset trắng trên nền cam */
+.contact-toggle i{
+  color:#fff;
+}
+
+/* Nhóm 4 nút xổ ra */
+.contact-menu{
+  display:none;
+  flex-direction:column;
+  gap:10px;
+  align-items:flex-end;
+}
+
+/* Khi mở menu thì hiện 4 nút */
+.contact-buttons.open .contact-menu{
+  display:flex;
+}
+
+/* Màu cho từng kênh */
+.contact-buttons .phone{background:#16a34a}
+.contact-buttons .zalo{background:#0ea5e9}
+.contact-buttons .messenger{background:#1b74e4}
+.contact-buttons .map{background:#0f766e}
+.yz-chatbot.yz-chatbot--hidden{
+  display:none;
+}
+
+/* Tablet */
+@media (max-width: 992px){
+  .hero .content{
+    padding:24px;
+  }
+}
+
+/* Mobile hero text */
+@media (max-width: 768px) {
+  .hero{
+    min-height:clamp(260px,62vw,380px);
+  }
+
+  .hero img.hero-media{
+    height:clamp(260px,62vw,380px);
+    object-position:center center;
+  }
+
+  .hero .content{
+    align-items:flex-start;
+    justify-content:flex-end;
+    text-align:left;
+    padding:18px 16px 20px;
+  }
+
+  .hero h1{
+    align-items:flex-start;
+    text-align:left;
+    max-width:100%;
+    gap:2px;
+  }
+
+  .hero-line-main{
+    font-size:clamp(20px,6vw,26px);
+    line-height:1.15;
+  }
+
+  .hero-line-sub{
+    font-size:clamp(15px,4.2vw,18px);
+    line-height:1.25;
+  }
+
+  .hero p{
+    max-width:100%;
+    font-size:13px;
+    line-height:1.5;
+    margin-top:6px;
+    white-space:normal;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px){
+  .hero{
+    min-height:300px;
+  }
+
+  .hero img.hero-media{
+    height:300px;
+  }
+
+  .hero .content{
+    padding:16px 14px 18px;
+  }
+
+  .hero-line-main{
+    font-size:20px;
+  }
+
+  .hero-line-sub{
+    font-size:15px;
+  }
+
+  .hero p{
+    font-size:12.5px;
+  }
+}
+
+/* Navbar color tuning */
+header .logo {
+  color: #ff7a00;
+}
+header nav a {
+  color: #001F3F;
+}
+header nav a:hover {
+  color: #ff7a00;
+}
+
+/* Section titles color */
+#about-title, #catalog-title, #moments-title {
+  color: #001F3F !important;
+}
+#about .section-title,
+#catalog .section-title,
+#moments .section-title {
+  color: #001F3F !important;
+}
+#about .section-title,
+#catalog .section-title,
+#moments .section-title {
+  color: #1E3A8A !important;
+}
+
+/* === HAMBURGER MENU === */
+.menu-toggle{
+  display:none;
+  background:none;
+  border:0;
+  font-size:22px;
+  color:var(--navy);
+  cursor:pointer;
+  padding:4px 6px;
+}
+
+/* Responsive nav for mobile */
+@media (max-width:768px){
+  header .bar{
+    position:relative;
+  }
+  header nav{
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    background:#fff;
+    border-bottom:1px solid var(--line);
+    flex-direction:column;
+    align-items:flex-start;
+    gap:0;
+    padding:8px 18px 12px;
+    display:none;
+    z-index:40;
+  }
+  header nav a{
+    width:100%;
+    padding:8px 0;
+    border-bottom:1px solid #eef2f7;
+  }
+  header nav a:last-child{
+    border-bottom:none;
+  }
+  header nav.open{
+    display:flex;
+  }
+  .menu-toggle{
+    display:block;
+    margin-left:4px;
+  }
+  .header-actions{
+    margin-left:auto;
+    gap:8px;
+  }
+}
+
+/* === YumzyBot Chat Widget === */
+.yz-chatbot{
+  position:fixed;
+  right:20px;
+  bottom:90px;
+  z-index:250;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+.yz-chatbot-toggle{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  border:none;
+  background:#0b132b;
+  color:#fff;
+  font-size:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.25);
+  cursor:pointer;
+}
+
+.yz-chatbot-toggle i{
+  color:#fff;
+}
+
+.yz-chatbot-window{
+  position:fixed;
+  right:20px;
+  bottom:150px;
+  width:320px;
+  max-height:480px;
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 14px 40px rgba(0,0,0,.28);
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+  z-index:260;
+}
+
+.yz-chatbot.yz-chatbot--open .yz-chatbot-window{
+  display:flex;
+}
+
+.yz-chatbot-header{
+  padding:10px 14px;
+  background:linear-gradient(135deg,#f97316,#ea580c);
+  color:#fff;
+}
+
+.yz-chatbot-title{
+  font-weight:700;
+  font-size:15px;
+  margin-bottom:2px;
+}
+
+.yz-chatbot-subtitle{
+  font-size:12px;
+  opacity:.95;
+}
+
+.yz-chatbot-messages{
+  padding:10px 12px;
+  background:#f8fafc;
+  flex:1;
+  overflow-y:auto;
+  font-size:13px;
+}
+
+.yz-chatbot-message{
+  margin-bottom:8px;
+  max-width:85%;
+  padding:8px 10px;
+  border-radius:12px;
+  line-height:1.4;
+  word-break:break-word;
+}
+
+.yz-chatbot-message--bot{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-bottom-left-radius:2px;
+}
+
+.yz-chatbot-message--user{
+  background:#ffedd5;
+  border-bottom-right-radius:2px;
+  margin-left:auto;
+  text-align:right;
+}
+
+.yz-chatbot-status{
+  min-height:18px;
+  padding:0 12px 4px;
+  font-size:11px;
+  color:#6b7280;
+}
+
+.yz-chatbot-form{
+  display:flex;
+  gap:6px;
+  padding:8px;
+  border-top:1px solid #e5e7eb;
+  background:#fff;
+}
+
+.yz-chatbot-input{
+  flex:1;
+  border-radius:999px;
+  border:1px solid #d1d5db;
+  padding:6px 10px;
+  font-size:13px;
+}
+
+.yz-chatbot-input:focus{
+  outline:none;
+  border-color:#f97316;
+  box-shadow:0 0 0 1px rgba(249,115,22,.35);
+}
+
+.yz-chatbot-send{
+  border-radius:999px;
+  border:none;
+  padding:6px 14px;
+  font-size:13px;
+  background:#f97316;
+  color:#fff;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.yz-chatbot-send:disabled{
+  opacity:.7;
+  cursor:default;
+}
+
+@media (max-width:768px){
+  .yz-chatbot{
+    right:14px;
+    bottom:86px;
+  }
+  .yz-chatbot-window{
+    right:8px;
+    left:8px;
+    width:auto;
+    max-width:none;
+  }
+}
+
+button{font:inherit}
+.header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cart-button{position:relative;display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;transition:.2s}
+.cart-button:hover{border-color:#f4c7a2;color:var(--primary);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.cart-badge{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--primary);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(249,115,22,.25)}
+.product-price{font-size:18px;font-weight:900;color:var(--primary-700);line-height:1.2}
+.product-actions{width:100%;display:flex;gap:10px;margin-top:10px}
+.product-actions .ghost-btn,.product-actions .add-cart-btn{flex:1;min-height:42px;border-radius:12px;border:1px solid var(--line);font-weight:700;cursor:pointer;transition:.2s}
+.product-actions .ghost-btn{background:#fff;color:var(--navy);display:inline-flex;align-items:center;justify-content:center}
+.product-actions .ghost-btn:hover{border-color:#cfd8e3;background:#f8fafc}
+.product-actions .add-cart-btn{background:var(--primary);color:#fff;border-color:transparent}
+.product-actions .add-cart-btn:hover{background:var(--primary-700)}
+select.checkout-select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:#fff}
 .cart-drawer{position:fixed;top:0;right:0;width:min(100%,420px);height:100dvh;background:#fff;box-shadow:-12px 0 30px rgba(0,0,0,.12);transform:translateX(100%);transition:transform .28s ease;z-index:300;display:flex;flex-direction:column}
 .cart-drawer.open{transform:translateX(0)}
 .cart-backdrop{position:fixed;inset:0;background:rgba(11,19,43,.35);z-index:290;opacity:0;visibility:hidden;transition:.25s}
@@ -112,81 +575,9 @@ input,textarea,select.checkout-select{width:100%;padding:10px 12px;border:1px so
 .bank-box{display:none;border:1px dashed #fdba74;background:#fffaf5;border-radius:14px;padding:12px;font-size:13px;color:#7c2d12}
 .bank-box.show{display:block}
 
-/* Footer & floating contact */
-footer{text-align:center;padding:36px 0;font-size:14px;color:#556070;background:var(--soft);position:relative}
-.contact-buttons{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:200}
-.contact-buttons a,.contact-buttons button{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;color:#fff;font-size:22px;box-shadow:0 4px 10px rgba(0,0,0,.2);transition:transform .2s}
-.contact-buttons a:hover,.contact-buttons button:hover{transform:scale(1.1)}
-.contact-toggle{background:var(--primary);color:#fff;border:none;cursor:pointer}
-.contact-toggle i{color:#fff}
-.contact-menu{display:none;flex-direction:column;gap:10px;align-items:flex-end}
-.contact-buttons.open .contact-menu{display:flex}
-.contact-buttons .phone{background:#16a34a}
-.contact-buttons .zalo{background:#0ea5e9}
-.contact-buttons .messenger{background:#1b74e4}
-.contact-buttons .map{background:#0f766e}
-.yz-chatbot.yz-chatbot--hidden{display:none}
-
-/* Navbar color tuning */
-header .logo{color:#ff7a00}
-header nav a{color:#001F3F}
-header nav a:hover{color:#ff7a00}
-#about-title,#catalog-title,#moments-title{color:#001F3F !important}
-#about .section-title,#catalog .section-title,#moments .section-title{color:#1E3A8A !important}
-
-/* Hamburger */
-.menu-toggle{display:none;background:none;border:0;font-size:22px;color:var(--navy);cursor:pointer;padding:4px 6px}
-
-/* YumzyBot */
-.yz-chatbot{position:fixed;right:20px;bottom:90px;z-index:250;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.yz-chatbot-toggle{width:48px;height:48px;border-radius:50%;border:none;background:#0b132b;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.25);cursor:pointer}
-.yz-chatbot-toggle i{color:#fff}
-.yz-chatbot-window{position:fixed;right:20px;bottom:150px;width:320px;max-height:480px;background:#fff;border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.28);display:none;flex-direction:column;overflow:hidden;z-index:260}
-.yz-chatbot.yz-chatbot--open .yz-chatbot-window{display:flex}
-.yz-chatbot-header{padding:10px 14px;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff}
-.yz-chatbot-title{font-weight:700;font-size:15px;margin-bottom:2px}
-.yz-chatbot-subtitle{font-size:12px;opacity:.95}
-.yz-chatbot-messages{padding:10px 12px;background:#f8fafc;flex:1;overflow-y:auto;font-size:13px}
-.yz-chatbot-message{margin-bottom:8px;max-width:85%;padding:8px 10px;border-radius:12px;line-height:1.4;word-break:break-word}
-.yz-chatbot-message--bot{background:#fff;border:1px solid #e5e7eb;border-bottom-left-radius:2px}
-.yz-chatbot-message--user{background:#ffedd5;border-bottom-right-radius:2px;margin-left:auto;text-align:right}
-.yz-chatbot-status{min-height:18px;padding:0 12px 4px;font-size:11px;color:#6b7280}
-.yz-chatbot-form{display:flex;gap:6px;padding:8px;border-top:1px solid #e5e7eb;background:#fff}
-.yz-chatbot-input{flex:1;border-radius:999px;border:1px solid #d1d5db;padding:6px 10px;font-size:13px}
-.yz-chatbot-input:focus{outline:none;border-color:#f97316;box-shadow:0 0 0 1px rgba(249,115,22,.35)}
-.yz-chatbot-send{border-radius:999px;border:none;padding:6px 14px;font-size:13px;background:#f97316;color:#fff;cursor:pointer;white-space:nowrap}
-.yz-chatbot-send:disabled{opacity:.7;cursor:default}
-
-/* Responsive */
-@media (max-width: 992px){.hero .content{padding:24px}}
-@media (max-width:768px){
-  header .bar{position:relative}
-  header nav{position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;gap:0;padding:8px 18px 12px;display:none;z-index:40}
-  header nav a{width:100%;padding:8px 0;border-bottom:1px solid #eef2f7}
-  header nav a:last-child{border-bottom:none}
-  header nav.open{display:flex}
-  .menu-toggle{display:block;margin-left:4px}
-  .header-actions{margin-left:auto;gap:8px}
-  .hero{min-height:clamp(260px,62vw,380px)}
-  .hero img.hero-media{height:clamp(260px,62vw,380px);object-position:center center}
-  .hero .content{align-items:flex-start;justify-content:flex-end;text-align:left;padding:18px 16px 20px}
-  .hero h1{align-items:flex-start;text-align:left;max-width:100%;gap:2px}
-  .hero-line-main{font-size:clamp(20px,6vw,26px);line-height:1.15}
-  .hero-line-sub{font-size:clamp(15px,4.2vw,18px);line-height:1.25}
-  .hero p{max-width:100%;font-size:13px;line-height:1.5;margin-top:6px;white-space:normal}
-  .yz-chatbot{right:14px;bottom:86px}
-  .yz-chatbot-window{right:8px;left:8px;width:auto;max-width:none}
-}
-@media (max-width:480px){
-  .hero{min-height:300px}
-  .hero img.hero-media{height:300px}
-  .hero .content{padding:16px 14px 18px}
-  .hero-line-main{font-size:20px}
-  .hero-line-sub{font-size:15px}
-  .hero p{font-size:12.5px}
-}
 </style>
 
+<!-- JSON-LD: WebSite + Organization -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -216,6 +607,7 @@ header nav a:hover{color:#ff7a00}
 <header>
   <div class="container bar">
     <div class="brand" id="brand">KCANS By Yumzyfood</div>
+
     <nav>
       <a href="#about" id="nav-about">Về Chúng Tôi</a>
       <a href="#catalog" id="nav-catalog">Sản Phẩm</a>
@@ -223,14 +615,17 @@ header nav a:hover{color:#ff7a00}
       <a href="#news" id="nav-news">Tin Tức</a>
       <a href="#" id="nav-quote">Liên Hệ Báo Giá</a>
     </nav>
+
     <div class="header-actions">
       <button class="cart-button" id="cart-toggle" type="button" aria-label="Mở giỏ hàng">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cart-count">0</span>
       </button>
+
       <button class="menu-toggle" id="menu-toggle" aria-label="Mở menu chính">
         <i class="fa-solid fa-bars"></i>
       </button>
+
       <select id="lang">
         <option value="vi" selected>🇻🇳 Tiếng Việt</option>
         <option value="en">🇺🇸 English</option>
@@ -245,7 +640,10 @@ header nav a:hover{color:#ff7a00}
   <img class="hero-media" src="images/banner.png" alt="KCANS banner" fetchpriority="high" decoding="async">
   <div class="overlay"></div>
   <div class="content">
-    <h1 id="hero-title"><span class="hero-line-main">Bánh lưới KCANS</span><span class="hero-line-sub">Tinh Hoa Việt Trong Từng Chiếc Bánh</span></h1>
+    <h1 id="hero-title">
+      <span class="hero-line-main">Bánh lưới KCANS</span>
+      <span class="hero-line-sub">Tinh Hoa Việt Trong Từng Chiếc Bánh</span>
+    </h1>
     <p id="hero-sub">Sản xuất trong môi trường đạt chuẩn an toàn thực phẩm. 100% nguyên liệu thật, công thức giòn rụm, đậm vị.</p>
   </div>
 </section>
@@ -280,8 +678,18 @@ header nav a:hover{color:#ff7a00}
 <section id="news" class="section" style="background:var(--white)">
   <h2 class="section-title" id="news-title">Tin Tức</h2>
   <div class="container grid grid-2" id="news-cards">
-    <a class="card" href="#" target="_blank" rel="noopener"><div class="body"><b id="news-1-title">KCANS mở rộng dây chuyền đóng gói tự động</b><small id="news-1-desc">Nâng công suất & tăng chuẩn kiểm soát chất lượng.</small></div></a>
-    <a class="card" href="#" target="_blank" rel="noopener"><div class="body"><b id="news-2-title">Ra mắt hương vị mới cho mùa lễ hội</b><small id="news-2-desc">Đậm vị Việt, phù hợp bán lẻ & TMĐT.</small></div></a>
+    <a class="card" href="#" target="_blank" rel="noopener">
+      <div class="body">
+        <b id="news-1-title">KCANS mở rộng dây chuyền đóng gói tự động</b>
+        <small id="news-1-desc">Nâng công suất & tăng chuẩn kiểm soát chất lượng.</small>
+      </div>
+    </a>
+    <a class="card" href="#" target="_blank" rel="noopener">
+      <div class="body">
+        <b id="news-2-title">Ra mắt hương vị mới cho mùa lễ hội</b>
+        <small id="news-2-desc">Đậm vị Việt, phù hợp bán lẻ & TMĐT.</small>
+      </div>
+    </a>
   </div>
 </section>
 
@@ -289,16 +697,30 @@ header nav a:hover{color:#ff7a00}
 
 <div class="contact-buttons" id="contact-buttons">
   <div class="contact-menu">
-    <a href="tel:+84827556688" class="phone" title="Gọi ngay"><i class="fa-solid fa-phone"></i></a>
-    <a href="https://zalo.me/84827556688" target="_blank" class="zalo" title="Chat Zalo"><i class="fa-solid fa-comment-dots"></i></a>
-    <a href="https://m.me/yumzyfood" target="_blank" class="messenger" title="Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
-    <a href="https://maps.app.goo.gl/YLNhkuWhd1rc5HNX6" target="_blank" class="map" title="Xem bản đồ"><i class="fa-solid fa-map-location-dot"></i></a>
+    <a href="tel:+84827556688" class="phone" title="Gọi ngay">
+      <i class="fa-solid fa-phone"></i>
+    </a>
+    <a href="https://zalo.me/84827556688" target="_blank" class="zalo" title="Chat Zalo">
+      <i class="fa-solid fa-comment-dots"></i>
+    </a>
+    <a href="https://m.me/yumzyfood" target="_blank" class="messenger" title="Messenger">
+      <i class="fa-brands fa-facebook-messenger"></i>
+    </a>
+    <a href="https://maps.app.goo.gl/YLNhkuWhd1rc5HNX6" target="_blank" class="map" title="Xem bản đồ">
+      <i class="fa-solid fa-map-location-dot"></i>
+    </a>
   </div>
-  <button class="contact-toggle" type="button" aria-label="Liên hệ"><i class="fa-solid fa-headset"></i></button>
+
+  <button class="contact-toggle" type="button" aria-label="Liên hệ">
+    <i class="fa-solid fa-headset"></i>
+  </button>
 </div>
 
 <div class="yz-chatbot" aria-label="YumzyBot chat">
-  <button class="yz-chatbot-toggle" type="button" aria-label="Mở cửa sổ chat YumzyBot"><i class="fa-solid fa-robot"></i></button>
+  <button class="yz-chatbot-toggle" type="button" aria-label="Mở cửa sổ chat YumzyBot">
+    <i class="fa-solid fa-robot"></i>
+  </button>
+
   <div class="yz-chatbot-window" role="dialog" aria-modal="false">
     <div class="yz-chatbot-header">
       <div class="yz-chatbot-title">YumzyBot</div>
@@ -307,7 +729,13 @@ header nav a:hover{color:#ff7a00}
     <div class="yz-chatbot-messages"></div>
     <div class="yz-chatbot-status"></div>
     <form class="yz-chatbot-form">
-      <input class="yz-chatbot-input" type="text" autocomplete="off" placeholder="Nhập câu hỏi của bạn..." aria-label="Nội dung câu hỏi" />
+      <input
+        class="yz-chatbot-input"
+        type="text"
+        autocomplete="off"
+        placeholder="Nhập câu hỏi của bạn..."
+        aria-label="Nội dung câu hỏi"
+      />
       <button class="yz-chatbot-send" type="submit">Gửi</button>
     </form>
   </div>
@@ -326,13 +754,16 @@ header nav a:hover{color:#ff7a00}
   </div>
 </div>
 
+
 <div class="cart-backdrop" id="cart-backdrop"></div>
 <aside class="cart-drawer" id="cart-drawer" aria-label="Giỏ hàng">
   <div class="cart-header">
     <h3 id="cart-title">Giỏ hàng</h3>
     <button class="cart-close" id="cart-close" type="button" aria-label="Đóng giỏ hàng"><i class="fa-solid fa-xmark"></i></button>
   </div>
-  <div class="cart-body" id="cart-items"><div class="cart-empty" id="cart-empty">Giỏ hàng của bạn đang trống.</div></div>
+  <div class="cart-body" id="cart-items">
+    <div class="cart-empty" id="cart-empty">Giỏ hàng của bạn đang trống.</div>
+  </div>
   <div class="cart-footer">
     <div class="cart-summary">
       <div class="cart-summary-row"><span id="cart-subtotal-label">Tạm tính</span><strong id="cart-subtotal">0 ₫</strong></div>
@@ -358,8 +789,7 @@ header nav a:hover{color:#ff7a00}
       <div><label for="co-phone" id="co-label-phone">Số điện thoại</label><input id="co-phone" name="phone" required></div>
       <div><label for="co-email" id="co-label-email">Email</label><input id="co-email" type="email" name="email"></div>
       <div><label for="co-address" id="co-label-address">Địa chỉ nhận hàng</label><textarea id="co-address" name="address" rows="3" required></textarea></div>
-      <div>
-        <label for="co-payment" id="co-label-payment">Phương thức thanh toán</label>
+      <div><label for="co-payment" id="co-label-payment">Phương thức thanh toán</label>
         <select class="checkout-select" id="co-payment" name="payment" required>
           <option value="cod">COD - Thanh toán khi nhận hàng</option>
           <option value="bank">Chuyển khoản ngân hàng</option>
@@ -373,204 +803,705 @@ header nav a:hover{color:#ff7a00}
   </div>
 </div>
 
-<noscript>Vui lòng bật JavaScript để gửi form trực tiếp. Nếu không, bạn có thể gửi email tới <a href="mailto:kenvin@yumzyfood.com">kenvin@yumzyfood.com</a>.</noscript>
-
 <script>
-const TEXT={
-  vi:{newsItems:{n1t:"KCANS mở rộng dây chuyền đóng gói tự động",n1d:"Nâng công suất & tăng chuẩn kiểm soát chất lượng.",n2t:"Ra mắt hương vị mới cho mùa lễ hội",n2d:"Đậm vị Việt, phù hợp bán lẻ & TMĐT."},brand:"KCANS By Yumzyfood",nav:{about:"Về chúng tôi",catalog:"Sản phẩm",moments:"Khoảnh khắc KCANS",quote:"Liên hệ báo giá",news:"Tin Tức"},hero:{title:"Bánh lưới KCANS – Tinh Hoa Việt Trong Từng Chiếc Bánh",subtitle:"Sản xuất trong môi trường đạt chuẩn an toàn thực phẩm. 100% nguyên liệu thật, công thức giòn rụm, đậm vị."},about:{title:"Về Yumzyfood"},aboutBody:"Yumzyfood là nhà sản xuất snack tại Việt Nam, ứng dụng công nghệ chiên hiện đại và đóng gói tự động theo tiêu chuẩn <b>HACCP quốc tế</b>.<br><br>Chúng tôi cam kết kiểm soát nghiêm ngặt từng quy trình sản xuất để mang đến những món snack giòn ngon, an toàn và <b>mang đậm hương vị Việt</b>.<br><br><b>Yumzyfood – Nâng Tầm Hương Vị Snack Việt Nam.</b>",catalog:{title:"Danh mục sản phẩm"},moments:{title:"Khoảnh khắc KCANS"},quote:{title:"Liên hệ báo giá",submit:"Gửi yêu cầu"},contact:{name:"Họ và tên",phone:"Số điện thoại",email:"Email",message:"Nội dung yêu cầu"},footer:"© 2025 Yumzyfood. All rights reserved.",product:{view:"Xem chi tiết",add:"Thêm vào giỏ"},cart:{title:"Giỏ hàng",empty:"Giỏ hàng của bạn đang trống.",subtotal:"Tạm tính",total:"Tổng cộng",clear:"Xóa giỏ hàng",checkout:"Thanh toán",remove:"Xóa"},checkout:{title:"Thanh toán đơn hàng",summary:"Tóm tắt đơn hàng",total:"Tổng cộng",name:"Họ và tên",phone:"Số điện thoại",email:"Email",address:"Địa chỉ nhận hàng",payment:"Phương thức thanh toán",note:"Ghi chú",submit:"Đặt hàng",noteText:"Đây là popup checkout mẫu. Bạn có thể nối tiếp với API, Supabase hoặc cổng thanh toán sau."},pay:{cod:"COD - Thanh toán khi nhận hàng",bank:"Chuyển khoản ngân hàng"},alerts:{added:"Đã thêm sản phẩm vào giỏ hàng.",emptyCheckout:"Giỏ hàng đang trống.",cleared:"Đã xóa toàn bộ giỏ hàng.",orderOk:"Đã tạo đơn hàng mẫu. Đang mở email để bạn nhận đơn."}},
-  en:{newsItems:{n1t:"KCANS expands automated packaging line",n1d:"More capacity & tighter quality control.",n2t:"New holiday flavor released",n2d:"Bold Vietnamese taste, built for retail & e-commerce."},brand:"KCANS By Yumzyfood",nav:{about:"About",catalog:"Products",moments:"KCANS Moments",quote:"Request a Quote",news:"News"},hero:{title:"KCANS Mesh Snack – Vietnamese Excellence in Every Bite",subtitle:"Produced in food-safe facilities with real ingredients and bold flavors."},about:{title:"About Yumzyfood"},aboutBody:"Yumzyfood is a Vietnamese snack manufacturer applying advanced frying technology and automatic packaging under <b>international HACCP standards</b>.<br><br>We strictly control every production stage to deliver crispy, safe, and <b>authentically Vietnamese-flavored snacks</b>.<br><br><b>Yumzyfood – Elevating the Taste of Vietnamese Snacks.</b>",catalog:{title:"Product Catalog"},moments:{title:"KCANS Moments"},quote:{title:"Request a Quote",submit:"Send Request"},contact:{name:"Full name",phone:"Phone",email:"Email",message:"Message"},footer:"© 2025 Yumzyfood. All rights reserved.",product:{view:"View details",add:"Add to cart"},cart:{title:"Cart",empty:"Your cart is empty.",subtotal:"Subtotal",total:"Total",clear:"Clear cart",checkout:"Checkout",remove:"Remove"},checkout:{title:"Checkout",summary:"Order summary",total:"Total",name:"Full name",phone:"Phone",email:"Email",address:"Shipping address",payment:"Payment method",note:"Note",submit:"Place order",noteText:"This is a sample checkout popup. You can connect it to an API, Supabase, or a payment gateway later."},pay:{cod:"COD - Cash on delivery",bank:"Bank transfer"},alerts:{added:"Product added to cart.",emptyCheckout:"Cart is empty.",cleared:"Cart cleared.",orderOk:"Sample order created. Opening email draft for you."}},
-  zh:{newsItems:{n1t:"KCANS 扩充自动包装产线",n1d:"提高产能并加强质量控制。",n2t:"节日限定口味上新",n2d:"越南风味浓郁，适合零售与电商。"},brand:"KCANS • Yumzyfood",nav:{about:"关于我们",catalog:"产品目录",moments:"KCANS 瞬间",quote:"联系报价",news:"新闻"},hero:{title:"KCANS 网格小食 — 越南精华，尽在每一口",subtitle:"食品级工厂生产，真材实料，风味浓郁。"},about:{title:"关于 Yumzyfood"},aboutBody:"Yumzyfood 是一家越南零食制造商，采用先进的油炸技术和自动化包装工艺，符合 <b>国际 HACCP 标准</b>。<br><br>我们严格把控每一道生产工序，只为带来香脆、美味、安全且 <b>充满越南风味的零食</b>。<br><br><b>Yumzyfood – 提升越南零食的味觉魅力。</b>",catalog:{title:"产品目录"},moments:{title:"KCANS 瞬间"},quote:{title:"联系报价",submit:"发送请求"},contact:{name:"姓名",phone:"电话",email:"邮箱",message:"留言"},footer:"© 2025 Yumzyfood 保留所有权利。",product:{view:"查看详情",add:"加入购物车"},cart:{title:"购物车",empty:"您的购物车为空。",subtotal:"小计",total:"总计",clear:"清空购物车",checkout:"结算",remove:"删除"},checkout:{title:"订单结算",summary:"订单摘要",total:"总计",name:"姓名",phone:"电话",email:"邮箱",address:"收货地址",payment:"支付方式",note:"备注",submit:"提交订单",noteText:"这是一个示例结算弹窗。之后可接入 API、Supabase 或支付网关。"},pay:{cod:"货到付款",bank:"银行转账"},alerts:{added:"商品已加入购物车。",emptyCheckout:"购物车为空。",cleared:"购物车已清空。",orderOk:"示例订单已创建，正在打开邮件草稿。"}},
-  ko:{newsItems:{n1t:"KCANS 자동 포장 라인 증설",n1d:"생산능력 확대 및 품질관리 강화.",n2t:"홀리데이 한정 신맛 출시",n2d:"베트남 풍미, 리테일/이커머스 적합."},brand:"KCANS By Yumzyfood",nav:{about:"회사 소개",catalog:"제품",moments:"KCANS Moments",quote:"견적 문의",news:"뉴스"},hero:{title:"KCANS 메쉬 스낵 – 베트남의 정수, 한입 한입에",subtitle:"식품 안전 공장에서 생산된 진짜 재료, 진한 풍미."},about:{title:"Yumzyfood 소개"},aboutBody:"Yumzyfood는 첨단 튀김 기술과 자동 포장 시스템을 갖춘 베트남의 스낵 제조업체로, <b>국제 HACCP 기준</b>을 준수합니다.<br><br>모든 생산 공정을 철저히 관리하여 바삭하고 안전하며 <b>베트남의 풍미가 가득한 스낵</b>을 제공합니다.<br><br><b>Yumzyfood – 베트남 스낵의 맛을 한 단계 높이다.</b>",catalog:{title:"제품 카탈로그"},moments:{title:"KCANS Moments"},quote:{title:"견적 문의",submit:"요청 보내기"},contact:{name:"이름",phone:"전화번호",email:"이메일",message:"메시지"},footer:"© 2025 Yumzyfood. All rights reserved.",product:{view:"자세히 보기",add:"장바구니 담기"},cart:{title:"장바구니",empty:"장바구니가 비어 있습니다.",subtotal:"소계",total:"합계",clear:"장바구니 비우기",checkout:"결제",remove:"삭제"},checkout:{title:"주문 결제",summary:"주문 요약",total:"합계",name:"이름",phone:"전화번호",email:"이메일",address:"배송 주소",payment:"결제 방법",note:"메모",submit:"주문하기",noteText:"샘플 결제 팝업입니다. 이후 API, Supabase, 결제 게이트웨이와 연결할 수 있습니다."},pay:{cod:"착불 결제",bank:"계좌이체"},alerts:{added:"상품이 장바구니에 추가되었습니다.",emptyCheckout:"장바구니가 비어 있습니다.",cleared:"장바구니를 비웠습니다.",orderOk:"샘플 주문이 생성되어 이메일 초안을 엽니다."}}
+const TEXT = {
+ vi:{ "newsItems": {"n1t":"KCANS mở rộng dây chuyền đóng gói tự động","n1d":"Nâng công suất & tăng chuẩn kiểm soát chất lượng.","n2t":"Ra mắt hương vị mới cho mùa lễ hội","n2d":"Đậm vị Việt, phù hợp bán lẻ & TMĐT."}, brand:"KCANS By Yumzyfood",nav:{about:"Về chúng tôi",catalog:"Sản phẩm",moments:"Khoảnh khắc KCANS"},hero:{title:"Bánh lưới KCANS – Tinh Hoa Việt Trong Từng Chiếc Bánh",subtitle:"Sản xuất trong môi trường đạt chuẩn an toàn thực phẩm. 100% nguyên liệu thật, công thức giòn rụm, đậm vị."},about:{title:"Về Yumzyfood"},aboutBody:"Yumzyfood là nhà sản xuất snack tại Việt Nam, ứng dụng công nghệ chiên hiện đại và đóng gói tự động theo tiêu chuẩn <b>HACCP quốc tế</b>.<br><br>Chúng tôi cam kết kiểm soát nghiêm ngặt từng quy trình sản xuất để mang đến những món snack giòn ngon, an toàn và <b>mang đậm hương vị Việt</b>.<br><br><b>Yumzyfood – Nâng Tầm Hương Vị Snack Việt Nam.</b>",catalog:{title:"Danh mục sản phẩm"},moments:{title:"Khoảnh khắc KCANS"},quote:{title:"Liên hệ báo giá",submit:"Gửi yêu cầu"},contact:{name:"Họ và tên",phone:"Số điện thoại",email:"Email",message:"Nội dung yêu cầu"},footer:"© 2025 Yumzyfood. All rights reserved."},
+ en:{ "newsItems": {"n1t":"KCANS expands automated packaging line","n1d":"More capacity & tighter quality control.","n2t":"New holiday flavor released","n2d":"Bold Vietnamese taste, built for retail & e-commerce."}, brand:"KCANS By Yumzyfood",nav:{about:"About",catalog:"Products",moments:"KCANS Moments"},hero:{title:"KCANS Mesh Snack – Vietnamese Excellence in Every Bite",subtitle:"Produced in food-safe facilities with real ingredients and bold flavors."},about:{title:"About Yumzyfood"},aboutBody:"Yumzyfood is a Vietnamese snack manufacturer applying advanced frying technology and automatic packaging under <b>international HACCP standards</b>.<br><br>We strictly control every production stage to deliver crispy, safe, and <b>authentically Vietnamese-flavored snacks</b>.<br><br><b>Yumzyfood – Elevating the Taste of Vietnamese Snacks.</b>",catalog:{title:"Product Catalog"},moments:{title:"KCANS Moments"},quote:{title:"Request a Quote",submit:"Send Request"},contact:{name:"Full name",phone:"Phone",email:"Email",message:"Message"},footer:"© 2025 Yumzyfood. All rights reserved."},
+ zh:{ "newsItems": {"n1t":"KCANS 扩充自动包装产线","n1d":"提高产能并加强质量控制。","n2t":"节日限定口味上新","n2d":"越南风味浓郁，适合零售与电商。"}, brand:"KCANS • Yumzyfood",nav:{about:"关于我们",catalog:"产品目录",moments:"KCANS 瞬间"},hero:{title:"KCANS 网格小食 — 越南精华，尽在每一口",subtitle:"食品级工厂生产，真材实料，风味浓郁。"},about:{title:"关于 Yumzyfood"},aboutBody:"Yumzyfood 是一家越南零食制造商，采用先进的油炸技术和自动化包装工艺，符合 <b>国际 HACCP 标准</b>。<br><br>我们严格把控每一道生产工序，只为带来香脆、美味、安全且 <b>充满越南风味的零食</b>。<br><br><b>Yumzyfood – 提升越南零食的味觉魅力。</b>",catalog:{title:"产品目录"},moments:{title:"KCANS 瞬间"},quote:{title:"联系报价",submit:"发送请求"},contact:{name:"姓名",phone:"电话",email:"邮箱",message:"留言"},footer:"© 2025 Yumzyfood 保留所有权利。"},
+ ko:{ "newsItems": {"n1t":"KCANS 자동 포장 라인 증설","n1d":"생산능력 확대 및 품질관리 강화.","n2t":"홀리데이 한정 신맛 출시","n2d":"베트남 풍미, 리테일/이커머스 적합."}, brand:"KCANS By Yumzyfood",nav:{about:"회사 소개",catalog:"제품",moments:"KCANS Moments"},hero:{title:"KCANS 메쉬 스낵 – 베트남의 정수, 한입 한입에",subtitle:"식품 안전 공장에서 생산된 진짜 재료, 진한 풍미."},about:{title:"Yumzyfood 소개"},aboutBody:"Yumzyfood는 첨단 튀김 기술과 자동 포장 시스템을 갖춘 베트남의 스낵 제조업체로, <b>국제 HACCP 기준</b>을 준수합니다.<br><br>모든 생산 공정을 철저히 관리하여 바삭하고 안전하며 <b>베트남의 풍미가 가득한 스낵</b>을 제공합니다.<br><br><b>Yumzyfood – 베트남 스낵의 맛을 한 단계 높이다.</b>",catalog:{title:"제품 카탈로그"},moments:{title:"KCANS Moments"},quote:{title:"견적 문의",submit:"요청 보내기"},contact:{name:"이름",phone:"전화번호",email:"이메일",message:"메시지"},footer:"© 2025 Yumzyfood. All rights reserved."}
 };
 
 const PRODUCTS=[
-  {id:"cha-bong",img:"images/product-cha-bong.jpg",name:{vi:"Bánh lưới KCANS – Vị Chà Bông",en:"KCANS Mesh – Pork Floss",zh:"KCANS 网格饼 – 猪肉松",ko:"KCANS 메쉬 – 포크플로스"},desc:{vi:"Giòn rụm, đậm đà thịt thật.",en:"Crunchy with real pork floss.",zh:"香脆可口，真肉松加持。",ko:"바삭함과 진한 고기 맛."},href:"product-cha-bong.html",price:55000},
-  {id:"tom",img:"images/product-tom.jpg",name:{vi:"Bánh lưới KCANS – Vị Tôm",en:"KCANS Mesh – Shrimp",zh:"KCANS 网格饼 – 虾味",ko:"KCANS 메쉬 – 새우맛"},desc:{vi:"Hương vị tôm đặc trưng.",en:"Signature dried-shrimp flavor.",zh:"独特的干虾风味。",ko:"특유의 건새우 풍미."},href:"product-tom.html",price:55000}
+ {id:"cha-bong",img:"images/product-cha-bong.jpg",
+  name:{vi:"Bánh lưới KCANS – Vị Chà Bông",en:"KCANS Mesh – Pork Floss",zh:"KCANS 网格饼 – 猪肉松",ko:"KCANS 메쉬 – 포크플로스"},
+  desc:{vi:"Giòn rụm, đậm đà thịt thật.",en:"Crunchy with real pork floss.",zh:"香脆可口，真肉松加持。",ko:"바삭함과 진한 고기 맛."},
+  href:"product-cha-bong.html",price:55000},
+ {id:"tom",img:"images/product-tom.jpg",
+  name:{vi:"Bánh lưới KCANS – Vị Tôm",en:"KCANS Mesh – Shrimp",zh:"KCANS 网格饼 – 虾味",ko:"KCANS 메쉬 – 새우맛"},
+  desc:{vi:"Hương vị tôm đặc trưng.",en:"Signature dried-shrimp flavor.",zh:"独特的干虾风味。",ko:"특유의 건새우 풍미."},
+  href:"product-tom.html",price:55000}
 ];
 
-const CART_KEY='YUMZYFOOD_CART_V1';
 const $=s=>document.querySelector(s);
 let LANG='vi';
-let cart=loadCart();
-
-function formatMoney(amount){try{return new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND',maximumFractionDigits:0}).format(Number(amount||0))}catch(_){return (Number(amount||0)).toLocaleString('vi-VN')+' ₫'}}
-function loadCart(){try{const raw=localStorage.getItem(CART_KEY);const parsed=raw?JSON.parse(raw):[];return Array.isArray(parsed)?parsed:[]}catch(_){return []}}
-function saveCart(){localStorage.setItem(CART_KEY,JSON.stringify(cart))}
-function getProductById(id){return PRODUCTS.find(p=>p.id===id)}
-function getCartCount(){return cart.reduce((sum,item)=>sum+Number(item.qty||0),0)}
-function getCartTotal(){return cart.reduce((sum,item)=>sum+(Number(item.price||0)*Number(item.qty||0)),0)}
-function syncCartBadge(){const badge=$('#cart-count');if(badge)badge.textContent=getCartCount()}
-function addToCart(productId){const product=getProductById(productId);if(!product)return;const existing=cart.find(item=>item.id===productId);if(existing){existing.qty+=1}else{cart.push({id:product.id,qty:1,price:product.price})}saveCart();syncCartBadge();renderCart();alert((TEXT[LANG]&&TEXT[LANG].alerts.added)||TEXT.vi.alerts.added)}
-function updateCartItem(productId,nextQty){const index=cart.findIndex(item=>item.id===productId);if(index===-1)return;if(nextQty<=0){cart.splice(index,1)}else{cart[index].qty=nextQty}saveCart();syncCartBadge();renderCart()}
-function clearCart(){cart=[];saveCart();syncCartBadge();renderCart();alert((TEXT[LANG]&&TEXT[LANG].alerts.cleared)||TEXT.vi.alerts.cleared)}
 
 function renderLang(lang){
-  LANG=(TEXT[lang]?lang:'vi');
-  const L=TEXT[LANG];
-  document.documentElement.lang=LANG;
-  document.title="Yumzyfood - Make With Care, Share With Love";
-  $('#brand').textContent=L.brand;
-  $('#nav-about').textContent=L.nav.about;
-  $('#nav-catalog').textContent=L.nav.catalog;
-  $('#nav-moments').textContent=L.nav.moments;
-  $('#nav-quote').textContent=L.nav.quote;
-  $('#nav-news').textContent=L.nav.news;
-  const heroEl=$('#hero-title');
-  if(heroEl){
-    const raw=L.hero.title||'';
-    const parts=raw.split('–');
-    const main=(parts[0]||raw).trim();
-    const sub=(parts[1]||'').trim();
-    heroEl.innerHTML='<span class="hero-line-main">'+main+'</span>'+(sub?'<span class="hero-line-sub">'+sub+'</span>':'');
+  try { translateNavNews(lang); } catch(e){}
+
+  LANG=lang; const L=TEXT[lang]||TEXT.vi;
+  document.documentElement.lang=lang;
+  document.title = "Yumzyfood - Make With Care, Share With Love";
+  document.getElementById('brand').textContent=L.brand;
+  document.getElementById('nav-about').textContent=L.nav.about;
+  document.getElementById('nav-catalog').textContent=L.nav.catalog;
+  document.getElementById('nav-moments').textContent=L.nav.moments;
+  document.getElementById('nav-quote').textContent=L.quote.title;
+
+  const heroEl = document.getElementById('hero-title');
+  if (heroEl) {
+    const raw = L.hero.title || '';
+    const parts = raw.split('–');
+    const main = (parts[0] || raw).trim();
+    const sub  = (parts[1] || '').trim();
+    heroEl.innerHTML =
+      '<span class="hero-line-main">' + main + '</span>' +
+      (sub ? '<span class="hero-line-sub">' + sub + '</span>' : '');
   }
-  $('#hero-sub').textContent=L.hero.subtitle;
-  $('#about-title').textContent=L.about.title;
-  $('#about-body').innerHTML=L.aboutBody;
-  $('#catalog-title').textContent=L.catalog.title;
-  $('#moments-title').textContent=L.moments.title;
-  $('#footer-copy').textContent=L.footer;
-  $('#news-title').textContent=L.nav.news;
-  $('#quote-title').textContent=L.quote.title;
-  $('#q-btn-submit').textContent=L.quote.submit;
-  $('#q-label-name').textContent=L.contact.name;
-  $('#q-label-phone').textContent=L.contact.phone;
-  $('#q-label-email').textContent=L.contact.email;
-  $('#q-label-message').textContent=L.contact.message;
-  $('#news-1-title').textContent=L.newsItems.n1t;
-  $('#news-1-desc').textContent=L.newsItems.n1d;
-  $('#news-2-title').textContent=L.newsItems.n2t;
-  $('#news-2-desc').textContent=L.newsItems.n2d;
-  $('#cart-title').textContent=L.cart.title;
-  $('#cart-subtotal-label').textContent=L.cart.subtotal;
-  $('#cart-total-label').textContent=L.cart.total;
-  $('#cart-clear').textContent=L.cart.clear;
-  $('#checkout-open').textContent=L.cart.checkout;
-  $('#checkout-title').textContent=L.checkout.title;
-  $('#checkout-summary-title').textContent=L.checkout.summary;
-  $('#checkout-total-label').textContent=L.checkout.total;
-  $('#co-label-name').textContent=L.checkout.name;
-  $('#co-label-phone').textContent=L.checkout.phone;
-  $('#co-label-email').textContent=L.checkout.email;
-  $('#co-label-address').textContent=L.checkout.address;
-  $('#co-label-payment').textContent=L.checkout.payment;
-  $('#co-label-note').textContent=L.checkout.note;
-  $('#checkout-submit').textContent=L.checkout.submit;
-  $('#checkout-note').textContent=L.checkout.noteText;
-  $('#co-payment').options[0].textContent=L.pay.cod;
-  $('#co-payment').options[1].textContent=L.pay.bank;
+
+  document.getElementById('hero-sub').textContent=L.hero.subtitle;
+  document.getElementById('about-title').textContent=L.about.title;
+  document.getElementById('about-body').innerHTML = L.aboutBody;
+  document.getElementById('catalog-title').textContent=L.catalog.title;
+  document.getElementById('moments-title').textContent=L.moments.title;
+  document.getElementById('footer-copy').textContent=L.footer;
   renderCards();
-  renderCart();
+  if (window.renderCartUITexts) window.renderCartUITexts();
+  if (window.renderCart) window.renderCart();
+  if (L.newsItems) {
+    const _t = (vi, en, zh, ko) => (lang === 'vi' ? vi : (lang === 'en' ? en : (lang === 'zh' ? zh : ko)));
+    const newsTitleEl = document.getElementById('news-title');
+    if (newsTitleEl) newsTitleEl.textContent = _t('Tin Tức','News','新闻','뉴스');
+
+    const n1t = document.getElementById('news-1-title');
+    const n1d = document.getElementById('news-1-desc');
+    const n2t = document.getElementById('news-2-title');
+    const n2d = document.getElementById('news-2-desc');
+
+    if (n1t) n1t.textContent = L.newsItems.n1t;
+    if (n1d) n1d.textContent = L.newsItems.n1d;
+    if (n2t) n2t.textContent = L.newsItems.n2t;
+    if (n2d) n2d.textContent = L.newsItems.n2d;
+  }
 }
 
 function renderCards(){
-  const L=TEXT[LANG]||TEXT.vi;
-  $('#cards').innerHTML=PRODUCTS.map(p=>`<div class="card"><img src="${p.img}" alt="product"><div class="body"><b>${p.name[LANG]||p.name.vi}</b><small>${p.desc[LANG]||p.desc.vi}</small><div class="product-price">${formatMoney(p.price)}</div><div class="product-actions"><a class="ghost-btn" href="${p.href}?lang=${LANG}">${L.product.view}</a><button class="add-cart-btn" type="button" data-add-cart="${p.id}">${L.product.add}</button></div></div></div>`).join('');
-  document.querySelectorAll('[data-add-cart]').forEach(btn=>btn.addEventListener('click',function(){addToCart(this.getAttribute('data-add-cart'))}));
+  const labels = {
+    vi:{view:"Xem chi tiết",add:"Thêm vào giỏ"},
+    en:{view:"View details",add:"Add to cart"},
+    zh:{view:"查看详情",add:"加入购物车"},
+    ko:{view:"자세히 보기",add:"장바구니 담기"}
+  };
+  const t = labels[LANG] || labels.vi;
+  const html = PRODUCTS.map(p=>`
+    <div class="card">
+      <img src="${p.img}" alt="product">
+      <div class="body">
+        <b>${p.name[LANG]}</b>
+        <small>${p.desc[LANG]}</small>
+        <div class="product-price">${formatMoney(p.price)}</div>
+        <div class="product-actions">
+          <a class="ghost-btn" href="${p.href}?lang=${LANG}" style="text-decoration:none;color:inherit">${t.view}</a>
+          <button class="add-cart-btn" type="button" data-add-cart="${p.id}">${t.add}</button>
+        </div>
+      </div>
+    </div>`).join('');
+  document.getElementById('cards').innerHTML = html;
+  document.querySelectorAll('[data-add-cart]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      addToCart(this.getAttribute('data-add-cart'));
+    });
+  });
 }
 
-function renderCart(){
-  const L=TEXT[LANG]||TEXT.vi;
-  const container=$('#cart-items');
-  const checkoutItems=$('#checkout-items');
-  if(!cart.length){
-    container.innerHTML='<div class="cart-empty">'+L.cart.empty+'</div>';
-    checkoutItems.innerHTML='<div class="cart-empty" style="padding:8px 0">'+L.cart.empty+'</div>';
-  }else{
-    container.innerHTML=cart.map(item=>{const product=getProductById(item.id);if(!product)return'';return `<div class="cart-item"><img src="${product.img}" alt="${product.name[LANG]||product.name.vi}"><div><div class="cart-item-title">${product.name[LANG]||product.name.vi}</div><div class="cart-item-desc">${product.desc[LANG]||product.desc.vi}</div><div class="cart-item-price">${formatMoney(item.qty*item.price)}</div><div class="cart-item-controls"><div class="qty-box"><button type="button" data-qty-minus="${product.id}">−</button><span>${item.qty}</span><button type="button" data-qty-plus="${product.id}">+</button></div><button class="cart-remove" type="button" data-remove-item="${product.id}">${L.cart.remove}</button></div></div></div>`}).join('');
-    checkoutItems.innerHTML=cart.map(item=>{const product=getProductById(item.id);if(!product)return'';return `<div class="order-item-line"><span>${product.name[LANG]||product.name.vi} × ${item.qty}</span><strong>${formatMoney(item.qty*item.price)}</strong></div>`}).join('');
-  }
-  $('#cart-subtotal').textContent=formatMoney(getCartTotal());
-  $('#cart-total').textContent=formatMoney(getCartTotal());
-  $('#checkout-grand-total').textContent=formatMoney(getCartTotal());
-  document.querySelectorAll('[data-qty-minus]').forEach(btn=>btn.onclick=()=>{const id=btn.getAttribute('data-qty-minus');const item=cart.find(x=>x.id===id);if(item)updateCartItem(id,item.qty-1)});
-  document.querySelectorAll('[data-qty-plus]').forEach(btn=>btn.onclick=()=>{const id=btn.getAttribute('data-qty-plus');const item=cart.find(x=>x.id===id);if(item)updateCartItem(id,item.qty+1)});
-  document.querySelectorAll('[data-remove-item]').forEach(btn=>btn.onclick=()=>updateCartItem(btn.getAttribute('data-remove-item'),0));
-  syncCartBadge();
-}
-
-function openCart(){$('#cart-drawer').classList.add('open');$('#cart-backdrop').classList.add('open')}
-function closeCart(){$('#cart-drawer').classList.remove('open');$('#cart-backdrop').classList.remove('open')}
-function openCheckout(){if(!cart.length){alert((TEXT[LANG]&&TEXT[LANG].alerts.emptyCheckout)||TEXT.vi.alerts.emptyCheckout);return}$('#checkout-modal').classList.add('open')}
-function closeCheckout(){$('#checkout-modal').classList.remove('open')}
-function toggleBankInfo(){const payment=$('#co-payment').value;$('#bank-box').classList.toggle('show',payment==='bank')}
-
-$('#lang').addEventListener('change',e=>{const v=e.target.value;renderLang(v);const u=new URL(location.href);u.searchParams.set('lang',v);history.replaceState({},'',u.toString())});
-$('#nav-quote').addEventListener('click',e=>{e.preventDefault();$('#quote-modal').classList.add('open')});
-$('#quote-form').addEventListener('submit',e=>{e.preventDefault();const fd=new FormData(e.target);const d=Object.fromEntries(fd.entries());const subject=encodeURIComponent('[KCANS] Yêu Cầu Báo Giá – '+(d.name||''));const body=encodeURIComponent(`Name: ${d.name}\nPhone: ${d.phone}\nEmail: ${d.email}\nMessage:\n${d.message}`);const gmail=`https://mail.google.com/mail/?view=cm&fs=1&to=kenvin@yumzyfood.com&su=${subject}&body=${body}`;const opened=window.open(gmail,'_blank');if(!opened){location.href=`mailto:kenvin@yumzyfood.com?subject=${subject}&body=${body}`}$('#quote-modal').classList.remove('open')});
-$('#cart-toggle').addEventListener('click',openCart);
-$('#cart-close').addEventListener('click',closeCart);
-$('#cart-backdrop').addEventListener('click',closeCart);
-$('#cart-clear').addEventListener('click',()=>{if(cart.length)clearCart()});
-$('#checkout-open').addEventListener('click',openCheckout);
-$('#co-payment').addEventListener('change',toggleBankInfo);
-
-$('#checkout-form').addEventListener('submit',function(e){
+document.getElementById('lang').addEventListener('change', e=>{
+  const v=e.target.value;
+  renderLang(v);
+  const u=new URL(location.href);
+  u.searchParams.set('lang', v);
+  history.replaceState({}, '', u.toString());
+});
+document.getElementById('nav-quote').addEventListener('click', e=>{
   e.preventDefault();
-  if(!cart.length){alert((TEXT[LANG]&&TEXT[LANG].alerts.emptyCheckout)||TEXT.vi.alerts.emptyCheckout);return}
-  const fd=new FormData(this);
-  const d=Object.fromEntries(fd.entries());
-  const lines=cart.map(item=>{const product=getProductById(item.id);return product?`- ${(product.name[LANG]||product.name.vi)} x ${item.qty} = ${formatMoney(item.qty*item.price)}`:''}).filter(Boolean).join('\n');
-  const paymentLabel=d.payment==='bank'?'Chuyen khoan':'COD';
-  const subject=encodeURIComponent('[KCANS] Don Hang Moi - '+(d.name||''));
-  const body=encodeURIComponent(`Khach hang: ${d.name||''}\nSo dien thoai: ${d.phone||''}\nEmail: ${d.email||''}\nDia chi: ${d.address||''}\nThanh toan: ${paymentLabel}\nGhi chu: ${d.note||''}\n\nChi tiet don hang:\n${lines}\n\nTong cong: ${formatMoney(getCartTotal())}`);
+  document.getElementById('quote-modal').classList.add('open')
+});
+document.getElementById('quote-form').addEventListener('submit', e=>{
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const d = Object.fromEntries(fd.entries());
+  const subject = encodeURIComponent('[KCANS] Yêu Cầu Báo Giá – ' + (d.name||''));
+  const body = encodeURIComponent(`Name: ${d.name}\nPhone: ${d.phone}\nEmail: ${d.email}\nMessage:\n${d.message}`);
   const gmail=`https://mail.google.com/mail/?view=cm&fs=1&to=kenvin@yumzyfood.com&su=${subject}&body=${body}`;
   const opened=window.open(gmail,'_blank');
-  if(!opened){location.href=`mailto:kenvin@yumzyfood.com?subject=${subject}&body=${body}`}
-  alert((TEXT[LANG]&&TEXT[LANG].alerts.orderOk)||TEXT.vi.alerts.orderOk);
-  cart=[];saveCart();syncCartBadge();renderCart();this.reset();toggleBankInfo();closeCheckout();closeCart();
+  if(!opened){
+    location.href = `mailto:kenvin@yumzyfood.com?subject=${subject}&body=${body}`;
+  }
+  document.getElementById('quote-modal').classList.remove('open');
+});
+window.addEventListener('keydown',e=>{
+  if(e.key==='Escape') document.getElementById('quote-modal').classList.remove('open');
+});
+document.getElementById('quote-modal').addEventListener('click',e=>{
+  if(e.target.id==='quote-modal') e.currentTarget.classList.remove('open');
 });
 
-window.addEventListener('keydown',e=>{if(e.key==='Escape'){$('#quote-modal').classList.remove('open');closeCheckout();closeCart()}});
-$('#quote-modal').addEventListener('click',e=>{if(e.target.id==='quote-modal')e.currentTarget.classList.remove('open')});
-$('#checkout-modal').addEventListener('click',e=>{if(e.target.id==='checkout-modal')closeCheckout()});
+const init = new URLSearchParams(location.search).get('lang')||'vi';
+document.getElementById('lang').value = init;
+renderLang(init);
 
-const init=new URLSearchParams(location.search).get('lang')||'vi';
-$('#lang').value=(TEXT[init]?init:'vi');
-renderLang($('#lang').value);
-toggleBankInfo();
-</script>
-
-<script>
 (function(){
-  var btn=document.getElementById('menu-toggle');
-  var nav=document.querySelector('header nav');
-  if(!btn||!nav)return;
-  btn.addEventListener('click',function(){nav.classList.toggle('open')});
-  nav.addEventListener('click',function(e){if(e.target.tagName==='A'){nav.classList.remove('open')}});
-  window.addEventListener('resize',function(){if(window.innerWidth>768){nav.classList.remove('open')}})
+  if (window.__navNewsPatched__) return;
+  window.__navNewsPatched__ = true;
+  window.NAV_NEWS_I18N = { vi: "Tin Tức", en: "News", zh: "新闻", ko: "뉴스" };
+  window.translateNavNews = function(lang){
+    try {
+      var label = (window.NAV_NEWS_I18N[lang] || window.NAV_NEWS_I18N.vi);
+      var nodes = Array.from(document.querySelectorAll('a[href*="#news"],a[href$="#tin-tuc"],a[data-i18n-key="news"],a[data-section="news"]'));
+      if (nodes.length === 0) {
+        var variants = [/^tin\s*t[ứu]c$/i, /^news$/i, /^新闻$/, /^뉴스$/];
+        var navLinks = Array.from(document.querySelectorAll("nav a, header a, .menu a, .navbar a"));
+        for (var i=0; i<navLinks.length; i++){
+          var t = (navLinks[i].textContent || "").trim();
+          if (variants.some(v => v.test(t))) { nodes = [navLinks[i]]; break; }
+        }
+      }
+      nodes.forEach(function(el){ el.textContent = label; });
+    } catch(e) {}
+  };
 })();
 </script>
 
 <script>
 (function(){
-  var container=document.querySelector('.yz-chatbot');
-  if(!container)return;
-  var toggleBtn=container.querySelector('.yz-chatbot-toggle');
-  var messagesEl=container.querySelector('.yz-chatbot-messages');
-  var statusEl=container.querySelector('.yz-chatbot-status');
-  var formEl=container.querySelector('.yz-chatbot-form');
-  var inputEl=container.querySelector('.yz-chatbot-input');
-  var sendBtn=container.querySelector('.yz-chatbot-send');
-  if(!toggleBtn||!messagesEl||!formEl||!inputEl||!sendBtn)return;
-  function addMessage(role,text){var div=document.createElement('div');div.className='yz-chatbot-message '+(role==='user'?'yz-chatbot-message--user':'yz-chatbot-message--bot');div.textContent=text;messagesEl.appendChild(div);messagesEl.scrollTop=messagesEl.scrollHeight}
-  addMessage('bot','Chào bạn! YumzyBot sẵn sàng hỗ trợ bạn về KCANS và các sản phẩm của Yumzyfood.');
-  toggleBtn.addEventListener('click',function(){container.classList.toggle('yz-chatbot--open')});
-  formEl.addEventListener('submit',function(e){e.preventDefault();var text=(inputEl.value||'').trim();if(!text)return;addMessage('user',text);inputEl.value='';inputEl.focus();statusEl.textContent='YumzyBot đang trả lời...';sendBtn.disabled=true;fetch('/api/pi-chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text})}).then(function(res){if(!res.ok)throw new Error('HTTP '+res.status);return res.json()}).then(function(data){var reply=(data&&(data.reply||data.answer||data.message))||'Xin lỗi, YumzyBot đang bận. Bạn thử lại giúp mình nhé.';addMessage('bot',reply)}).catch(function(err){console.error(err);addMessage('bot','Có lỗi kết nối tới server. Bạn vui lòng thử lại sau ít phút nhé.')}).finally(function(){statusEl.textContent='';sendBtn.disabled=false})})
+  function findForm(){
+    return document.getElementById('contactForm') ||
+           document.querySelector('form[data-contact="true"]') ||
+           document.querySelector('#contact form') ||
+           document.querySelector('form[action*="mailto"]');
+  }
+  const form = findForm();
+  if(!form) return;
+  if(form.dataset.ajaxBound === "true") return;
+  form.dataset.ajaxBound = "true";
+
+  form.addEventListener('submit', async function(e){
+    try {
+      if(form.hasAttribute('data-mailto-only')) return;
+      e.preventDefault();
+      const fd = new FormData(form);
+      const payload = Object.fromEntries(fd.entries());
+      if(!payload.email || !payload.message){
+        alert('Vui lòng nhập email và nội dung liên hệ.');
+        return;
+      }
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if(res.ok){
+        alert('✅ Gửi email thành công! Cảm ơn bạn đã liên hệ Yumzyfood.');
+        form.reset();
+      } else {
+        const to = 'kenvin@yumzyfood.com';
+        const subject = encodeURIComponent(payload.subject || 'Báo giá / Liên hệ Yumzyfood');
+        const body = encodeURIComponent(
+          (payload.name ? 'Họ tên: ' + payload.name + '\n' : '') +
+          'Email: ' + (payload.email || '') + '\n' +
+          (payload.phone ? 'Điện thoại: ' + payload.phone + '\n' : '') +
+          '\nNội dung:\n' + (payload.message || '')
+        );
+        window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+      }
+    } catch(err){
+      console.error(err);
+      alert('❌ Có lỗi xảy ra, vui lòng thử lại.');
+    }
+  }, { passive: false });
 })();
 </script>
 
 <script>
-(function(){
-  var wrapper=document.getElementById('contact-buttons');
-  if(!wrapper)return;
-  var toggle=wrapper.querySelector('.contact-toggle');
-  if(!toggle)return;
-  var chatbot=document.querySelector('.yz-chatbot');
-  function setChatbotHidden(hide){if(!chatbot)return;chatbot.classList.toggle('yz-chatbot--hidden',!!hide)}
-  toggle.addEventListener('click',function(){wrapper.classList.toggle('open');setChatbotHidden(wrapper.classList.contains('open'))});
-  toggle.addEventListener('mouseenter',function(){setChatbotHidden(true)});
-  toggle.addEventListener('mouseleave',function(){if(!wrapper.classList.contains('open')){setChatbotHidden(false)}})
+(function () {
+  var orig = document.getElementById('quote-form');
+  if (!orig) return;
+
+  var form = orig.cloneNode(true);
+  orig.parentNode.replaceChild(form, orig);
+
+  var hp = form.querySelector('input[name="company"]');
+  if (!hp) {
+    hp = document.createElement('input');
+    hp.type = 'text';
+    hp.name = 'company';
+    hp.autocomplete = 'off';
+    hp.tabIndex = -1;
+    hp.setAttribute('aria-hidden', 'true');
+    hp.style.position = 'absolute';
+    hp.style.left = '-9999px';
+    form.appendChild(hp);
+  }
+  var ts = form.querySelector('input[name="ts"]');
+  if (!ts) {
+    ts = document.createElement('input');
+    ts.type = 'hidden';
+    ts.name = 'ts';
+    form.appendChild(ts);
+  }
+
+  function setTsOnce() {
+    if (!ts.value) ts.value = Date.now();
+  }
+  form.addEventListener('focusin', setTsOnce, { once: true });
+  var modal = document.getElementById('quote-modal');
+  if (modal) {
+    modal.addEventListener('click', function (e) {
+      if (e.target && (e.target.closest('#quote-form') || e.target.id === 'quote-modal')) setTsOnce();
+    });
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var fd = new FormData(form);
+    var data = Object.fromEntries(fd.entries());
+
+    if (data.company) { alert('❌ Spam detected.'); return; }
+    var now = Date.now();
+    var started = parseInt(data.ts || '0', 10);
+    if (!started || isNaN(started) || (now - started) < 2500) { alert('❌ Gửi quá nhanh.'); return; }
+    if ((now - started) > 30 * 60 * 1000) { alert('❌ Hết phiên form, vui lòng nhập lại.'); return; }
+
+    function buildBody(d) {
+      return (
+        (d.name ? 'Họ tên: ' + d.name + '\n' : '') +
+        (d.phone ? 'Điện thoại: ' + d.phone + '\n' : '') +
+        (d.email ? 'Email: ' + d.email + '\n' : '') +
+        '\nNội dung:\n' + (d.message || '')
+      );
+    }
+
+    try {
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        alert('✅ Gửi email thành công! Cảm ơn bạn đã liên hệ Yumzyfood.');
+        form.reset();
+        if (modal) modal.classList.remove('open');
+        return;
+      }
+    } catch (_) {}
+
+    var to = 'kenvin@yumzyfood.com';
+    var subject = encodeURIComponent('[KCANS] Yêu Cầu Báo Giá – ' + (data.name || ''));
+    var body = encodeURIComponent(buildBody(data));
+    window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+    if (modal) modal.classList.remove('open');
+  }, { passive: false });
 })();
 </script>
+
+<script>
+(function () {
+  var btn = document.getElementById('menu-toggle');
+  var nav = document.querySelector('header nav');
+  if (!btn || !nav) return;
+
+  btn.addEventListener('click', function () {
+    nav.classList.toggle('open');
+  });
+
+  nav.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') {
+      nav.classList.remove('open');
+    }
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 768) {
+      nav.classList.remove('open');
+    }
+  });
+})();
+</script>
+
+<noscript>Vui lòng bật JavaScript để gửi form trực tiếp. Nếu không, bạn có thể gửi email tới <a href="mailto:kenvin@yumzyfood.com">kenvin@yumzyfood.com</a>.</noscript>
+
+<script>
+(function () {
+  var container = document.querySelector('.yz-chatbot');
+  if (!container) return;
+
+  var toggleBtn = container.querySelector('.yz-chatbot-toggle');
+  var windowEl = container.querySelector('.yz-chatbot-window');
+  var messagesEl = container.querySelector('.yz-chatbot-messages');
+  var statusEl = container.querySelector('.yz-chatbot-status');
+  var formEl = container.querySelector('.yz-chatbot-form');
+  var inputEl = container.querySelector('.yz-chatbot-input');
+  var sendBtn = container.querySelector('.yz-chatbot-send');
+
+  if (!toggleBtn || !windowEl || !messagesEl || !formEl || !inputEl || !sendBtn) {
+    return;
+  }
+
+  function addMessage(role, text) {
+    var div = document.createElement('div');
+    div.className = 'yz-chatbot-message ' + (role === 'user'
+      ? 'yz-chatbot-message--user'
+      : 'yz-chatbot-message--bot');
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  addMessage('bot', 'Chào bạn! YumzyBot sẵn sàng hỗ trợ bạn về KCANS và các sản phẩm của Yumzyfood.');
+
+  toggleBtn.addEventListener('click', function () {
+    container.classList.toggle('yz-chatbot--open');
+  });
+
+  formEl.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = (inputEl.value || '').trim();
+    if (!text) return;
+
+    addMessage('user', text);
+    inputEl.value = '';
+    inputEl.focus();
+
+    statusEl.textContent = 'YumzyBot đang trả lời...';
+    sendBtn.disabled = true;
+
+    fetch('/api/pi-chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        var reply = (data && (data.reply || data.answer || data.message)) ||
+          'Xin lỗi, YumzyBot đang bận. Bạn thử lại giúp mình nhé.';
+        addMessage('bot', reply);
+      })
+      .catch(function (err) {
+        console.error(err);
+        addMessage('bot', 'Có lỗi kết nối tới server. Bạn vui lòng thử lại sau ít phút nhé.');
+      })
+      .finally(function () {
+        statusEl.textContent = '';
+        sendBtn.disabled = false;
+      });
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var wrapper = document.getElementById('contact-buttons');
+  if (!wrapper) return;
+
+  var toggle = wrapper.querySelector('.contact-toggle');
+  if (!toggle) return;
+
+  var chatbot = document.querySelector('.yz-chatbot');
+
+  function setChatbotHidden(hide) {
+    if (!chatbot) return;
+    chatbot.classList.toggle('yz-chatbot--hidden', !!hide);
+  }
+
+  toggle.addEventListener('click', function () {
+    wrapper.classList.toggle('open');
+    setChatbotHidden(wrapper.classList.contains('open'));
+  });
+
+  toggle.addEventListener('mouseenter', function () {
+    setChatbotHidden(true);
+  });
+
+  toggle.addEventListener('mouseleave', function () {
+    if (!wrapper.classList.contains('open')) {
+      setChatbotHidden(false);
+    }
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  var CART_KEY = 'YUMZYFOOD_CART_V1';
+  var cart = loadCart();
+
+  function cartTexts(lang){
+    var map = {
+      vi:{title:'Giỏ hàng',empty:'Giỏ hàng của bạn đang trống.',subtotal:'Tạm tính',total:'Tổng cộng',clear:'Xóa giỏ hàng',checkout:'Thanh toán',remove:'Xóa',summary:'Tóm tắt đơn hàng',checkoutTitle:'Thanh toán đơn hàng',name:'Họ và tên',phone:'Số điện thoại',email:'Email',address:'Địa chỉ nhận hàng',payment:'Phương thức thanh toán',note:'Ghi chú',submit:'Đặt hàng',noteText:'Đây là popup checkout mẫu. Bạn có thể nối tiếp với API, Supabase hoặc cổng thanh toán sau.',cod:'COD - Thanh toán khi nhận hàng',bank:'Chuyển khoản ngân hàng',added:'Đã thêm sản phẩm vào giỏ hàng.',emptyCheckout:'Giỏ hàng đang trống.',cleared:'Đã xóa toàn bộ giỏ hàng.',orderOk:'Đã tạo đơn hàng mẫu. Đang mở email để bạn nhận đơn.'},
+      en:{title:'Cart',empty:'Your cart is empty.',subtotal:'Subtotal',total:'Total',clear:'Clear cart',checkout:'Checkout',remove:'Remove',summary:'Order summary',checkoutTitle:'Checkout',name:'Full name',phone:'Phone',email:'Email',address:'Shipping address',payment:'Payment method',note:'Note',submit:'Place order',noteText:'This is a sample checkout popup. You can connect it to an API, Supabase, or a payment gateway later.',cod:'COD - Cash on delivery',bank:'Bank transfer',added:'Product added to cart.',emptyCheckout:'Cart is empty.',cleared:'Cart cleared.',orderOk:'Sample order created. Opening email draft for you.'},
+      zh:{title:'购物车',empty:'您的购物车为空。',subtotal:'小计',total:'总计',clear:'清空购物车',checkout:'结算',remove:'删除',summary:'订单摘要',checkoutTitle:'订单结算',name:'姓名',phone:'电话',email:'邮箱',address:'收货地址',payment:'支付方式',note:'备注',submit:'提交订单',noteText:'这是一个示例结算弹窗。之后可接入 API、Supabase 或支付网关。',cod:'货到付款',bank:'银行转账',added:'商品已加入购物车。',emptyCheckout:'购物车为空。',cleared:'购物车已清空。',orderOk:'示例订单已创建，正在打开邮件草稿。'},
+      ko:{title:'장바구니',empty:'장바구니가 비어 있습니다.',subtotal:'소계',total:'합계',clear:'장바구니 비우기',checkout:'결제',remove:'삭제',summary:'주문 요약',checkoutTitle:'주문 결제',name:'이름',phone:'전화번호',email:'이메일',address:'배송 주소',payment:'결제 방법',note:'메모',submit:'주문하기',noteText:'샘플 결제 팝업입니다. 이후 API, Supabase, 결제 게이트웨이와 연결할 수 있습니다.',cod:'착불 결제',bank:'계좌이체',added:'상품이 장바구니에 추가되었습니다.',emptyCheckout:'장바구니가 비어 있습니다.',cleared:'장바구니를 비웠습니다.',orderOk:'샘플 주문이 생성되어 이메일 초안을 엽니다.'}
+    };
+    return map[lang] || map.vi;
+  }
+
+  function formatMoney(amount){
+    try {
+      return new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND',maximumFractionDigits:0}).format(Number(amount||0));
+    } catch(_) {
+      return (Number(amount||0)).toLocaleString('vi-VN') + ' ₫';
+    }
+  }
+
+  function loadCart(){
+    try {
+      var raw = localStorage.getItem(CART_KEY);
+      var parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch(_) {
+      return [];
+    }
+  }
+
+  function saveCart(){
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  }
+
+  function getProductById(id){
+    return PRODUCTS.find(function(p){ return p.id === id; });
+  }
+
+  function getCartCount(){
+    return cart.reduce(function(sum,item){ return sum + Number(item.qty || 0); }, 0);
+  }
+
+  function getCartTotal(){
+    return cart.reduce(function(sum,item){ return sum + (Number(item.price || 0) * Number(item.qty || 0)); }, 0);
+  }
+
+  function syncCartBadge(){
+    var badge = document.getElementById('cart-count');
+    if (badge) badge.textContent = getCartCount();
+  }
+
+  function addToCart(productId){
+    var product = getProductById(productId);
+    if (!product) return;
+    var existing = cart.find(function(item){ return item.id === productId; });
+    if (existing) existing.qty += 1;
+    else cart.push({id:product.id, qty:1, price:product.price});
+    saveCart();
+    syncCartBadge();
+    renderCart();
+    alert(cartTexts(LANG).added);
+  }
+
+  function updateCartItem(productId, nextQty){
+    var index = cart.findIndex(function(item){ return item.id === productId; });
+    if (index === -1) return;
+    if (nextQty <= 0) cart.splice(index, 1);
+    else cart[index].qty = nextQty;
+    saveCart();
+    syncCartBadge();
+    renderCart();
+  }
+
+  function clearCart(){
+    cart = [];
+    saveCart();
+    syncCartBadge();
+    renderCart();
+    alert(cartTexts(LANG).cleared);
+  }
+
+  function renderCartUITexts(){
+    var t = cartTexts(LANG);
+    var m = function(id, value){ var el = document.getElementById(id); if (el) el.textContent = value; };
+    m('cart-title', t.title);
+    m('cart-subtotal-label', t.subtotal);
+    m('cart-total-label', t.total);
+    m('cart-clear', t.clear);
+    m('checkout-open', t.checkout);
+    m('checkout-title', t.checkoutTitle);
+    m('checkout-summary-title', t.summary);
+    m('checkout-total-label', t.total);
+    m('co-label-name', t.name);
+    m('co-label-phone', t.phone);
+    m('co-label-email', t.email);
+    m('co-label-address', t.address);
+    m('co-label-payment', t.payment);
+    m('co-label-note', t.note);
+    m('checkout-submit', t.submit);
+    m('checkout-note', t.noteText);
+    var pay = document.getElementById('co-payment');
+    if (pay && pay.options.length >= 2) {
+      pay.options[0].textContent = t.cod;
+      pay.options[1].textContent = t.bank;
+    }
+  }
+
+  function renderCart(){
+    var t = cartTexts(LANG);
+    var container = document.getElementById('cart-items');
+    var checkoutItems = document.getElementById('checkout-items');
+    if (!container || !checkoutItems) return;
+
+    if (!cart.length){
+      container.innerHTML = '<div class="cart-empty">' + t.empty + '</div>';
+      checkoutItems.innerHTML = '<div class="cart-empty" style="padding:8px 0">' + t.empty + '</div>';
+    } else {
+      container.innerHTML = cart.map(function(item){
+        var product = getProductById(item.id);
+        if (!product) return '';
+        return '<div class="cart-item">' +
+          '<img src="' + product.img + '" alt="' + (product.name[LANG] || product.name.vi) + '">' +
+          '<div>' +
+            '<div class="cart-item-title">' + (product.name[LANG] || product.name.vi) + '</div>' +
+            '<div class="cart-item-desc">' + (product.desc[LANG] || product.desc.vi) + '</div>' +
+            '<div class="cart-item-price">' + formatMoney(item.qty * item.price) + '</div>' +
+            '<div class="cart-item-controls">' +
+              '<div class="qty-box">' +
+                '<button type="button" data-qty-minus="' + product.id + '">−</button>' +
+                '<span>' + item.qty + '</span>' +
+                '<button type="button" data-qty-plus="' + product.id + '">+</button>' +
+              '</div>' +
+              '<button class="cart-remove" type="button" data-remove-item="' + product.id + '">' + t.remove + '</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+
+      checkoutItems.innerHTML = cart.map(function(item){
+        var product = getProductById(item.id);
+        if (!product) return '';
+        return '<div class="order-item-line"><span>' + (product.name[LANG] || product.name.vi) + ' × ' + item.qty + '</span><strong>' + formatMoney(item.qty * item.price) + '</strong></div>';
+      }).join('');
+    }
+
+    var subtotal = document.getElementById('cart-subtotal');
+    var total = document.getElementById('cart-total');
+    var grand = document.getElementById('checkout-grand-total');
+    if (subtotal) subtotal.textContent = formatMoney(getCartTotal());
+    if (total) total.textContent = formatMoney(getCartTotal());
+    if (grand) grand.textContent = formatMoney(getCartTotal());
+
+    document.querySelectorAll('[data-qty-minus]').forEach(function(btn){
+      btn.onclick = function(){
+        var id = btn.getAttribute('data-qty-minus');
+        var item = cart.find(function(x){ return x.id === id; });
+        if (item) updateCartItem(id, item.qty - 1);
+      };
+    });
+    document.querySelectorAll('[data-qty-plus]').forEach(function(btn){
+      btn.onclick = function(){
+        var id = btn.getAttribute('data-qty-plus');
+        var item = cart.find(function(x){ return x.id === id; });
+        if (item) updateCartItem(id, item.qty + 1);
+      };
+    });
+    document.querySelectorAll('[data-remove-item]').forEach(function(btn){
+      btn.onclick = function(){ updateCartItem(btn.getAttribute('data-remove-item'), 0); };
+    });
+
+    syncCartBadge();
+  }
+
+  function openCart(){
+    var drawer = document.getElementById('cart-drawer');
+    var backdrop = document.getElementById('cart-backdrop');
+    if (drawer) drawer.classList.add('open');
+    if (backdrop) backdrop.classList.add('open');
+  }
+
+  function closeCart(){
+    var drawer = document.getElementById('cart-drawer');
+    var backdrop = document.getElementById('cart-backdrop');
+    if (drawer) drawer.classList.remove('open');
+    if (backdrop) backdrop.classList.remove('open');
+  }
+
+  function openCheckout(){
+    if (!cart.length) {
+      alert(cartTexts(LANG).emptyCheckout);
+      return;
+    }
+    var modal = document.getElementById('checkout-modal');
+    if (modal) modal.classList.add('open');
+  }
+
+  function closeCheckout(){
+    var modal = document.getElementById('checkout-modal');
+    if (modal) modal.classList.remove('open');
+  }
+
+  function toggleBankInfo(){
+    var payment = document.getElementById('co-payment');
+    var bankBox = document.getElementById('bank-box');
+    if (!payment || !bankBox) return;
+    bankBox.classList.toggle('show', payment.value === 'bank');
+  }
+
+  document.getElementById('cart-toggle') && document.getElementById('cart-toggle').addEventListener('click', openCart);
+  document.getElementById('cart-close') && document.getElementById('cart-close').addEventListener('click', closeCart);
+  document.getElementById('cart-backdrop') && document.getElementById('cart-backdrop').addEventListener('click', closeCart);
+  document.getElementById('cart-clear') && document.getElementById('cart-clear').addEventListener('click', function(){ if (cart.length) clearCart(); });
+  document.getElementById('checkout-open') && document.getElementById('checkout-open').addEventListener('click', openCheckout);
+  document.getElementById('co-payment') && document.getElementById('co-payment').addEventListener('change', toggleBankInfo);
+
+  document.getElementById('checkout-form') && document.getElementById('checkout-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!cart.length) {
+      alert(cartTexts(LANG).emptyCheckout);
+      return;
+    }
+    var fd = new FormData(this);
+    var d = Object.fromEntries(fd.entries());
+    var lines = cart.map(function(item){
+      var product = getProductById(item.id);
+      return product ? '- ' + (product.name[LANG] || product.name.vi) + ' x ' + item.qty + ' = ' + formatMoney(item.qty * item.price) : '';
+    }).filter(Boolean).join('\n');
+
+    var paymentLabel = d.payment === 'bank' ? 'Chuyen khoan' : 'COD';
+    var subject = encodeURIComponent('[KCANS] Don Hang Moi - ' + (d.name || ''));
+    var body = encodeURIComponent(
+      'Khach hang: ' + (d.name || '') + '\n' +
+      'So dien thoai: ' + (d.phone || '') + '\n' +
+      'Email: ' + (d.email || '') + '\n' +
+      'Dia chi: ' + (d.address || '') + '\n' +
+      'Thanh toan: ' + paymentLabel + '\n' +
+      'Ghi chu: ' + (d.note || '') + '\n\n' +
+      'Chi tiet don hang:\n' + lines + '\n\n' +
+      'Tong cong: ' + formatMoney(getCartTotal())
+    );
+    var gmail = 'https://mail.google.com/mail/?view=cm&fs=1&to=kenvin@yumzyfood.com&su=' + subject + '&body=' + body;
+    var opened = window.open(gmail, '_blank');
+    if (!opened) {
+      location.href = 'mailto:kenvin@yumzyfood.com?subject=' + subject + '&body=' + body;
+    }
+
+    alert(cartTexts(LANG).orderOk);
+    cart = [];
+    saveCart();
+    syncCartBadge();
+    renderCart();
+    this.reset();
+    toggleBankInfo();
+    closeCheckout();
+    closeCart();
+  });
+
+  window.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') {
+      closeCheckout();
+      closeCart();
+    }
+  });
+
+  document.getElementById('checkout-modal') && document.getElementById('checkout-modal').addEventListener('click', function(e){
+    if (e.target.id === 'checkout-modal') closeCheckout();
+  });
+
+  window.addToCart = addToCart;
+  window.renderCart = renderCart;
+  window.renderCartUITexts = renderCartUITexts;
+
+  renderCartUITexts();
+  renderCart();
+  toggleBankInfo();
+})();
+</script>
+
 </body>
 </html>
