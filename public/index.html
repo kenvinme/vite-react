@@ -367,6 +367,10 @@ header nav a:hover {
     display:block;
     margin-left:4px;
   }
+  .header-actions{
+    margin-left:auto;
+    gap:8px;
+  }
 }
 
 /* === YumzyBot Chat Widget === */
@@ -520,6 +524,64 @@ header nav a:hover {
     max-width:none;
   }
 }
+
+button{font:inherit}
+.header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cart-button{position:relative;display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;transition:.2s}
+.cart-button:hover{border-color:#f4c7a2;color:var(--primary);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.cart-badge{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--primary);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(249,115,22,.25)}
+.product-price{font-size:18px;font-weight:900;color:var(--primary-700);line-height:1.2}
+.product-actions{width:100%;display:flex;gap:10px;margin-top:10px}
+.product-actions .ghost-btn,.product-actions .add-cart-btn{flex:1;min-height:42px;border-radius:12px;border:1px solid var(--line);font-weight:700;cursor:pointer;transition:.2s}
+.product-actions .ghost-btn{background:#fff;color:var(--navy);display:inline-flex;align-items:center;justify-content:center}
+.product-actions .ghost-btn:hover{border-color:#cfd8e3;background:#f8fafc}
+.product-actions .add-cart-btn{background:var(--primary);color:#fff;border-color:transparent}
+.product-actions .add-cart-btn:hover{background:var(--primary-700)}
+select.checkout-select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:#fff}
+.cart-drawer{position:fixed;top:0;right:0;width:min(100%,420px);height:100dvh;background:#fff;box-shadow:-12px 0 30px rgba(0,0,0,.12);transform:translateX(100%);transition:transform .28s ease;z-index:300;display:flex;flex-direction:column}
+.cart-drawer.open{transform:translateX(0)}
+.cart-backdrop{position:fixed;inset:0;background:rgba(11,19,43,.35);z-index:290;opacity:0;visibility:hidden;transition:.25s}
+.cart-backdrop.open{opacity:1;visibility:visible}
+.cart-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.cart-header h3{margin:0;font-size:18px}
+.cart-close{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.cart-body{flex:1;overflow:auto;padding:14px 18px;background:#fff}
+.cart-empty{text-align:center;padding:36px 10px;color:#64748b}
+.cart-item{display:grid;grid-template-columns:84px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid #eef2f7}
+.cart-item img{width:84px;height:84px;object-fit:contain;background:#f8fafc;border-radius:12px;padding:8px}
+.cart-item-title{font-weight:800;line-height:1.35;margin-bottom:4px}
+.cart-item-desc{font-size:12px;color:#64748b;margin-bottom:6px}
+.cart-item-price{font-size:14px;font-weight:800;color:var(--primary-700)}
+.cart-item-controls{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.qty-box{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:#fff}
+.qty-box button{width:32px;height:32px;border:none;background:#fff;cursor:pointer;font-size:16px}
+.qty-box span{min-width:34px;text-align:center;font-weight:700}
+.cart-remove{border:none;background:none;color:#dc2626;font-weight:700;cursor:pointer;padding:0}
+.cart-footer{border-top:1px solid var(--line);padding:14px 18px 18px;background:#fff}
+.cart-summary{display:grid;gap:8px;margin-bottom:14px}
+.cart-summary-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cart-summary-row.total{font-size:18px;font-weight:900}
+.cart-actions{display:grid;gap:10px}
+.btn{min-height:46px;border-radius:12px;border:1px solid var(--line);padding:10px 14px;font-weight:800;cursor:pointer}
+.btn-primary{background:var(--primary);border-color:transparent;color:#fff}
+.btn-primary:hover{background:var(--primary-700)}
+.btn-secondary{background:#fff;color:var(--navy)}
+.checkout-grid{display:grid;gap:12px}
+.checkout-note{margin:0;padding:10px 12px;border-radius:12px;background:#fff7ed;color:#9a3412;font-size:13px}
+.order-summary-box{border:1px solid #ffedd5;background:#fffaf5;border-radius:14px;padding:12px}
+.order-summary-box h4{margin:0 0 8px;font-size:15px}
+.order-items{display:grid;gap:8px;max-height:160px;overflow:auto;margin-bottom:8px}
+.order-item-line{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+.bank-box{display:none;border:1px dashed #fdba74;background:#fffaf5;border-radius:14px;padding:12px;font-size:13px;color:#7c2d12}
+.bank-box.show{display:block}
+
+
+.card{cursor:pointer}
+.card-link-wrap{display:block;width:100%;text-decoration:none;color:inherit}
+.card-link-wrap img{pointer-events:none}
+.card-link-text{display:block;width:100%;text-decoration:none;color:inherit}
+.card-link-text b,.card-link-text small{display:block}
+
 </style>
 
 <!-- JSON-LD: WebSite + Organization -->
@@ -561,16 +623,23 @@ header nav a:hover {
       <a href="#" id="nav-quote">Liên Hệ Báo Giá</a>
     </nav>
 
-    <button class="menu-toggle" id="menu-toggle" aria-label="Mở menu chính">
-      <i class="fa-solid fa-bars"></i>
-    </button>
+    <div class="header-actions">
+      <button class="cart-button" id="cart-toggle" type="button" aria-label="Mở giỏ hàng">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
 
-    <select id="lang">
-      <option value="vi" selected>🇻🇳 Tiếng Việt</option>
-      <option value="en">🇺🇸 English</option>
-      <option value="zh">🇨🇳 中文</option>
-      <option value="ko">🇰🇷 한국어</option>
-    </select>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Mở menu chính">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <select id="lang">
+        <option value="vi" selected>🇻🇳 Tiếng Việt</option>
+        <option value="en">🇺🇸 English</option>
+        <option value="zh">🇨🇳 中文</option>
+        <option value="ko">🇰🇷 한국어</option>
+      </select>
+    </div>
   </div>
 </header>
 
@@ -692,6 +761,55 @@ header nav a:hover {
   </div>
 </div>
 
+
+<div class="cart-backdrop" id="cart-backdrop"></div>
+<aside class="cart-drawer" id="cart-drawer" aria-label="Giỏ hàng">
+  <div class="cart-header">
+    <h3 id="cart-title">Giỏ hàng</h3>
+    <button class="cart-close" id="cart-close" type="button" aria-label="Đóng giỏ hàng"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="cart-body" id="cart-items">
+    <div class="cart-empty" id="cart-empty">Giỏ hàng của bạn đang trống.</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-summary">
+      <div class="cart-summary-row"><span id="cart-subtotal-label">Tạm tính</span><strong id="cart-subtotal">0 ₫</strong></div>
+      <div class="cart-summary-row total"><span id="cart-total-label">Tổng cộng</span><strong id="cart-total">0 ₫</strong></div>
+    </div>
+    <div class="cart-actions">
+      <button class="btn btn-secondary" id="cart-clear" type="button">Xóa giỏ hàng</button>
+      <button class="btn btn-primary" id="checkout-open" type="button">Thanh toán</button>
+    </div>
+  </div>
+</aside>
+
+<div class="modal" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+  <div class="modal-card" style="max-width:560px">
+    <h3 id="checkout-title">Thanh toán đơn hàng</h3>
+    <form id="checkout-form" class="checkout-grid">
+      <div class="order-summary-box">
+        <h4 id="checkout-summary-title">Tóm tắt đơn hàng</h4>
+        <div class="order-items" id="checkout-items"></div>
+        <div class="cart-summary-row total"><span id="checkout-total-label">Tổng cộng</span><strong id="checkout-grand-total">0 ₫</strong></div>
+      </div>
+      <div><label for="co-name" id="co-label-name">Họ và tên</label><input id="co-name" name="name" required></div>
+      <div><label for="co-phone" id="co-label-phone">Số điện thoại</label><input id="co-phone" name="phone" required></div>
+      <div><label for="co-email" id="co-label-email">Email</label><input id="co-email" type="email" name="email"></div>
+      <div><label for="co-address" id="co-label-address">Địa chỉ nhận hàng</label><textarea id="co-address" name="address" rows="3" required></textarea></div>
+      <div><label for="co-payment" id="co-label-payment">Phương thức thanh toán</label>
+        <select class="checkout-select" id="co-payment" name="payment" required>
+          <option value="cod">COD - Thanh toán khi nhận hàng</option>
+          <option value="bank">Chuyển khoản ngân hàng</option>
+        </select>
+      </div>
+      <div class="bank-box" id="bank-box"><strong>Thông tin chuyển khoản mẫu</strong><br>Ngân hàng: MB Bank<br>Số tài khoản: 0123456789<br>Chủ tài khoản: CONG TY TNHH YUMZYFOOD<br>Nội dung: KCANS [SĐT khách hàng]</div>
+      <div><label for="co-note" id="co-label-note">Ghi chú</label><textarea id="co-note" name="note" rows="3" placeholder="Ví dụ: giao giờ hành chính, gọi trước khi giao..."></textarea></div>
+      <p class="checkout-note" id="checkout-note">Đây là popup checkout mẫu. Bạn có thể nối tiếp với API, Supabase hoặc cổng thanh toán sau.</p>
+      <button class="btn btn-primary" type="submit" id="checkout-submit">Đặt hàng</button>
+    </form>
+  </div>
+</div>
+
 <script>
 const TEXT = {
  vi:{ "newsItems": {"n1t":"KCANS mở rộng dây chuyền đóng gói tự động","n1d":"Nâng công suất & tăng chuẩn kiểm soát chất lượng.","n2t":"Ra mắt hương vị mới cho mùa lễ hội","n2d":"Đậm vị Việt, phù hợp bán lẻ & TMĐT."}, brand:"KCANS By Yumzyfood",nav:{about:"Về chúng tôi",catalog:"Sản phẩm",moments:"Khoảnh khắc KCANS"},hero:{title:"Bánh lưới KCANS – Tinh Hoa Việt Trong Từng Chiếc Bánh",subtitle:"Sản xuất trong môi trường đạt chuẩn an toàn thực phẩm. 100% nguyên liệu thật, công thức giòn rụm, đậm vị."},about:{title:"Về Yumzyfood"},aboutBody:"Yumzyfood là nhà sản xuất snack tại Việt Nam, ứng dụng công nghệ chiên hiện đại và đóng gói tự động theo tiêu chuẩn <b>HACCP quốc tế</b>.<br><br>Chúng tôi cam kết kiểm soát nghiêm ngặt từng quy trình sản xuất để mang đến những món snack giòn ngon, an toàn và <b>mang đậm hương vị Việt</b>.<br><br><b>Yumzyfood – Nâng Tầm Hương Vị Snack Việt Nam.</b>",catalog:{title:"Danh mục sản phẩm"},moments:{title:"Khoảnh khắc KCANS"},quote:{title:"Liên hệ báo giá",submit:"Gửi yêu cầu"},contact:{name:"Họ và tên",phone:"Số điện thoại",email:"Email",message:"Nội dung yêu cầu"},footer:"© 2025 Yumzyfood. All rights reserved."},
@@ -701,14 +819,14 @@ const TEXT = {
 };
 
 const PRODUCTS=[
- {img:"images/product-cha-bong.jpg",
+ {id:"cha-bong",img:"images/product-cha-bong.jpg",
   name:{vi:"Bánh lưới KCANS – Vị Chà Bông",en:"KCANS Mesh – Pork Floss",zh:"KCANS 网格饼 – 猪肉松",ko:"KCANS 메쉬 – 포크플로스"},
   desc:{vi:"Giòn rụm, đậm đà thịt thật.",en:"Crunchy with real pork floss.",zh:"香脆可口，真肉松加持。",ko:"바삭함과 진한 고기 맛."},
-  href:"product-cha-bong.html"},
- {img:"images/product-tom.jpg",
+  href:"product-cha-bong.html",price:55000},
+ {id:"tom",img:"images/product-tom.jpg",
   name:{vi:"Bánh lưới KCANS – Vị Tôm",en:"KCANS Mesh – Shrimp",zh:"KCANS 网格饼 – 虾味",ko:"KCANS 메쉬 – 새우맛"},
   desc:{vi:"Hương vị tôm đặc trưng.",en:"Signature dried-shrimp flavor.",zh:"独特的干虾风味。",ko:"특유의 건새우 풍미."},
-  href:"product-tom.html"}
+  href:"product-tom.html",price:55000}
 ];
 
 const $=s=>document.querySelector(s);
@@ -744,6 +862,8 @@ function renderLang(lang){
   document.getElementById('moments-title').textContent=L.moments.title;
   document.getElementById('footer-copy').textContent=L.footer;
   renderCards();
+  if (window.renderCartUITexts) window.renderCartUITexts();
+  if (window.renderCart) window.renderCart();
   if (L.newsItems) {
     const _t = (vi, en, zh, ko) => (lang === 'vi' ? vi : (lang === 'en' ? en : (lang === 'zh' ? zh : ko)));
     const newsTitleEl = document.getElementById('news-title');
@@ -762,15 +882,46 @@ function renderLang(lang){
 }
 
 function renderCards(){
+  const labels = {
+    vi:{view:"Xem chi tiết",add:"Thêm vào giỏ"},
+    en:{view:"View details",add:"Add to cart"},
+    zh:{view:"查看详情",add:"加入购物车"},
+    ko:{view:"자세히 보기",add:"장바구니 담기"}
+  };
+  const t = labels[LANG] || labels.vi;
   const html = PRODUCTS.map(p=>`
-    <a class="card" href="${p.href}?lang=${LANG}" style="text-decoration:none;color:inherit">
-      <img src="${p.img}" alt="product">
+    <div class="card" data-product-link="${p.href}?lang=${LANG}">
+      <a class="card-link-wrap" href="${p.href}?lang=${LANG}" aria-label="${p.name[LANG] || p.name.vi}">
+        <img src="${p.img}" alt="${p.name[LANG] || p.name.vi}">
+      </a>
       <div class="body">
-        <b>${p.name[LANG]}</b>
-        <small>${p.desc[LANG]}</small>
+        <a class="card-link-text" href="${p.href}?lang=${LANG}" aria-label="${p.name[LANG] || p.name.vi}">
+          <b>${p.name[LANG] || p.name.vi}</b>
+          <small>${p.desc[LANG] || p.desc.vi}</small>
+        </a>
+        <div class="product-price">${formatMoney(p.price)}</div>
+        <div class="product-actions">
+          <a class="ghost-btn" href="${p.href}?lang=${LANG}">${t.view}</a>
+          <button class="add-cart-btn" type="button" data-add-cart="${p.id}">${t.add}</button>
+        </div>
       </div>
-    </a>`).join('');
+    </div>`).join('');
   document.getElementById('cards').innerHTML = html;
+
+  document.querySelectorAll('[data-add-cart]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      addToCart(this.getAttribute('data-add-cart'));
+    });
+  });
+
+  document.querySelectorAll('.card[data-product-link]').forEach(function(card){
+    card.addEventListener('click', function(e){
+      var ignore = e.target.closest('.add-cart-btn, .ghost-btn, a');
+      if (ignore) return;
+      window.location.href = card.getAttribute('data-product-link');
+    });
+  });
 }
 
 document.getElementById('lang').addEventListener('change', e=>{
@@ -806,7 +957,7 @@ document.getElementById('quote-modal').addEventListener('click',e=>{
 
 const init = new URLSearchParams(location.search).get('lang')||'vi';
 document.getElementById('lang').value = init;
-renderLang(init);
+window.__yumzyInitLang = init;
 
 (function(){
   if (window.__navNewsPatched__) return;
@@ -1088,6 +1239,291 @@ renderLang(init);
       setChatbotHidden(false);
     }
   });
+})();
+</script>
+
+
+<script>
+(function(){
+  var CART_KEY = 'YUMZYFOOD_CART_V1';
+  var cart = loadCart();
+
+  function cartTexts(lang){
+    var map = {
+      vi:{title:'Giỏ hàng',empty:'Giỏ hàng của bạn đang trống.',subtotal:'Tạm tính',total:'Tổng cộng',clear:'Xóa giỏ hàng',checkout:'Thanh toán',remove:'Xóa',summary:'Tóm tắt đơn hàng',checkoutTitle:'Thanh toán đơn hàng',name:'Họ và tên',phone:'Số điện thoại',email:'Email',address:'Địa chỉ nhận hàng',payment:'Phương thức thanh toán',note:'Ghi chú',submit:'Đặt hàng',noteText:'Đây là popup checkout mẫu. Bạn có thể nối tiếp với API, Supabase hoặc cổng thanh toán sau.',cod:'COD - Thanh toán khi nhận hàng',bank:'Chuyển khoản ngân hàng',added:'Đã thêm sản phẩm vào giỏ hàng.',emptyCheckout:'Giỏ hàng đang trống.',cleared:'Đã xóa toàn bộ giỏ hàng.',orderOk:'Đã tạo đơn hàng mẫu. Đang mở email để bạn nhận đơn.'},
+      en:{title:'Cart',empty:'Your cart is empty.',subtotal:'Subtotal',total:'Total',clear:'Clear cart',checkout:'Checkout',remove:'Remove',summary:'Order summary',checkoutTitle:'Checkout',name:'Full name',phone:'Phone',email:'Email',address:'Shipping address',payment:'Payment method',note:'Note',submit:'Place order',noteText:'This is a sample checkout popup. You can connect it to an API, Supabase, or a payment gateway later.',cod:'COD - Cash on delivery',bank:'Bank transfer',added:'Product added to cart.',emptyCheckout:'Cart is empty.',cleared:'Cart cleared.',orderOk:'Sample order created. Opening email draft for you.'},
+      zh:{title:'购物车',empty:'您的购物车为空。',subtotal:'小计',total:'总计',clear:'清空购物车',checkout:'结算',remove:'删除',summary:'订单摘要',checkoutTitle:'订单结算',name:'姓名',phone:'电话',email:'邮箱',address:'收货地址',payment:'支付方式',note:'备注',submit:'提交订单',noteText:'这是一个示例结算弹窗。之后可接入 API、Supabase 或支付网关。',cod:'货到付款',bank:'银行转账',added:'商品已加入购物车。',emptyCheckout:'购物车为空。',cleared:'购物车已清空。',orderOk:'示例订单已创建，正在打开邮件草稿。'},
+      ko:{title:'장바구니',empty:'장바구니가 비어 있습니다.',subtotal:'소계',total:'합계',clear:'장바구니 비우기',checkout:'결제',remove:'삭제',summary:'주문 요약',checkoutTitle:'주문 결제',name:'이름',phone:'전화번호',email:'이메일',address:'배송 주소',payment:'결제 방법',note:'메모',submit:'주문하기',noteText:'샘플 결제 팝업입니다. 이후 API, Supabase, 결제 게이트웨이와 연결할 수 있습니다.',cod:'착불 결제',bank:'계좌이체',added:'상품이 장바구니에 추가되었습니다.',emptyCheckout:'장바구니가 비어 있습니다.',cleared:'장바구니를 비웠습니다.',orderOk:'샘플 주문이 생성되어 이메일 초안을 엽니다.'}
+    };
+    return map[lang] || map.vi;
+  }
+
+  function formatMoney(amount){
+    try {
+      return new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND',maximumFractionDigits:0}).format(Number(amount||0));
+    } catch(_) {
+      return (Number(amount||0)).toLocaleString('vi-VN') + ' ₫';
+    }
+  }
+
+  function loadCart(){
+    try {
+      var raw = localStorage.getItem(CART_KEY);
+      var parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch(_) {
+      return [];
+    }
+  }
+
+  function saveCart(){
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  }
+
+  function getProductById(id){
+    return PRODUCTS.find(function(p){ return p.id === id; });
+  }
+
+  function getCartCount(){
+    return cart.reduce(function(sum,item){ return sum + Number(item.qty || 0); }, 0);
+  }
+
+  function getCartTotal(){
+    return cart.reduce(function(sum,item){ return sum + (Number(item.price || 0) * Number(item.qty || 0)); }, 0);
+  }
+
+  function syncCartBadge(){
+    var badge = document.getElementById('cart-count');
+    if (badge) badge.textContent = getCartCount();
+  }
+
+  function addToCart(productId){
+    var product = getProductById(productId);
+    if (!product) return;
+    var existing = cart.find(function(item){ return item.id === productId; });
+    if (existing) existing.qty += 1;
+    else cart.push({id:product.id, qty:1, price:product.price});
+    saveCart();
+    syncCartBadge();
+    renderCart();
+    alert(cartTexts(LANG).added);
+  }
+
+  function updateCartItem(productId, nextQty){
+    var index = cart.findIndex(function(item){ return item.id === productId; });
+    if (index === -1) return;
+    if (nextQty <= 0) cart.splice(index, 1);
+    else cart[index].qty = nextQty;
+    saveCart();
+    syncCartBadge();
+    renderCart();
+  }
+
+  function clearCart(){
+    cart = [];
+    saveCart();
+    syncCartBadge();
+    renderCart();
+    alert(cartTexts(LANG).cleared);
+  }
+
+  function renderCartUITexts(){
+    var t = cartTexts(LANG);
+    var m = function(id, value){ var el = document.getElementById(id); if (el) el.textContent = value; };
+    m('cart-title', t.title);
+    m('cart-subtotal-label', t.subtotal);
+    m('cart-total-label', t.total);
+    m('cart-clear', t.clear);
+    m('checkout-open', t.checkout);
+    m('checkout-title', t.checkoutTitle);
+    m('checkout-summary-title', t.summary);
+    m('checkout-total-label', t.total);
+    m('co-label-name', t.name);
+    m('co-label-phone', t.phone);
+    m('co-label-email', t.email);
+    m('co-label-address', t.address);
+    m('co-label-payment', t.payment);
+    m('co-label-note', t.note);
+    m('checkout-submit', t.submit);
+    m('checkout-note', t.noteText);
+    var pay = document.getElementById('co-payment');
+    if (pay && pay.options.length >= 2) {
+      pay.options[0].textContent = t.cod;
+      pay.options[1].textContent = t.bank;
+    }
+  }
+
+  function renderCart(){
+    var t = cartTexts(LANG);
+    var container = document.getElementById('cart-items');
+    var checkoutItems = document.getElementById('checkout-items');
+    if (!container || !checkoutItems) return;
+
+    if (!cart.length){
+      container.innerHTML = '<div class="cart-empty">' + t.empty + '</div>';
+      checkoutItems.innerHTML = '<div class="cart-empty" style="padding:8px 0">' + t.empty + '</div>';
+    } else {
+      container.innerHTML = cart.map(function(item){
+        var product = getProductById(item.id);
+        if (!product) return '';
+        return '<div class="cart-item">' +
+          '<img src="' + product.img + '" alt="' + (product.name[LANG] || product.name.vi) + '">' +
+          '<div>' +
+            '<div class="cart-item-title">' + (product.name[LANG] || product.name.vi) + '</div>' +
+            '<div class="cart-item-desc">' + (product.desc[LANG] || product.desc.vi) + '</div>' +
+            '<div class="cart-item-price">' + formatMoney(item.qty * item.price) + '</div>' +
+            '<div class="cart-item-controls">' +
+              '<div class="qty-box">' +
+                '<button type="button" data-qty-minus="' + product.id + '">−</button>' +
+                '<span>' + item.qty + '</span>' +
+                '<button type="button" data-qty-plus="' + product.id + '">+</button>' +
+              '</div>' +
+              '<button class="cart-remove" type="button" data-remove-item="' + product.id + '">' + t.remove + '</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+
+      checkoutItems.innerHTML = cart.map(function(item){
+        var product = getProductById(item.id);
+        if (!product) return '';
+        return '<div class="order-item-line"><span>' + (product.name[LANG] || product.name.vi) + ' × ' + item.qty + '</span><strong>' + formatMoney(item.qty * item.price) + '</strong></div>';
+      }).join('');
+    }
+
+    var subtotal = document.getElementById('cart-subtotal');
+    var total = document.getElementById('cart-total');
+    var grand = document.getElementById('checkout-grand-total');
+    if (subtotal) subtotal.textContent = formatMoney(getCartTotal());
+    if (total) total.textContent = formatMoney(getCartTotal());
+    if (grand) grand.textContent = formatMoney(getCartTotal());
+
+    document.querySelectorAll('[data-qty-minus]').forEach(function(btn){
+      btn.onclick = function(){
+        var id = btn.getAttribute('data-qty-minus');
+        var item = cart.find(function(x){ return x.id === id; });
+        if (item) updateCartItem(id, item.qty - 1);
+      };
+    });
+    document.querySelectorAll('[data-qty-plus]').forEach(function(btn){
+      btn.onclick = function(){
+        var id = btn.getAttribute('data-qty-plus');
+        var item = cart.find(function(x){ return x.id === id; });
+        if (item) updateCartItem(id, item.qty + 1);
+      };
+    });
+    document.querySelectorAll('[data-remove-item]').forEach(function(btn){
+      btn.onclick = function(){ updateCartItem(btn.getAttribute('data-remove-item'), 0); };
+    });
+
+    syncCartBadge();
+  }
+
+  function openCart(){
+    var drawer = document.getElementById('cart-drawer');
+    var backdrop = document.getElementById('cart-backdrop');
+    if (drawer) drawer.classList.add('open');
+    if (backdrop) backdrop.classList.add('open');
+  }
+
+  function closeCart(){
+    var drawer = document.getElementById('cart-drawer');
+    var backdrop = document.getElementById('cart-backdrop');
+    if (drawer) drawer.classList.remove('open');
+    if (backdrop) backdrop.classList.remove('open');
+  }
+
+  function openCheckout(){
+    if (!cart.length) {
+      alert(cartTexts(LANG).emptyCheckout);
+      return;
+    }
+    var modal = document.getElementById('checkout-modal');
+    if (modal) modal.classList.add('open');
+  }
+
+  function closeCheckout(){
+    var modal = document.getElementById('checkout-modal');
+    if (modal) modal.classList.remove('open');
+  }
+
+  function toggleBankInfo(){
+    var payment = document.getElementById('co-payment');
+    var bankBox = document.getElementById('bank-box');
+    if (!payment || !bankBox) return;
+    bankBox.classList.toggle('show', payment.value === 'bank');
+  }
+
+  document.getElementById('cart-toggle') && document.getElementById('cart-toggle').addEventListener('click', openCart);
+  document.getElementById('cart-close') && document.getElementById('cart-close').addEventListener('click', closeCart);
+  document.getElementById('cart-backdrop') && document.getElementById('cart-backdrop').addEventListener('click', closeCart);
+  document.getElementById('cart-clear') && document.getElementById('cart-clear').addEventListener('click', function(){ if (cart.length) clearCart(); });
+  document.getElementById('checkout-open') && document.getElementById('checkout-open').addEventListener('click', openCheckout);
+  document.getElementById('co-payment') && document.getElementById('co-payment').addEventListener('change', toggleBankInfo);
+
+  document.getElementById('checkout-form') && document.getElementById('checkout-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!cart.length) {
+      alert(cartTexts(LANG).emptyCheckout);
+      return;
+    }
+    var fd = new FormData(this);
+    var d = Object.fromEntries(fd.entries());
+    var lines = cart.map(function(item){
+      var product = getProductById(item.id);
+      return product ? '- ' + (product.name[LANG] || product.name.vi) + ' x ' + item.qty + ' = ' + formatMoney(item.qty * item.price) : '';
+    }).filter(Boolean).join('\n');
+
+    var paymentLabel = d.payment === 'bank' ? 'Chuyen khoan' : 'COD';
+    var subject = encodeURIComponent('[KCANS] Don Hang Moi - ' + (d.name || ''));
+    var body = encodeURIComponent(
+      'Khach hang: ' + (d.name || '') + '\n' +
+      'So dien thoai: ' + (d.phone || '') + '\n' +
+      'Email: ' + (d.email || '') + '\n' +
+      'Dia chi: ' + (d.address || '') + '\n' +
+      'Thanh toan: ' + paymentLabel + '\n' +
+      'Ghi chu: ' + (d.note || '') + '\n\n' +
+      'Chi tiet don hang:\n' + lines + '\n\n' +
+      'Tong cong: ' + formatMoney(getCartTotal())
+    );
+    var gmail = 'https://mail.google.com/mail/?view=cm&fs=1&to=kenvin@yumzyfood.com&su=' + subject + '&body=' + body;
+    var opened = window.open(gmail, '_blank');
+    if (!opened) {
+      location.href = 'mailto:kenvin@yumzyfood.com?subject=' + subject + '&body=' + body;
+    }
+
+    alert(cartTexts(LANG).orderOk);
+    cart = [];
+    saveCart();
+    syncCartBadge();
+    renderCart();
+    this.reset();
+    toggleBankInfo();
+    closeCheckout();
+    closeCart();
+  });
+
+  window.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') {
+      closeCheckout();
+      closeCart();
+    }
+  });
+
+  document.getElementById('checkout-modal') && document.getElementById('checkout-modal').addEventListener('click', function(e){
+    if (e.target.id === 'checkout-modal') closeCheckout();
+  });
+
+  window.addToCart = addToCart;
+  window.renderCart = renderCart;
+  window.renderCartUITexts = renderCartUITexts;
+
+  renderCartUITexts();
+  renderCart();
+  toggleBankInfo();
+  if (window.__yumzyInitLang) {
+    try { renderLang(window.__yumzyInitLang); } catch (e) { console.error(e); }
+  }
 })();
 </script>
 
