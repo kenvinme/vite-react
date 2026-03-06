@@ -884,10 +884,14 @@ function renderCards(){
   const t = labels[LANG] || labels.vi;
   const html = PRODUCTS.map(p=>`
     <div class="card">
-      <img src="${p.img}" alt="product">
+      <a href="${p.href}?lang=${LANG}" style="display:block;width:100%;text-decoration:none;color:inherit">
+        <img src="${p.img}" alt="${p.name[LANG] || p.name.vi}">
+      </a>
       <div class="body">
-        <b>${p.name[LANG]}</b>
-        <small>${p.desc[LANG]}</small>
+        <a href="${p.href}?lang=${LANG}" style="display:block;width:100%;text-decoration:none;color:inherit">
+          <b>${p.name[LANG] || p.name.vi}</b>
+          <small>${p.desc[LANG] || p.desc.vi}</small>
+        </a>
         <div class="product-price">${formatMoney(p.price)}</div>
         <div class="product-actions">
           <a class="ghost-btn" href="${p.href}?lang=${LANG}" style="text-decoration:none;color:inherit">${t.view}</a>
