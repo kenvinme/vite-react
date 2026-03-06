@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bánh lưới KCANS – Vị Chà Bông • KCANS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--navy:#0b132b;--primary:#f97316;--primary-700:#ea580c;--line:#e5e7eb;--soft:#f8fafc;--white:#fff}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--navy);background:#f8fafc}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
+body{min-height:100vh;display:flex;flex-direction:column}
+
+header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:40}
+.container{max-width:1100px;margin:auto;padding:0 18px}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:10px}
+.lang{padding:6px 12px;border-radius:10px;border:1px solid var(--line);font-weight:600;background:#fff}
+
+.page-main{flex:1;display:flex}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 18px 20px;display:grid;grid-template-columns:420px 1fr;gap:24px;align-items:start;width:100%}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}}
+
+.heroimg{background:var(--white);border:1px solid #eef2f7;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.06);padding:14px;display:flex;align-items:center;justify-content:center;min-height:460px}
+.heroimg img{width:100%;height:clamp(240px,44vw,360px);object-fit:contain}
+.card{border-radius:16px;border:1px solid #eef2f7;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.05);padding:18px;min-height:460px}
+h1{font-size:clamp(22px,3.2vw,34px);margin:4px 0 8px;font-weight:900}
+.lead{color:#374151;margin:0 0 12px;font-size:clamp(14px,1.2vw,18px)}
+.meta{display:grid;gap:8px;font-size:15px;color:#1f2937}
+.meta b{color:#0b132b}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:12px;background:#f97316;color:#fff;font-weight:800;margin-top:14px;border:none;cursor:pointer}
+.btn:hover{background:#ea580c}
+
+footer{background:#0b132b;color:#fff;text-align:center;padding:36px 0;font-size:14px;width:100%;margin-top:auto}
+
+.modal{position:fixed;inset:0;background:rgba(11,19,43,.45);display:none;align-items:center;justify-content:center;padding:16px;z-index:1000}
+.modal.open{display:flex}
+.modal-card{background:#fff;border-radius:16px;max-width:560px;width:100%;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.25);border-top:4px solid var(--primary)}
+.modal-card h3{text-align:center;margin:0 0 16px;font-size:24px}
+.stack{display:grid;gap:12px}
+.stack label{display:block;font-weight:700;margin-bottom:6px}
+.stack input,.stack textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px}
+.stack input:focus,.stack textarea:focus{outline:none;border-color:#f97316;box-shadow:0 0 0 2px rgba(249,115,22,.12)}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:50px;padding:12px 16px;border-radius:12px;background:#f97316;color:#fff;font-weight:800;border:none;cursor:pointer}
+.btn-primary:hover{background:#ea580c}
+.btn-primary:disabled{opacity:.7;cursor:default}
+.status-note{font-size:13px;color:#6b7280;text-align:center;min-height:18px}
+
+@media(max-width:640px){.bar{flex-wrap:wrap} .heroimg,.card{min-height:auto}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "KCANS Mesh Snack – Pork Floss", "image": ["images/product-cha-bong.jpg"], "brand": {"@type": "Brand", "name": "KCANS"}, "description": "Crunchy mesh snack topped with savory pork floss, 50g retail pack.", "sku": "KCANS-50-PF", "offers": {"@type": "Offer", "availability": "https://schema.org/InStock", "priceCurrency": "VND"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "index.html"}, {"@type": "ListItem", "position": 2, "name": "Product", "item": "product-cha-bong.html"}]}</script>
+</head>
+<body>
+<header>
+  <div class="container bar">
+    <a href="index.html" class="back" style="display:inline-flex;gap:8px;align-items:center;color:#111827;padding:8px 0"><i class="fa-solid fa-arrow-left"></i> <span id="t-back">Về trang chủ</span></a>
+    <div style="font-weight:800">KCANS by Yumzyfood</div>
+    <select class="lang" id="lang">
+      <option value="vi" selected>🇻🇳 Tiếng Việt</option>
+      <option value="en">🇺🇸 English</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="ko">🇰🇷 한국어</option>
+    </select>
+  </div>
+</header>
+
+<main class="page-main">
+<section class="wrap">
+  <div class="heroimg"><img id="p-img" src="images/product-cha-bong.jpg" alt="Bánh lưới KCANS – Vị Chà Bông"></div>
+  <div class="card">
+    <h1 id="t-title">Bánh lưới KCANS – Vị Chà Bông</h1>
+    <p class="lead" id="t-lead"></p>
+    <div class="meta" id="t-meta">
+      <div><b id="t-ing-lbl"></b>: <span id="t-ing"></span></div>
+      <div><b id="t-std-lbl"></b>: <span id="t-std"></span></div>
+      <div><b id="t-str-lbl"></b>: <span id="t-str"></span></div>
+      <div><b id="t-sug-lbl"></b>: <span id="t-sug"></span></div>
+    </div>
+    <button type="button" id="btn-quote" class="btn">Liên hệ báo giá</button>
+  </div>
+</section>
+</main>
+
+<footer>© 2025 Yumzyfood. All rights reserved.</footer>
+
+<div class="modal" id="quote-modal" role="dialog" aria-modal="true" aria-labelledby="quote-title">
+  <div class="modal-card">
+    <h3 id="quote-title">Liên Hệ Báo Giá</h3>
+    <form id="quote-form" class="stack">
+      <div>
+        <label for="q-name">Họ Và Tên</label>
+        <input id="q-name" name="name" required>
+      </div>
+      <div>
+        <label for="q-phone">Số Điện Thoại</label>
+        <input id="q-phone" name="phone" required>
+      </div>
+      <div>
+        <label for="q-email">Email</label>
+        <input id="q-email" type="email" name="email" required>
+      </div>
+      <div>
+        <label for="q-message">Nội Dung Yêu Cầu</label>
+        <textarea id="q-message" rows="5" name="message" required></textarea>
+      </div>
+      <div class="status-note" id="quote-status"></div>
+      <button class="btn-primary" id="q-btn-submit" type="submit">Gửi Yêu Cầu</button>
+    </form>
+  </div>
+</div>
+
+<script>
+const DATA = {"schema_name": "KCANS Mesh Snack – Pork Floss", "schema_desc": "Crunchy mesh snack topped with savory pork floss, 50g retail pack.", "sku": "KCANS-50-PF", "img": "images/product-cha-bong.jpg", "title_vi": "Bánh lưới KCANS – Vị Chà Bông", "lead_vi": "Giòn rụm, đậm đà thịt thật. Gói 50g – phù hợp bán lẻ & TMĐT.", "ing_vi": "Bột mì, dầu thực vật, chà bông heo, gia vị…", "std_vi": "Sản xuất theo HACCP, kiểm soát vi sinh định kỳ", "str_vi": "Nơi khô ráo, tránh ánh nắng trực tiếp", "sug_vi": "Dùng ngay sau khi mở túi.", "title_en": "KCANS Mesh Snack – Pork Floss", "lead_en": "Ultra-crispy with real pork floss. 50g pack—ideal for retail and e-commerce.", "ing_en": "Wheat flour, vegetable oil, pork floss, seasoning…", "std_en": "Produced under HACCP; periodic microbiological control", "str_en": "Store in a cool, dry place away from direct sunlight", "sug_en": "Consume immediately after opening.", "title_zh": "KCANS 网格小食 – 猪肉松", "lead_zh": "香脆可口，真肉松加持。50g 小包装，适合零售与电商。", "ing_zh": "小麦粉、植物油、猪肉松、调味料等", "std_zh": "按 HACCP 生产，定期微生物检测", "str_zh": "置于阴凉干燥处，避免阳光直射", "sug_zh": "开袋后请尽快食用。", "title_ko": "KCANS 메쉬 스낵 – 포크플로스", "lead_ko": "바삭함과 진한 고기 맛. 50g 소포장—리테일/이커머스에 적합.", "ing_ko": "밀가루, 식물성유, 포크플로스, 조미료 등", "std_ko": "HACCP 공정 준수, 미생물 정기 검사", "str_ko": "서늘하고 건조한 곳에 보관, 직사광선 피해 보관", "sug_ko": "개봉 후 바로 섭취하세요."};
+
+function setLang(lang){
+  const t = {
+    vi:{back:'Về trang chủ', title: DATA.title_vi, lead: DATA.lead_vi, ingLbl:'Thành phần', stdLbl:'Tiêu chuẩn', strLbl:'Bảo quản', sugLbl:'Gợi ý dùng', ing: DATA.ing_vi, std: DATA.std_vi, str: DATA.str_vi, sug: DATA.sug_vi, btn:'Liên hệ báo giá', modal:'Liên Hệ Báo Giá', name:'Họ Và Tên', phone:'Số Điện Thoại', email:'Email', message:'Nội Dung Yêu Cầu', submit:'Gửi Yêu Cầu'},
+    en:{back:'Back to Home', title: DATA.title_en, lead: DATA.lead_en, ingLbl:'Ingredients', stdLbl:'Standard', strLbl:'Storage', sugLbl:'Serving', ing: DATA.ing_en, std: DATA.std_en, str: DATA.str_en, sug: DATA.sug_en, btn:'Request a Quote', modal:'Request a Quote', name:'Full Name', phone:'Phone Number', email:'Email', message:'Message', submit:'Send Request'},
+    zh:{back:'返回首页', title: DATA.title_zh, lead: DATA.lead_zh, ingLbl:'配料', stdLbl:'标准', strLbl:'储存', sugLbl:'食用建议', ing: DATA.ing_zh, std: DATA.std_zh, str: DATA.str_zh, sug: DATA.sug_zh, btn:'联系报价', modal:'联系报价', name:'姓名', phone:'电话', email:'邮箱', message:'留言', submit:'发送请求'},
+    ko:{back:'홈으로', title: DATA.title_ko, lead: DATA.lead_ko, ingLbl:'원재료', stdLbl:'기준', strLbl:'보관', sugLbl:'섭취 방법', ing: DATA.ing_ko, std: DATA.std_ko, str: DATA.str_ko, sug: DATA.sug_ko, btn:'견적 문의', modal:'견적 문의', name:'이름', phone:'전화번호', email:'이메일', message:'메시지', submit:'요청 보내기'}
+  }[lang];
+  document.getElementById('t-back').textContent = t.back;
+  document.getElementById('t-title').textContent = t.title;
+  document.getElementById('t-lead').textContent = t.lead;
+  document.getElementById('t-ing-lbl').textContent = t.ingLbl;
+  document.getElementById('t-std-lbl').textContent = t.stdLbl;
+  document.getElementById('t-str-lbl').textContent = t.strLbl;
+  document.getElementById('t-sug-lbl').textContent = t.sugLbl;
+  document.getElementById('t-ing').textContent = t.ing;
+  document.getElementById('t-std').textContent = t.std;
+  document.getElementById('t-str').textContent = t.str;
+  document.getElementById('t-sug').textContent = t.sug;
+  document.getElementById('btn-quote').textContent = t.btn;
+  document.getElementById('quote-title').textContent = t.modal;
+  document.querySelector('label[for="q-name"]').textContent = t.name;
+  document.querySelector('label[for="q-phone"]').textContent = t.phone;
+  document.querySelector('label[for="q-email"]').textContent = t.email;
+  document.querySelector('label[for="q-message"]').textContent = t.message;
+  document.getElementById('q-btn-submit').textContent = t.submit;
+  document.documentElement.lang = lang;
+}
+document.getElementById('lang').addEventListener('change', e => {
+  const v=e.target.value;
+  setLang(v);
+  const u=new URL(location.href);
+  u.searchParams.set('lang', v);
+  history.replaceState({}, '', u.toString());
+});
+const init=new URLSearchParams(location.search).get('lang')||'vi';
+document.getElementById('lang').value=init;
+setLang(init);
+
+(function(){
+  var openBtn = document.getElementById('btn-quote');
+  var modal = document.getElementById('quote-modal');
+  var form = document.getElementById('quote-form');
+  var status = document.getElementById('quote-status');
+  var submitBtn = document.getElementById('q-btn-submit');
+  if (!openBtn || !modal || !form) return;
+
+  var hp = document.createElement('input');
+  hp.type = 'text';
+  hp.name = 'company';
+  hp.autocomplete = 'off';
+  hp.tabIndex = -1;
+  hp.setAttribute('aria-hidden', 'true');
+  hp.style.position = 'absolute';
+  hp.style.left = '-9999px';
+  form.appendChild(hp);
+
+  var ts = document.createElement('input');
+  ts.type = 'hidden';
+  ts.name = 'ts';
+  form.appendChild(ts);
+
+  function setTsOnce() {
+    if (!ts.value) ts.value = String(Date.now());
+  }
+
+  openBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    modal.classList.add('open');
+    setTsOnce();
+    var lang = document.getElementById('lang').value || 'vi';
+    var productTitle = document.getElementById('t-title').textContent.trim();
+    var preset = {
+      vi: 'Tôi muốn nhận báo giá cho sản phẩm: ',
+      en: 'I would like a quotation for: ',
+      zh: '我想获取该产品的报价：',
+      ko: '다음 제품의 견적을 받고 싶습니다: '
+    }[lang] || 'Tôi muốn nhận báo giá cho sản phẩm: ';
+    var msg = document.getElementById('q-message');
+    if (msg && !msg.value.trim()) {
+      msg.value = preset + productTitle;
+    }
+    status.textContent = '';
+  });
+
+  modal.addEventListener('click', function(e){
+    if (e.target === modal) modal.classList.remove('open');
+  });
+
+  window.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') modal.classList.remove('open');
+  });
+
+  form.addEventListener('focusin', setTsOnce, { once: true });
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    setTsOnce();
+    status.textContent = '';
+    submitBtn.disabled = true;
+
+    try {
+      var fd = new FormData(form);
+      var data = Object.fromEntries(fd.entries());
+
+      var payload = {
+        type: 'quote',
+        name: data.name || '',
+        email: data.email || '',
+        phone: data.phone || '',
+        message: data.message || '',
+        company: data.company || '',
+        ts: data.ts || ''
+      };
+
+      var res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      var json = {};
+      try { json = await res.json(); } catch(_) {}
+
+      if (!res.ok) throw new Error(json.error || 'Gửi báo giá thất bại');
+
+      alert('✅ Yêu cầu báo giá đã được gửi thành công.');
+      form.reset();
+      ts.value = '';
+      status.textContent = '';
+      modal.classList.remove('open');
+    } catch (err) {
+      console.error('quote form error:', err);
+      status.textContent = 'Không gửi được yêu cầu. Vui lòng thử lại.';
+      alert('❌ Không gửi được yêu cầu báo giá. Vui lòng thử lại.');
+    } finally {
+      submitBtn.disabled = false;
+      var lang = document.getElementById('lang').value || 'vi';
+      submitBtn.textContent = {vi:'Gửi Yêu Cầu',en:'Send Request',zh:'发送请求',ko:'요청 보내기'}[lang] || 'Gửi Yêu Cầu';
+    }
+  });
+})();
+</script>
+</body>
+</html>
