@@ -936,7 +936,7 @@ document.getElementById('quote-modal').addEventListener('click',e=>{
 
 const init = new URLSearchParams(location.search).get('lang')||'vi';
 document.getElementById('lang').value = init;
-renderLang(init);
+window.__yumzyInitLang = init;
 
 (function(){
   if (window.__navNewsPatched__) return;
@@ -1500,6 +1500,9 @@ renderLang(init);
   renderCartUITexts();
   renderCart();
   toggleBankInfo();
+  if (window.__yumzyInitLang) {
+    try { renderLang(window.__yumzyInitLang); } catch (e) { console.error(e); }
+  }
 })();
 </script>
 
